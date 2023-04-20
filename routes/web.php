@@ -31,7 +31,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function (){
-    Route::get('/campaign',[CampaignController::class,'index']);
+    Route::get('/campaign',[CampaignController::class,'index'])->name('campaign');
 });
 
 Route::middleware('auth')->group(function () {
