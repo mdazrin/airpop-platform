@@ -30,6 +30,10 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/traffic-chart', function () {
+    return Inertia::render('TrafficChart');
+})->middleware(['auth', 'verified'])->name('traffic');
+
 Route::middleware('auth')->group(function (){
     Route::get('/campaign',[CampaignController::class,'index'])->name('campaign');
 });
