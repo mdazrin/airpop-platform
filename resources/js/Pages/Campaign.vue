@@ -1,5 +1,4 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import SidebarLayout from '@/Layouts/SidebarLayout.vue';
 defineProps({ user: Object })
 </script>
