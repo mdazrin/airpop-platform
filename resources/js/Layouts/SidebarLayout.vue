@@ -201,7 +201,7 @@ const open = ref(false);
                     </li>
                     <li>
                         <Link
-                            :href="route('dashboard')"
+                            :href="route('traffic')"
                             class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-white"
                         >
                             <svg
