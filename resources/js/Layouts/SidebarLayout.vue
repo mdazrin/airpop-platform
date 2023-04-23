@@ -165,15 +165,17 @@ const open = ref(false);
                                 <Link
                                     :href="route('campaign')"
                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
-                                    >Campaign List</Link
                                 >
+                                    Campaign List
+                                </Link>
                             </li>
                             <li>
                                 <Link
                                     :href="route('create')"
                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
-                                    >Create Campaign</Link
                                 >
+                                    Create Campaign
+                                </Link>
                             </li>
                         </ul>
                     </li>
