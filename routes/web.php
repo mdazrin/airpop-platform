@@ -34,6 +34,10 @@ Route::get('/traffic-chart', function () {
     return Inertia::render('TrafficChart');
 })->middleware(['auth', 'verified'])->name('traffic');
 
+Route::get('/conversion', function () {
+    return Inertia::render('Conversion');
+})->middleware(['auth', 'verified'])->name('conversion');
+
 Route::middleware('auth')->group(function (){
     Route::get('/campaign',[CampaignController::class,'index'])->name('campaign');
 });
