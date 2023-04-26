@@ -264,7 +264,7 @@ const open = ref(false);
                                     d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"
                                 ></path>
                             </svg>
-                            <span class="ml-3">Tracking</span>
+                            <span class="ml-3">Balance</span>
                         </Link>
                     </li>
                     <li>
