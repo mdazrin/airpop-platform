@@ -247,7 +247,7 @@ const open = ref(false);
                     </li>
                     <li>
                         <Link
-                            :href="route('dashboard')"
+                            :href="route('finance')"
                             class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-white"
                         >
                             <svg
@@ -264,7 +264,7 @@ const open = ref(false);
                                     d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"
                                 ></path>
                             </svg>
-                            <span class="ml-3">Balance</span>
+                            <span class="ml-3">Finance</span>
                         </Link>
                     </li>
                     <li>

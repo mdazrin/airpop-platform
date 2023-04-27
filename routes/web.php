@@ -38,6 +38,10 @@ Route::get('/conversion', function () {
     return Inertia::render('Conversion');
 })->middleware(['auth', 'verified'])->name('conversion');
 
+Route::get('/finance', function () {
+    return Inertia::render('Finance');
+})->middleware(['auth', 'verified'])->name('finance');
+
 Route::middleware('auth')->group(function (){
     Route::get('/campaign',[CampaignController::class,'index'])->name('campaign');
 });
