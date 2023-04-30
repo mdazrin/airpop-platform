@@ -1,5 +1,15 @@
 <script setup>
 import SidebarLayout from "@/Layouts/SidebarLayout.vue";
+import { ref } from "vue";
+const tabs = [
+    { id: "tab1", title: "Payments" },
+    { id: "tab2", title: "Expenses" },
+    { id: "tab3", title: "Invoices" },
+];
+
+const activeTab = ref(0);
+
+
 </script>
 
 <template>
@@ -8,85 +18,35 @@ import SidebarLayout from "@/Layouts/SidebarLayout.vue";
             <h3 class="text-2xl font-bold text-left py-2">
                 Finance
             </h3>
-            <h1>Select tracker</h1>
+
             <div class="mb-6">
+                <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+                    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400" id="tabExample" role="tablist">
+                        <li class="mr-2" role="presentation">
+                            <button
+                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg
+                                hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                                id="profile-tab-example"
+                                type="button"
+                                role="tab"
+                                aria-controls="profile-example"
+                                aria-selected="false"
+                                v-for="(tab,index) in tabs"
+                                :key="index"
+                                :class="{active:activeTab === index}"
+                                @click="activeTab = index"
+                            >
+                                {{tab.title}}
+                            </button>
+                        </li>
 
-                <!-- radio card -->
-                <ul class="grid w-full gap-6 md:grid-cols-3">
-                    <li>
-                        <input
-                            type="radio"
-                            id="plan1"
-                            name="plan"
-                            value="plan1"
-                            class="hidden peer"
-                            required
-                        />
-                        <label
-                            for="plan1"
-                            class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-                        >
-                            <div class="block">
-                                <div
-                                    class="w-full flex items-center justify-center"
-                                >
-
-                                </div>
-                                <div
-                                    class="w-full flex items-center justify-center text-lg font-semibold mt-4"
-                                >
-                                    Tracker A
-                                </div>
-                            </div>
-                        </label>
-                    </li>
-                    <li>
-                        <input
-                            type="radio"
-                            id="plan2"
-                            name="plan"
-                            value="plan2"
-                            class="hidden peer"
-                        />
-                        <label
-                            for="plan2"
-                            class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-                        >
-                            <div class="block">
-                                <div
-                                    class="w-full flex items-center justify-center"
-                                >
-                                </div>
-                                <div
-                                    class="w-full flex items-center justify-center mt-4"
-                                >
-                                    Tracker B
-                                </div>
-                            </div>
-                        </label>
-                    </li>
-                    <li>
-                        <input
-                            type="radio"
-                            id="plan3"
-                            name="plan"
-                            value="plan3"
-                            class="hidden peer"
-                        />
-                        <label
-                            for="plan3"
-                            class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-                        >
-                            <div class="block">
-                                <div
-                                    class="w-full flex items-center justify-center mt-4"
-                                >
-                                    Tracker C
-                                </div>
-                            </div>
-                        </label>
-                    </li>
-                </ul>
+                    </ul>
+                </div>
+                <div id="tabContentExample">
+                    <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile-example" role="tabpanel" aria-labelledby="profile-tab-example">
+                        <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Profile tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+                    </div>
+                </div>
             </div>
 
         </template>
