@@ -1,9 +1,11 @@
 <script setup>
 import RadioButtonCards from "@/Components/RadioButtonCards.vue";
+import HorizontalLine from "@/Components/HorizontalLine.vue";
 </script>
 
 <template>
     <div class="mb-6">
+        <HorizontalLine />
         <h3 class="text-xl font-bold text-left py-2">Traffic Resources</h3>
 
         <ul class="grid w-full gap-6 md:grid-cols-3">

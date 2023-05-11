@@ -2,7 +2,9 @@
 import SidebarLayout from "@/Layouts/SidebarLayout.vue";
 import RadioButtonCards from "@/Components/RadioButtonCards.vue";
 import TrafficResourcesVue from "../Layouts/CreateCampaign/TrafficResources.vue";
-import CountriesConversionPrice from "../Layouts/CreateCampaign/CountriesConversionPrice.vue"
+import CountriesConversionPrice from "../Layouts/CreateCampaign/CountriesConversionPrice.vue";
+import AdvertisingBudget from "../Layouts/CreateCampaign/AdvertisingBudget.vue";
+
 ({ user1: Object });
 let selectedPlan = "";
 </script>
@@ -372,8 +374,9 @@ let selectedPlan = "";
                         />
                     </div>
                 </form>
-                <TrafficResourcesVue></TrafficResourcesVue>
-                <CountriesConversionPrice></CountriesConversionPrice>
+                <TrafficResourcesVue />
+                <CountriesConversionPrice />
+                <AdvertisingBudget />
             </div>
         </template>
     </SidebarLayout>
