@@ -4,7 +4,8 @@ import RadioButtonCards from "@/Components/RadioButtonCards.vue";
 import TrafficResourcesVue from "../Layouts/CreateCampaign/TrafficResources.vue";
 import CountriesConversionPrice from "../Layouts/CreateCampaign/CountriesConversionPrice.vue";
 import AdvertisingBudget from "../Layouts/CreateCampaign/AdvertisingBudget.vue";
-
+import CollectAudience from "@/Layouts/CreateCampaign/CollectAudience.vue";
+import CampaignSchedule from "@/Layouts/CreateCampaign/CampaignSchedule.vue";
 ({ user1: Object });
 let selectedPlan = "";
 </script>
@@ -377,6 +378,8 @@ let selectedPlan = "";
                 <TrafficResourcesVue />
                 <CountriesConversionPrice />
                 <AdvertisingBudget />
+                <CollectAudience />
+                <CampaignSchedule />
             </div>
         </template>
     </SidebarLayout>
