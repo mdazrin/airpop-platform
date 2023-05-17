@@ -171,7 +171,7 @@ const open = ref(false);
                             </li>
                             <li>
                                 <Link
-                                    :href="route('create')"
+                                    :href="route('campaign')"
                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
                                 >
                                     Create Campaign

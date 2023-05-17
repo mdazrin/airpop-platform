@@ -43,15 +43,14 @@ Route::get('/finance', function () {
 })->middleware(['auth', 'verified'])->name('finance');
 
 Route::middleware('auth')->group(function (){
-    Route::get('/campaign',[CampaignController::class,'index'])->name('campaign');
+    Route::get('/create-form',[CampaignController::class,'index'])->name('campaign');
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/campaign',[CampaignController::class,'index'])->name('campaign');
-    Route::get('/create',[CampaignController::class,'index1'])->name('create');
+    Route::post('/create-form',[CampaignController::class,'create'])->name('create');
 });
 
 require __DIR__.'/auth.php';
