@@ -111,58 +111,7 @@ const form = useForm({
                         </ul>
                     </div>
 
-                    <!-- radio card  Traffic Type-->
-                    <div class="mb-6">
-                        <label
-                            for="campaignTitle"
-                            class="block mb-2 text-sm font-medium text-gray-900"
-                        >Traffic Type</label
-                        >
-
-                        <ul class="grid w-full gap-6 md:grid-cols-3">
-                            <li>
-                                <input
-                                    type="radio"
-                                    v-model="form.direction"
-                                    id="popunder"
-                                    name="traffic_type"
-                                    value="popunder"
-                                    class="hidden peer"
-                                    required
-                                />
-                                <label
-                                    for="popunder"
-                                    class="inline-flex border border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600"
-                                >
-
-                                    <RadioButtonCards
-                                        title="Popunder"
-                                        subTitle=" Full-tab ad with maximum visibility. Opens in a new browser tab."
-                                    ></RadioButtonCards>
-                                </label>
-                            </li>
-                            <li>
-                                <input
-                                    type="radio"
-                                    id="directClick"
-                                    name="traffic_type"
-                                    value="directClick"
-                                    class="hidden peer"
-                                    required
-                                />
-                                <label
-                                    for="directClick"
-                                    class="inline-flex border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-                                >
-                                    <RadioButtonCards
-                                        title="Direct Click"
-                                        subTitle="Top converting zones providing direct visits to your offer."
-                                    ></RadioButtonCards>
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-
+                    
                     <!-- radio buttons for pricing model -->
                     <div class="mb-6">
                         <label
