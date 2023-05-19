@@ -4,15 +4,16 @@ import RadioButtonCards from "@/Components/RadioButtonCards.vue";
 import HorizontalLine from "@/Components/HorizontalLine.vue";
 import AddDeleteAlert from "@/Components/AddDeleteAlert.vue";
 import AlertTriangle from "@/Components/AlertTriangle.vue";
-import { useForm } from '@inertiajs/vue3'
+import { useForm } from "@inertiajs/vue3";
+import { ref } from "vue";
+
+const data = ref(["device", "browser", "browserversion"]);
 
 const form = useForm({
     name: null,
     direction: null,
     remember: false,
-})
-
-
+});
 </script>
 
 <template>
@@ -28,7 +29,7 @@ const form = useForm({
                         <label
                             for="campaignTitle"
                             class="block mb-2 text-sm font-medium text-gray-900"
-                        >Campaign Name</label
+                            >Campaign Name</label
                         >
                         <input
                             type="text"
@@ -42,11 +43,11 @@ const form = useForm({
                         <label
                             for="campaignTitle"
                             class="block mb-2 text-sm font-medium text-gray-900"
-                        >Choose Advertising Format</label
+                            >Choose Advertising Format</label
                         >
 
                         <!-- radio card -->
-                        <ul class="grid w-full gap-6 md:grid-cols-3">
+                        <ul class="grid w-full gap-6 md:grid-cols-4">
                             <li>
                                 <input
                                     type="radio"
@@ -61,7 +62,6 @@ const form = useForm({
                                     for="onclick"
                                     class="inline-flex border border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600"
                                 >
-
                                     <RadioButtonCards
                                         title="Onclick (Popunder &amp; Direct Click)"
                                         subTitle="Full-page and eye-catchy ads opening in the background."
@@ -73,15 +73,14 @@ const form = useForm({
                                     type="radio"
                                     v-model="form.direction"
                                     id="nativeads"
-                                    name="plan"
-                                    value="nativeads"
+                                    name="push_notifications"
+                                    value="push_notifications"
                                     class="hidden peer"
                                 />
                                 <label
-                                    for="nativeads"
+                                    for="push_notifications"
                                     class="inline-flex border border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600"
                                 >
-
                                     <RadioButtonCards
                                         title="Push Notifications"
                                         subTitle="Create a notification with a catchy offer and a vivid banner image"
@@ -93,18 +92,36 @@ const form = useForm({
                                     type="radio"
                                     v-model="form.direction"
                                     id="native"
-                                    name="plan"
-                                    value="native"
+                                    name="interstitial"
+                                    value="interstitial"
                                     class="hidden peer"
                                 />
                                 <label
-                                    for="native"
+                                    for="interstitial"
                                     class="inline-flex border border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600"
                                 >
-
                                     <RadioButtonCards
                                         title="Interstitial"
                                         subTitle="Non full-screen banner overlaying content"
+                                    ></RadioButtonCards>
+                                </label>
+                            </li>
+                            <li>
+                                <input
+                                    type="radio"
+                                    v-model="form.direction"
+                                    id="native"
+                                    name="survey_exit"
+                                    value="survey_exit"
+                                    class="hidden peer"
+                                />
+                                <label
+                                    for="survey_exit"
+                                    class="inline-flex border border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600"
+                                >
+                                    <RadioButtonCards
+                                        title="Survey Exit"
+                                        subTitle="Audience pre-engaged with surveys and ready to convert"
                                     ></RadioButtonCards>
                                 </label>
                             </li>
@@ -116,7 +133,7 @@ const form = useForm({
                         <label
                             for="campaignTitle"
                             class="block mb-2 text-sm font-medium text-gray-900"
-                        >Traffic Type</label
+                            >Traffic Type</label
                         >
 
                         <ul class="grid w-full gap-6 md:grid-cols-3">
@@ -134,7 +151,6 @@ const form = useForm({
                                     for="popunder"
                                     class="inline-flex border border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600"
                                 >
-
                                     <RadioButtonCards
                                         title="Popunder"
                                         subTitle=" Full-tab ad with maximum visibility. Opens in a new browser tab."
@@ -160,15 +176,53 @@ const form = useForm({
                                     ></RadioButtonCards>
                                 </label>
                             </li>
+                            <li>
+                                <input
+                                    type="radio"
+                                    id="classic_push"
+                                    name="traffic_type"
+                                    value="classic_push"
+                                    class="hidden peer"
+                                    required
+                                />
+                                <label
+                                    for="classic_push"
+                                    class="inline-flex border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+                                >
+                                    <RadioButtonCards
+                                        title="Classic Push"
+                                        subTitle="Traditional web-push on the mobile and desktop devices"
+                                    ></RadioButtonCards>
+                                </label>
+                            </li>
+                            <li>
+                                <input
+                                    type="radio"
+                                    id="inPagePush"
+                                    name="traffic_type"
+                                    value="inPagePush"
+                                    class="hidden peer"
+                                    required
+                                />
+                                <label
+                                    for="inPagePush"
+                                    class="inline-flex border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+                                >
+                                    <RadioButtonCards
+                                        title="In-Page Push"
+                                        subTitle="Works on all platforms including iOS and all browsers"
+                                    ></RadioButtonCards>
+                                </label>
+                            </li>
                         </ul>
                     </div>
 
-                    <!-- radio buttons for pricing model -->
+                    <!-- pricing model -->
                     <div class="mb-6">
                         <label
                             for="campaignTitle"
                             class="block mb-2 text-sm font-medium text-gray-900"
-                        >Pricing Model</label
+                            >Pricing Model</label
                         >
 
                         <div class="flex">
@@ -183,7 +237,7 @@ const form = useForm({
                                 <label
                                     for="inline-radio"
                                     class="ml-2 text-sm font-medium text-gray-900"
-                                >CPA Goal 2.0</label
+                                    >CPA Goal 2.0</label
                                 >
                             </div>
                             <div class="flex items-center mr-4">
@@ -197,7 +251,7 @@ const form = useForm({
                                 <label
                                     for="inline-2-radio"
                                     class="ml-2 text-sm font-medium text-gray-900"
-                                >SmartCPM</label
+                                    >SmartCPM</label
                                 >
                             </div>
                             <div class="flex items-center mr-4">
@@ -212,30 +266,88 @@ const form = useForm({
                                 <label
                                     for="inline-checked-radio"
                                     class="ml-2 text-sm font-medium text-gray-900"
-                                >CPM</label
+                                    >CPM</label
                                 >
                             </div>
                         </div>
-                    </div>
-                    <!-- target url -->
-                    <div class="mb-6">
-                        <label
-                            for="campaignTitle"
-                            class="block mb-2 text-sm font-medium text-gray-900"
-                        >Target URL</label
-                        >
-                        <input
-                            type="url"
-                            id="website"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            placeholder="Start typing..."
-                            required
-                        />
+
+                        <!-- Multiformat Campaign -->
+                        <div class="block mt-4">
+                            <h3 class="text-md font-bold text-left">
+                                Multiformat Campaign
+                                <span
+                                    class="mr-2 px-2.5 py-0.5 text-xs font-small text-white bg-blue-500 rounded"
+                                    >RECOMMENDED</span
+                                >
+                            </h3>
+
+                            <p
+                                class="block mb-2 text-sm font-medium text-gray-500"
+                            >
+                                Speed up campaign test and expand audience reach
+                                - automatically create Interstitial campaign in
+                                addition to this one.
+                            </p>
+
+                            <label
+                                class="block mt-4 mb-2 text-sm font-medium text-gray-900"
+                                for="campaignTitle"
+                                >Additionally create</label
+                            >
+
+                            <label
+                                class="relative inline-flex items-center cursor-pointer"
+                            >
+                                <input
+                                    type="checkbox"
+                                    value="true"
+                                    class="sr-only peer"
+                                />
+                                <div
+                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
+                                ></div>
+                                <span
+                                    class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    >Interstitial</span
+                                >
+                            </label>
+                        </div>
+
+                        <!-- target url -->
+                        <div class="block mt-4">
+                            <label
+                                class="block mb-2 text-sm font-medium text-gray-900"
+                                for="campaignTitle"
+                                >Target URL</label
+                            >
+                            <input
+                                type="url"
+                                id="website"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                placeholder="Start typing..."
+                                required
+                            />
+                            <label
+                                for="target_by"
+                                class="block mb-2 ml-1 pb-4 text-xs font-medium text-gray-500"
+                                >https://www.domain.com/in.php?clickid=${SUBID}</label
+                            >
+                        </div>
+                        <div>
+                            <span
+                                v-for="(item,i) in data"
+                                :key="i"
+                                class="bg-gray-100 text-gray-400 text-sm font-medium mr-2 px-2.5 py-0.5 rounded"
+                                >{item}</span
+                            >
+                        </div>
                     </div>
 
                     <div class="mb-6">
                         <HorizontalLine />
-                        <h3 class="text-xl font-bold text-left py-2">Traffic Resources</h3>
+                        <h3 class="text-xl font-bold text-left py-2">
+                            Traffic Resources
+                        </h3>
 
                         <ul class="grid w-full gap-6 md:grid-cols-3">
                             <li>
@@ -289,7 +401,7 @@ const form = useForm({
                             <label
                                 for="default-checkbox"
                                 class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                            >Include Anti-AdBlock
+                                >Include Anti-AdBlock
                             </label>
                         </div>
                     </div>
@@ -303,7 +415,7 @@ const form = useForm({
                                 <label
                                     for="first_name"
                                     class="block mb-2 text-sm font-medium text-gray-900"
-                                >Countries*</label
+                                    >Countries*</label
                                 >
                                 <input
                                     type="text"
@@ -317,7 +429,7 @@ const form = useForm({
                                 <label
                                     for="last_name"
                                     class="block mb-2 text-sm font-medium text-gray-900"
-                                >CPA Goal, $*</label
+                                    >CPA Goal, $*</label
                                 >
                                 <input
                                     type="number"
@@ -329,7 +441,9 @@ const form = useForm({
                                 />
                             </div>
                             <div class="col-span-5">
-                                <div class="block mb-2 text-sm font-medium text-gray-900">
+                                <div
+                                    class="block mb-2 text-sm font-medium text-gray-900"
+                                >
                                     Add separate rate for Interstitial campaign
                                 </div>
                             </div>
@@ -337,7 +451,7 @@ const form = useForm({
                                 <label
                                     for="cpa_goal"
                                     class="block mb-2 text-sm font-medium text-gray-900"
-                                >CPA Goal, $</label
+                                    >CPA Goal, $</label
                                 >
                                 <input
                                     type="number"
@@ -354,7 +468,7 @@ const form = useForm({
                             <label
                                 for="target_by"
                                 class="block mb-2 text-sm font-medium text-gray-900"
-                            >Target by</label
+                                >Target by</label
                             >
 
                             <div class="flex">
@@ -369,7 +483,7 @@ const form = useForm({
                                     <label
                                         for="inline-radio"
                                         class="ml-2 text-sm font-medium text-gray-900"
-                                    >Cities</label
+                                        >Cities</label
                                     >
                                 </div>
                                 <div class="flex items-center mr-4">
@@ -383,7 +497,7 @@ const form = useForm({
                                     <label
                                         for="inline-2-radio"
                                         class="ml-2 text-sm font-medium text-gray-900"
-                                    >States</label
+                                        >States</label
                                     >
                                 </div>
                             </div>
@@ -394,7 +508,7 @@ const form = useForm({
                             <label
                                 for="target_by"
                                 class="block mb-2 text-sm font-medium text-gray-900"
-                            >Cities</label
+                                >Cities</label
                             >
 
                             <div class="flex">
@@ -409,7 +523,7 @@ const form = useForm({
                                     <label
                                         for="inline-radio"
                                         class="ml-2 text-sm font-medium text-gray-900"
-                                    >Include</label
+                                        >Include</label
                                     >
                                 </div>
                                 <div class="flex items-center mr-4">
@@ -423,7 +537,7 @@ const form = useForm({
                                     <label
                                         for="inline-2-radio"
                                         class="ml-2 text-sm font-medium text-gray-900"
-                                    >Exclude</label
+                                        >Exclude</label
                                     >
                                 </div>
                                 <div class="flex flex-auto items-center mr-4">
@@ -439,7 +553,8 @@ const form = useForm({
                                 <label
                                     for="target_by"
                                     class="block mb-2 text-xs font-medium text-gray-500"
-                                >Add city targeting to reach people in certain cities</label
+                                    >Add city targeting to reach people in
+                                    certain cities</label
                                 >
                             </div>
                         </div>
@@ -450,13 +565,15 @@ const form = useForm({
                             Advertising Budget (USD)
                         </h3>
                         <div>
-                            <h6 class="text-md font-bold text-left py-2">OnClick</h6>
+                            <h6 class="text-md font-bold text-left py-2">
+                                OnClick
+                            </h6>
                             <div class="grid gap-6 mb-6 md:grid-cols-4">
                                 <div>
                                     <label
                                         for="onclick_daily_campaign_budget"
                                         class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Daily Campaign Budget, $</label
+                                        >Daily Campaign Budget, $</label
                                     >
                                     <input
                                         type="number"
@@ -469,7 +586,7 @@ const form = useForm({
                                     <label
                                         for="onclick_total_campaign_budget"
                                         class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Total Campaign Budget, $</label
+                                        >Total Campaign Budget, $</label
                                     >
                                     <input
                                         type="number"
@@ -487,13 +604,15 @@ const form = useForm({
                             />
                         </div>
                         <div>
-                            <h6 class="text-md font-bold text-left py-2">Interstitial</h6>
+                            <h6 class="text-md font-bold text-left py-2">
+                                Interstitial
+                            </h6>
                             <div class="grid gap-6 mb-6 md:grid-cols-4">
                                 <div>
                                     <label
                                         for="interstitial_daily_campaign_budget"
                                         class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Daily Campaign Budget, $</label
+                                        >Daily Campaign Budget, $</label
                                     >
                                     <input
                                         type="number"
@@ -507,7 +626,7 @@ const form = useForm({
                                     <label
                                         for="interstitial_total_campaign_budget"
                                         class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Total Campaign Budget, $</label
+                                        >Total Campaign Budget, $</label
                                     >
                                     <input
                                         type="number"
@@ -535,7 +654,8 @@ const form = useForm({
                             for="audience_name"
                             class="block mb-2 mt-4 text-sm font-medium text-gray-900"
                         >
-                            Create a retargeting audience based on this campaign</label
+                            Create a retargeting audience based on this
+                            campaign</label
                         >
 
                         <div
@@ -551,10 +671,12 @@ const form = useForm({
                             <label
                                 for="bordered-radio-1"
                                 class="w-full py-4 ml-2 text-sm font-medium text-gray-900"
-                            >Do not collect</label
+                                >Do not collect</label
                             >
                         </div>
-                        <div class="flex items-center pl-4 border border-gray-200 rounded-lg">
+                        <div
+                            class="flex items-center pl-4 border border-gray-200 rounded-lg"
+                        >
                             <input
                                 checked
                                 id="bordered-radio-2"
@@ -566,35 +688,38 @@ const form = useForm({
                             <label
                                 for="bordered-radio-2"
                                 class="w-full py-4 ml-2 text-sm font-medium text-gray-900"
-                            >Collect users who completed conversions in this campaign</label
+                                >Collect users who completed conversions in this
+                                campaign</label
                             >
                             <span class="flex items-center"
-                            ><svg
-                                class="w-5 h-5 mr-2 shrink-0"
-                                fill="rgb(107 114 128)"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                    <path
-                        fill-rule="evenodd"
-                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                        clip-rule="evenodd"
-                    ></path>
-                    </svg>
-            </span>
+                                ><svg
+                                    class="w-5 h-5 mr-2 shrink-0"
+                                    fill="rgb(107 114 128)"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                                        clip-rule="evenodd"
+                                    ></path>
+                                </svg>
+                            </span>
                         </div>
                         <div>
                             <label
                                 for="audience_name"
                                 class="block mb-2 mt-4 text-sm font-medium text-gray-900"
-                            >Audience name</label
+                                >Audience name</label
                             >
                             <select
                                 id="countries"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Create new or select the existing one"
                             >
-                                <option>Create new or select the existing one</option>
+                                <option>
+                                    Create new or select the existing one
+                                </option>
                                 <option>No options</option>
                             </select>
                         </div>
@@ -602,7 +727,7 @@ const form = useForm({
                             <label
                                 for="target_by"
                                 class="block mb-2 ml-1 pb-4 text-xs font-medium text-gray-500"
-                            >You can have 15 unique audiences</label
+                                >You can have 15 unique audiences</label
                             >
                         </div>
                         <AlertTriangle
@@ -613,22 +738,27 @@ const form = useForm({
                             <label
                                 for="target_by"
                                 class="block ml-1 text-sm font-medium text-gray-500"
-                            >We will start collecting your audience after you launch the
-                                campaign. This audience will appear in the
-                                <a href="#" class="text-blue-600 hover:underline"
-                                >“Audience” section </a
+                                >We will start collecting your audience after
+                                you launch the campaign. This audience will
+                                appear in the
+                                <a
+                                    href="#"
+                                    class="text-blue-600 hover:underline"
+                                    >“Audience” section </a
                                 >, and you will be able to target it.</label
                             >
                         </div>
                     </div>
                     <div class="mb-6">
                         <HorizontalLine />
-                        <h3 class="text-xl font-bold text-left py-2">Campaign Schedule</h3>
+                        <h3 class="text-xl font-bold text-left py-2">
+                            Campaign Schedule
+                        </h3>
                         <div>
                             <label
                                 for="audience_name"
                                 class="block mb-2 mt-4 text-sm font-medium text-gray-900"
-                            >Select Timezone</label
+                                >Select Timezone</label
                             >
                             <select
                                 id="countries"
@@ -665,11 +795,12 @@ const form = useForm({
                             <label
                                 for="terms"
                                 class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                            >I declare and guarantee that my campaign meets the
+                                >I declare and guarantee that my campaign meets
+                                the
                                 <a
                                     href="#"
                                     class="text-blue-600 hover:underline dark:text-blue-500"
-                                >Quality Guidelines</a
+                                    >Quality Guidelines</a
                                 ></label
                             >
                         </div>
