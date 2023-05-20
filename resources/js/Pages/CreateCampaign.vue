@@ -73,12 +73,12 @@ const form = useForm({
                                     type="radio"
                                     v-model="form.direction"
                                     id="nativeads"
-                                    name="push_notifications"
-                                    value="push_notifications"
+                                    name="plan"
+                                    value="nativeads"
                                     class="hidden peer"
                                 />
                                 <label
-                                    for="push_notifications"
+                                    for="nativeads"
                                     class="inline-flex border border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600"
                                 >
                                     <RadioButtonCards
@@ -92,12 +92,12 @@ const form = useForm({
                                     type="radio"
                                     v-model="form.direction"
                                     id="native"
-                                    name="interstitial"
-                                    value="interstitial"
+                                    name="plan"
+                                    value="native"
                                     class="hidden peer"
                                 />
                                 <label
-                                    for="interstitial"
+                                    for="native"
                                     class="inline-flex border border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600"
                                 >
                                     <RadioButtonCards
@@ -106,29 +106,10 @@ const form = useForm({
                                     ></RadioButtonCards>
                                 </label>
                             </li>
-                            <li>
-                                <input
-                                    type="radio"
-                                    v-model="form.direction"
-                                    id="native"
-                                    name="survey_exit"
-                                    value="survey_exit"
-                                    class="hidden peer"
-                                />
-                                <label
-                                    for="survey_exit"
-                                    class="inline-flex border border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600"
-                                >
-                                    <RadioButtonCards
-                                        title="Survey Exit"
-                                        subTitle="Audience pre-engaged with surveys and ready to convert"
-                                    ></RadioButtonCards>
-                                </label>
-                            </li>
                         </ul>
                     </div>
 
-                    
+
                     <!-- radio buttons for pricing model -->
                     <div class="mb-6">
                         <label
@@ -183,48 +164,6 @@ const form = useForm({
                             </div>
                         </div>
 
-                        <!-- Multiformat Campaign -->
-                        <div class="block mt-4">
-                            <h3 class="text-md font-bold text-left">
-                                Multiformat Campaign
-                                <span
-                                    class="mr-2 px-2.5 py-0.5 text-xs font-small text-white bg-blue-500 rounded"
-                                    >RECOMMENDED</span
-                                >
-                            </h3>
-
-                            <p
-                                class="block mb-2 text-sm font-medium text-gray-500"
-                            >
-                                Speed up campaign test and expand audience reach
-                                - automatically create Interstitial campaign in
-                                addition to this one.
-                            </p>
-
-                            <label
-                                class="block mt-4 mb-2 text-sm font-medium text-gray-900"
-                                for="campaignTitle"
-                                >Additionally create</label
-                            >
-
-                            <label
-                                class="relative inline-flex items-center cursor-pointer"
-                            >
-                                <input
-                                    type="checkbox"
-                                    value="true"
-                                    class="sr-only peer"
-                                />
-                                <div
-                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
-                                ></div>
-                                <span
-                                    class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >Interstitial</span
-                                >
-                            </label>
-                        </div>
-
                         <!-- target url -->
                         <div class="block mt-4">
                             <label
@@ -257,52 +196,6 @@ const form = useForm({
 
                     <div class="mb-6">
                         <HorizontalLine />
-                        <h3 class="text-xl font-bold text-left py-2">
-                            Traffic Resources
-                        </h3>
-
-                        <ul class="grid w-full gap-6 md:grid-cols-3">
-                            <li>
-                                <input
-                                    type="radio"
-                                    id="exclusive"
-                                    name="traffic_type"
-                                    value="exclusive"
-                                    class="hidden peer"
-                                    required
-                                />
-                                <label
-                                    for="exclusive"
-                                    class="inline-flex border border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600"
-                                >
-                                    <RadioButtonCards
-                                        title="Exclusive Inventory"
-                                        subTitle=" High-quality traffic from our exclusive supply partners."
-                                        subTitle2="Best for testing."
-                                    ></RadioButtonCards>
-                                </label>
-                            </li>
-                            <li>
-                                <input
-                                    type="radio"
-                                    id="partner"
-                                    name="traffic_type"
-                                    value="partner"
-                                    class="hidden peer"
-                                    required
-                                />
-                                <label
-                                    for="partner"
-                                    class="inline-flex border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-                                >
-                                    <RadioButtonCards
-                                        title="Partner Traffic"
-                                        subTitle="Selected supply partners' traffic filtered by our anti-fraud systems. User activity targeting is not available."
-                                        subTitle2="Best for scaling campaigns"
-                                    ></RadioButtonCards>
-                                </label>
-                            </li>
-                        </ul>
                         <div class="flex items-center mb-4">
                             <input
                                 id="default-checkbox"
