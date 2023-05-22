@@ -493,7 +493,7 @@ const form = useForm({
                             v-else-if="
                                 (form.direction === 'onclick' &&
                                     form.pricingModel === 'cpagoal2') ||
-                                (form.direction === 'push_notifications' && 
+                                (form.direction === 'push_notifications' &&
                                     form.pricingModel === 'cpagoal') ||
                                 (form.direction === 'interstitial' &&
                                     form.pricingModel === 'cpagoal') ||
@@ -541,22 +541,6 @@ const form = useForm({
                         </div>
                     </div>
 
-                    <div class="mb-6">
-                        <HorizontalLine />
-                        <div class="flex items-center mb-4">
-                            <input
-                                id="default-checkbox"
-                                type="checkbox"
-                                value=""
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            />
-                            <label
-                                for="default-checkbox"
-                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                >Include Anti-AdBlock
-                            </label>
-                        </div>
-                    </div>
                     <div class="mb-6">
                         <HorizontalLine />
                         <h3 class="text-xl font-bold text-left py-2">
@@ -926,11 +910,12 @@ const form = useForm({
                         <!-- <div> date picker </div> -->
 
                         <AlertTriangle
-                            class="mt-8"
+                            class="mt-8 !text-blue-500 !bg-blue-50 !border-blue-50"
                             title="Before campaign is started it will be sent for review (takes up to 24 hours). And will start immediately."
                         />
 
                         <AlertTriangle
+                            class="!text-blue-500 !bg-blue-50 !border-blue-50"
                             title="Please note that an Interstitial campaign can be rejected in case your landing page cannot be opened via Interstitial banner (is using more than 4 megabytes of network bandwidth)"
                         />
 

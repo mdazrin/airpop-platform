@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 <template>
     <div
-        class="flex p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50"
+        class="flex p-4 mb-4 text-sm text-yellow-500 border border-[#fff2db] rounded-lg bg-[#fff2db]"
         role="alert"
     >
         <svg
@@ -26,9 +26,7 @@ const props = defineProps({
             </g>
         </svg>
         <div>
-            <span class="font-medium text-yellow-500"
-                >{{ title }}</span
-            >
+            <span class="font-medium">{{ title }}</span>
         </div>
     </div>
 </template>
