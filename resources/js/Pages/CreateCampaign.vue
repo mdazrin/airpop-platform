@@ -4,10 +4,43 @@ import RadioButtonCards from "@/Components/RadioButtonCards.vue";
 import HorizontalLine from "@/Components/HorizontalLine.vue";
 import AddDeleteAlert from "@/Components/AddDeleteAlert.vue";
 import AlertTriangle from "@/Components/AlertTriangle.vue";
+import AlertInfo from "@/Components/AlertInfo.vue";
 import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
 const data = ref(["device", "browser", "browserversion"]);
+
+const info = {
+    infoCPA: [
+        "Auto-Optimization: high",
+        "Bidding: automatic to reach desired CPA",
+        "Feature: automatic zone excluding",
+        "Best for: cost-effective spending",
+    ],
+    infoSmartCPC: [
+        "Auto-optimization: medium",
+        "Bidding: second price auction model",
+        "Feature: adjustable bids for each ad placement, user activity and different push notification types",
+        "Best for: testing and scaling",
+    ],
+    infoSmartCPM: [
+        "Auto-optimization: medium",
+        "Bidding: second price auction model",
+        "Feature: adjustable bids for each ad placement",
+        "Best for: testing",
+    ],
+    infoCPC: [
+        "Auto-optimization: low",
+        "Feature: User Activity Targeting",
+        "Best for: paying for user engagement",
+    ],
+    infoSmartCPM: [
+        "Auto-optimization: medium",
+        "Bidding: second price auction model",
+        "Feature: adjustable bids for each ad placement",
+        "Best for: testing",
+    ],
+};
 
 const form = useForm({
     name: null,
@@ -72,8 +105,8 @@ const form = useForm({
                                 <input
                                     type="radio"
                                     v-model="form.direction"
-                                    id="nativeads"
-                                    name="push_notifications"
+                                    id="push_notifications"
+                                    name="plan"
                                     value="push_notifications"
                                     class="hidden peer"
                                 />
@@ -91,8 +124,8 @@ const form = useForm({
                                 <input
                                     type="radio"
                                     v-model="form.direction"
-                                    id="native"
-                                    name="interstitial"
+                                    id="interstitial"
+                                    name="plan"
                                     value="interstitial"
                                     class="hidden peer"
                                 />
@@ -110,8 +143,8 @@ const form = useForm({
                                 <input
                                     type="radio"
                                     v-model="form.direction"
-                                    id="native"
-                                    name="survey_exit"
+                                    id="survey_exit"
+                                    name="plan"
                                     value="survey_exit"
                                     class="hidden peer"
                                 />
@@ -129,91 +162,114 @@ const form = useForm({
                     </div>
 
                     <!-- radio card  Traffic Type-->
-                    <div class="mb-6">
+                    <div
+                        class="mb-6"
+                        v-if="
+                            form.direction === 'onclick' ||
+                            form.direction === 'push_notifications'
+                        "
+                    >
                         <label
                             for="campaignTitle"
                             class="block mb-2 text-sm font-medium text-gray-900"
-                            >Traffic Type</label
-                        >
-
-                        <ul class="grid w-full gap-6 md:grid-cols-3">
-                            <li>
-                                <input
-                                    type="radio"
-                                    v-model="form.direction"
-                                    id="popunder"
-                                    name="traffic_type"
-                                    value="popunder"
-                                    class="hidden peer"
-                                    required
-                                />
-                                <label
-                                    for="popunder"
-                                    class="inline-flex border border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600"
-                                >
-                                    <RadioButtonCards
-                                        title="Popunder"
-                                        subTitle=" Full-tab ad with maximum visibility. Opens in a new browser tab."
-                                    ></RadioButtonCards>
-                                </label>
-                            </li>
-                            <li>
-                                <input
-                                    type="radio"
-                                    id="directClick"
-                                    name="traffic_type"
-                                    value="directClick"
-                                    class="hidden peer"
-                                    required
-                                />
-                                <label
-                                    for="directClick"
-                                    class="inline-flex border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-                                >
-                                    <RadioButtonCards
-                                        title="Direct Click"
-                                        subTitle="Top converting zones providing direct visits to your offer."
-                                    ></RadioButtonCards>
-                                </label>
-                            </li>
-                            <li>
-                                <input
-                                    type="radio"
-                                    id="classic_push"
-                                    name="traffic_type"
-                                    value="classic_push"
-                                    class="hidden peer"
-                                    required
-                                />
-                                <label
-                                    for="classic_push"
-                                    class="inline-flex border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-                                >
-                                    <RadioButtonCards
-                                        title="Classic Push"
-                                        subTitle="Traditional web-push on the mobile and desktop devices"
-                                    ></RadioButtonCards>
-                                </label>
-                            </li>
-                            <li>
-                                <input
-                                    type="radio"
-                                    id="inPagePush"
-                                    name="traffic_type"
-                                    value="inPagePush"
-                                    class="hidden peer"
-                                    required
-                                />
-                                <label
-                                    for="inPagePush"
-                                    class="inline-flex border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-                                >
-                                    <RadioButtonCards
-                                        title="In-Page Push"
-                                        subTitle="Works on all platforms including iOS and all browsers"
-                                    ></RadioButtonCards>
-                                </label>
-                            </li>
+                            v-if="form.direction === 'onclick'"
+                            >Traffic Type
+                        </label>
+                        <label
+                            for="campaignTitle"
+                            class="block mb-2 text-sm font-medium text-gray-900"
+                            v-else-if="form.direction === 'push_notifications'"
+                            >Push Notification Types
+                        </label>
+                        <ul>
+                            <div
+                                class="grid w-full gap-6 md:grid-cols-3"
+                                v-if="form.direction === 'onclick'"
+                            >
+                                <li>
+                                    <input
+                                        type="radio"
+                                        v-model="form.direction"
+                                        id="popunder"
+                                        name="traffic_type"
+                                        value="popunder"
+                                        class="hidden peer"
+                                        required
+                                        checked
+                                    />
+                                    <label
+                                        for="popunder"
+                                        class="inline-flex border border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600"
+                                    >
+                                        <RadioButtonCards
+                                            title="Popunder"
+                                            subTitle=" Full-tab ad with maximum visibility. Opens in a new browser tab."
+                                        ></RadioButtonCards>
+                                    </label>
+                                </li>
+                                <li>
+                                    <input
+                                        type="radio"
+                                        id="directClick"
+                                        name="traffic_type"
+                                        value="directClick"
+                                        class="hidden peer"
+                                        required
+                                    />
+                                    <label
+                                        for="directClick"
+                                        class="inline-flex border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+                                    >
+                                        <RadioButtonCards
+                                            title="Direct Click"
+                                            subTitle="Top converting zones providing direct visits to your offer."
+                                        ></RadioButtonCards>
+                                    </label>
+                                </li>
+                            </div>
+                            <div
+                                class="grid w-full gap-6 md:grid-cols-3"
+                                v-if="form.direction === 'push_notifications'"
+                            >
+                                <li>
+                                    <input
+                                        type="radio"
+                                        id="classic_push"
+                                        name="traffic_type"
+                                        value="classic_push"
+                                        class="hidden peer"
+                                        required
+                                    />
+                                    <label
+                                        for="classic_push"
+                                        class="inline-flex border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+                                    >
+                                        <RadioButtonCards
+                                            title="Classic Push"
+                                            subTitle="Traditional web-push on the mobile and desktop devices"
+                                        ></RadioButtonCards>
+                                    </label>
+                                </li>
+                                <li>
+                                    <input
+                                        type="radio"
+                                        id="inPagePush"
+                                        name="traffic_type"
+                                        value="inPagePush"
+                                        class="hidden peer"
+                                        required
+                                    />
+                                    <label
+                                        for="inPagePush"
+                                        class="inline-flex border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+                                    >
+                                        <RadioButtonCards
+                                            title="In-Page Push"
+                                            subTitle="Works on all platforms including iOS and all browsers"
+                                        ></RadioButtonCards>
+                                    </label>
+                                </li>
+                            </div>
                         </ul>
                     </div>
 
@@ -226,26 +282,80 @@ const form = useForm({
                         >
 
                         <div class="flex">
-                            <div class="flex items-center mr-4">
+                            <div
+                                class="flex items-center mr-4"
+                                v-if="
+                                    form.direction === 'push_notifications' ||
+                                    form.direction === 'interstitial'
+                                "
+                            >
                                 <input
-                                    id="inline-radio"
+                                    id="cpagoal"
                                     type="radio"
                                     value="cpagoal"
-                                    name="inline-radio-group"
+                                    name="pricing-model"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
-                                    for="inline-radio"
+                                    for="cpagoal"
+                                    class="ml-2 text-sm font-medium text-gray-900"
+                                    >CPA Goal</label
+                                >
+                            </div>
+                            <div
+                                class="flex items-center mr-4"
+                                v-if="
+                                    form.direction === 'onclick' ||
+                                    form.direction === 'survey_exit'
+                                "
+                            >
+                                <input
+                                    id="cpagoal2"
+                                    type="radio"
+                                    value="cpagoal2"
+                                    name="pricing-model"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                                />
+                                <label
+                                    for="cpagoal2"
                                     class="ml-2 text-sm font-medium text-gray-900"
                                     >CPA Goal 2.0</label
                                 >
                             </div>
-                            <div class="flex items-center mr-4">
+
+                            <div
+                                class="flex items-center mr-4"
+                                v-if="
+                                    form.direction === 'push_notifications' ||
+                                    form.direction === 'survey_exit'
+                                "
+                            >
+                                <input
+                                    id="smartCPC"
+                                    type="radio"
+                                    value="smartCPC"
+                                    name="pricing-model"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                                />
+                                <label
+                                    for="smartCPC"
+                                    class="ml-2 text-sm font-medium text-gray-900"
+                                    >SmartCPC
+                                    <span
+                                        class="mr-2 px-2.5 py-0.5 text-xs font-small text-white bg-green-400 rounded"
+                                        >NEW
+                                    </span></label
+                                >
+                            </div>
+                            <div
+                                class="flex items-center mr-4"
+                                v-if="form.direction === 'onclick'"
+                            >
                                 <input
                                     id="inline-2-radio"
                                     type="radio"
                                     value="smartcpm"
-                                    name="inline-radio-group"
+                                    name="pricing-model"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
@@ -254,13 +364,42 @@ const form = useForm({
                                     >SmartCPM</label
                                 >
                             </div>
-                            <div class="flex items-center mr-4">
+                            <div
+                                class="flex items-center mr-4"
+                                v-if="
+                                    form.direction === 'push_notifications' ||
+                                    form.direction === 'interstitial' ||
+                                    form.direction === 'survey_exit'
+                                "
+                            >
                                 <input
                                     checked
                                     id="inline-checked-radio"
                                     type="radio"
                                     value="cpm"
-                                    name="inline-radio-group"
+                                    name="pricing-model"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                                />
+                                <label
+                                    for="inline-checked-radio"
+                                    class="ml-2 text-sm font-medium text-gray-900"
+                                    >CPC</label
+                                >
+                            </div>
+                            <div
+                                class="flex items-center mr-4"
+                                v-if="
+                                    form.direction === 'onclick' ||
+                                    form.direction === 'push_notifications' ||
+                                    form.direction === 'interstitial'
+                                "
+                            >
+                                <input
+                                    checked
+                                    id="inline-checked-radio"
+                                    type="radio"
+                                    value="cpm"
+                                    name="pricing-model"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
@@ -270,6 +409,7 @@ const form = useForm({
                                 >
                             </div>
                         </div>
+                        <AlertInfo :info="info.infoCPA" />
 
                         <!-- Multiformat Campaign -->
                         <div class="block mt-4">
@@ -335,7 +475,7 @@ const form = useForm({
                         </div>
                         <div>
                             <span
-                                v-for="(item,i) in data"
+                                v-for="(item, i) in data"
                                 :key="i"
                                 class="bg-gray-100 text-gray-400 text-sm font-medium mr-2 px-2.5 py-0.5 rounded"
                                 >{item}</span
