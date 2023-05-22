@@ -23,6 +23,12 @@ const info = {
         "Feature: adjustable bids for each ad placement, user activity and different push notification types",
         "Best for: testing and scaling",
     ],
+    // for survey exit
+    infoSmartCPC_noFeature: [
+        "Auto-optimization: medium",
+        "Bidding: second price auction model",
+        "Best for: testing and scaling",
+    ],
     infoSmartCPM: [
         "Auto-optimization: medium",
         "Bidding: second price auction model",
@@ -34,11 +40,23 @@ const info = {
         "Feature: User Activity Targeting",
         "Best for: paying for user engagement",
     ],
-    infoSmartCPM: [
-        "Auto-optimization: medium",
-        "Bidding: second price auction model",
-        "Feature: adjustable bids for each ad placement",
-        "Best for: testing",
+    // for survey exit
+    infoCPC_noFeature: [
+        "Auto-optimization: low",
+        "Best for: paying for user engagement",
+    ],
+    infoCPM: [
+        "Auto-optimization: none",
+        "Bidding: manual control over bid",
+        "Feature: User Activity Targeting",
+        "Best for: scaling",
+    ],
+    // interstitial
+    infoCPM_lowOptimization: [
+        "Auto-optimization: low",
+        "Bidding: manual control over bid",
+        "Feature: User Activity Targeting",
+        "Best for: scaling",
     ],
 };
 
@@ -46,6 +64,7 @@ const form = useForm({
     name: null,
     direction: null,
     remember: false,
+    pricingModel: null,
 });
 </script>
 
@@ -111,7 +130,7 @@ const form = useForm({
                                     class="hidden peer"
                                 />
                                 <label
-                                    for="nativeads"
+                                    for="push_notifications"
                                     class="inline-flex border border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600"
                                 >
                                     <RadioButtonCards
@@ -130,7 +149,7 @@ const form = useForm({
                                     class="hidden peer"
                                 />
                                 <label
-                                    for="native"
+                                    for="interstitial"
                                     class="inline-flex border border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600"
                                 >
                                     <RadioButtonCards
@@ -276,6 +295,7 @@ const form = useForm({
                     <!-- pricing model -->
                     <div class="mb-6">
                         <label
+                            v-if="form.direction !== null"
                             for="campaignTitle"
                             class="block mb-2 text-sm font-medium text-gray-900"
                             >Pricing Model</label
@@ -290,10 +310,12 @@ const form = useForm({
                                 "
                             >
                                 <input
+                                    checked
                                     id="cpagoal"
                                     type="radio"
                                     value="cpagoal"
                                     name="pricing-model"
+                                    v-model="form.pricingModel"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
@@ -310,10 +332,12 @@ const form = useForm({
                                 "
                             >
                                 <input
+                                    checked
                                     id="cpagoal2"
                                     type="radio"
                                     value="cpagoal2"
                                     name="pricing-model"
+                                    v-model="form.pricingModel"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
@@ -335,6 +359,7 @@ const form = useForm({
                                     type="radio"
                                     value="smartCPC"
                                     name="pricing-model"
+                                    v-model="form.pricingModel"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
@@ -356,6 +381,7 @@ const form = useForm({
                                     type="radio"
                                     value="smartcpm"
                                     name="pricing-model"
+                                    v-model="form.pricingModel"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
@@ -373,11 +399,11 @@ const form = useForm({
                                 "
                             >
                                 <input
-                                    checked
                                     id="inline-checked-radio"
                                     type="radio"
-                                    value="cpm"
+                                    value="cpc"
                                     name="pricing-model"
+                                    v-model="form.pricingModel"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
@@ -395,11 +421,11 @@ const form = useForm({
                                 "
                             >
                                 <input
-                                    checked
                                     id="inline-checked-radio"
                                     type="radio"
                                     value="cpm"
                                     name="pricing-model"
+                                    v-model="form.pricingModel"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
@@ -409,7 +435,81 @@ const form = useForm({
                                 >
                             </div>
                         </div>
-                        <AlertInfo :info="info.infoCPA" />
+                        <!-- pricing model radio buttons -->
+                        <AlertInfo
+                            v-if="
+                                form.direction === 'push_notifications' &&
+                                form.pricingModel === 'smartCPC'
+                            "
+                            :info="info.infoSmartCPC"
+                        />
+                        <AlertInfo
+                            v-if="
+                                form.direction === 'survey_exit' &&
+                                form.pricingModel === 'smartCPC'
+                            "
+                            :info="info.infoSmartCPC_noFeature"
+                        />
+                        <AlertInfo
+                            v-if="
+                                form.direction === 'onclick' &&
+                                form.pricingModel === 'smartcpm'
+                            "
+                            :info="info.infoSmartCPM"
+                        />
+                        <AlertInfo
+                            v-if="
+                                (form.direction === 'push_notifications' &&
+                                    form.pricingModel === 'cpc') ||
+                                (form.direction === 'interstitial' &&
+                                    form.pricingModel === 'cpc')
+                            "
+                            :info="info.infoCPC"
+                        />
+                        <AlertInfo
+                            v-if="
+                                form.direction === 'survey_exit' &&
+                                form.pricingModel === 'cpc'
+                            "
+                            :info="info.infoCPC_noFeature"
+                        />
+                        <AlertInfo
+                            v-if="
+                                (form.direction === 'onclick' &&
+                                    form.pricingModel === 'cpm') ||
+                                (form.direction === 'push_notifications' &&
+                                    form.pricingModel === 'cpm')
+                            "
+                            :info="info.infoCPM"
+                        />
+                        <AlertInfo
+                            v-if="
+                                form.direction === 'interstitial' &&
+                                form.pricingModel === 'cpm'
+                            "
+                            :info="info.infoCPM_lowOptimization"
+                        />
+                        <AlertInfo
+                            v-else-if="
+                                (form.direction === 'onclick' &&
+                                    form.pricingModel === 'cpagoal2') ||
+                                (form.direction === 'push_notifications' && 
+                                    form.pricingModel === 'cpagoal') ||
+                                (form.direction === 'interstitial' &&
+                                    form.pricingModel === 'cpagoal') ||
+                                (form.direction === 'survey_exit' &&
+                                    form.pricingModel === 'cpagoal2')
+                            "
+                            :info="info.infoCPA"
+                        />
+
+                        <AlertInfo
+                            v-else-if="
+                                form.direction !== null &&
+                                form.pricingModel === null
+                            "
+                            :info="info.infoCPA"
+                        />
 
                         <!-- target url -->
                         <div class="block mt-4">
