@@ -21,14 +21,19 @@ class CampaignController extends Controller
         [
             'name'=>$request->get('name'),
             'direction'=>'onclick',
-            'rate_model'=>'scpa',
-            'frequency'=>null,
-            'capping'=>null,
-            'target_url'=>'https://propellerads.com/?clickid=${SUBID}',
+            'rate_model'=>'scpm',
+            'frequency'=>3,
+            'capping'=>86400,
+            'target_url'=>'https://propellerads.com/?zoneid=zoneId',
             'status'=>1,
             'started_at'=>'24/5/2023',
             'expired_at'=>'25/5/2023',
             'is_adblock_buy'=>1,
+            'evenly_limits_usage'=>false,
+            'cpa_goal_bid'=>0.05,
+            'cpa_goal_status'=>true,
+            'daily_amount'=>50,
+            'total_amount'=>100,
             'targeting'=>[
                 'country'=>[
                     'list'=>[
@@ -88,9 +93,9 @@ class CampaignController extends Controller
         ]);
 
 
-        dd($response->created());
+        dd($response->json());
         return Inertia::render('CreateCampaign',[
-            'user'=>$response->json()
+            'success'=>$response->created()
         ]);
     }
 }
