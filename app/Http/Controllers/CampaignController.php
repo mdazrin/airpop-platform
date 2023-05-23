@@ -24,8 +24,8 @@ class CampaignController extends Controller
             'rate_model'=>'scpa',
             'target_url'=>'https://propellerads.com/?clickid=${SUBID}',
             'status'=>1,
-            'started_at'=>'18/5/2023',
-            'expired_at'=>'19/5/2023',
+            'started_at'=>'24/5/2023',
+            'expired_at'=>'25/5/2023',
             'is_adblock_buy'=>1,
             'targeting'=>[
                 'country'=>[
@@ -54,13 +54,13 @@ class CampaignController extends Controller
                     'list'=>[
                         'ios'
                     ],
-                    'is_excluded'=>false,
+                    'is_excluded'=>false
                 ],
                 'os_version'=>[
                     'list'=>[
                         'ios13'
                     ],
-                    'is_excluded'=>false,
+                    'is_excluded'=>false
                 ],
                 'traffic_categories'=>[
                     'propeller'
@@ -85,7 +85,7 @@ class CampaignController extends Controller
         ]);
 
 
-        dd($response->json());
+        dd($response->created());
         return Inertia::render('CreateCampaign',[
             'user'=>$response->json()
         ]);
