@@ -22,6 +22,8 @@ class CampaignController extends Controller
             'name'=>$request->get('name'),
             'direction'=>'onclick',
             'rate_model'=>'scpa',
+            'frequency'=>null,
+            'capping'=>null,
             'target_url'=>'https://propellerads.com/?clickid=${SUBID}',
             'status'=>1,
             'started_at'=>'24/5/2023',
@@ -36,6 +38,7 @@ class CampaignController extends Controller
                     ],
                     'is_excluded'=>false
                 ],
+                'user_activity'=>null,
                 'time_table'=>[
                     'list'=>[
                         'Mon00'
