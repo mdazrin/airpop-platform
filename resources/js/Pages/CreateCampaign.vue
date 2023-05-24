@@ -9,6 +9,7 @@ import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
 const data = ref(["device", "browser", "browserversion"]);
+const isOpen = ref(false);
 
 const info = {
     infoCPA: [
@@ -951,10 +952,92 @@ const form = useForm({
                             <button
                                 type="submit"
                                 :disabled="form.processing"
-                                class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5"
+                                class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5"
                             >
                                 Start Campaign
                             </button>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div>
+                        <button
+                            @click="isOpen = true"
+                            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            type="button"
+                        >
+                            Open Modal
+                        </button>
+
+                        <div
+                            v-if="isOpen"
+                            class="fixed inset-0 flex items-center justify-center z-50"
+                        >
+                            <div class="relative w-full max-w-md max-h-full">
+                                <div
+                                    class="relative bg-white rounded-lg shadow"
+                                >
+                                    <button
+                                        @click="isOpen = false"
+                                        type="button"
+                                        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                                    >
+                                        <svg
+                                            aria-hidden="true"
+                                            class="w-5 h-5"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                fill-rule="evenodd"
+                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                clip-rule="evenodd"
+                                            ></path>
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                    <div class="p-6 text-center">
+                                        <svg
+                                            viewBox="0 0 1024 1024"
+                                            class="mx-auto mb-4 text-gray-400 w-14 h-14"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            id="IconChangeColor"
+                                            height="200"
+                                            width="200"
+                                        >
+                                            <path
+                                                fill="green"
+                                                d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm-55.808 536.384-99.52-99.584a38.4 38.4 0 1 0-54.336 54.336l126.72 126.72a38.272 38.272 0 0 0 54.336 0l262.4-262.464a38.4 38.4 0 1 0-54.272-54.336L456.192 600.384z"
+                                                id="mainIconPathAttribute"
+                                            ></path>
+                                        </svg>
+                                        <h3
+                                            class="mb-5 text-lg font-normal text-gray-500"
+                                        >
+                                            Campaign Created Sucessfully
+                                        </h3>
+                                        <button
+                                            type="button"
+                                            class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                                        >
+                                            Next
+                                            <svg
+                                                aria-hidden="true"
+                                                class="w-5 h-5 ml-2 -mr-1"
+                                                fill="currentColor"
+                                                viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd"
+                                                ></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
