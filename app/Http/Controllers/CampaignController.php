@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Campaign;
 
 class CampaignController extends Controller
 {
@@ -17,14 +18,20 @@ class CampaignController extends Controller
 
     public function create(Request $request): Response
     {
+        //logic for target url
+        //check the pricing model first
+        $domain = (new Campaign)->domain($request);
+        $arr = array($request->get('target_url'),$domain);
+        $target = join($arr);
+
         $response = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')->post('https://ssp-api.propellerads.com/v5/adv/campaigns',
         [
             'name'=>$request->get('name'),
-            'direction'=>'onclick',
-            'rate_model'=>'scpm',
+            'direction'=>$request->get('direction'),
+            'rate_model'=>$request->get('rate_model'),
             'frequency'=>3,
             'capping'=>86400,
-            'target_url'=>'https://propellerads.com/?zoneid=zoneId',
+            'target_url'=>$target,
             'status'=>1,
             'started_at'=>'24/5/2023',
             'expired_at'=>'25/5/2023',
@@ -93,7 +100,7 @@ class CampaignController extends Controller
         ]);
 
 
-        dd($response->json());
+        dd($target);
         return Inertia::render('CreateCampaign',[
             'success'=>$response->created()
         ]);
