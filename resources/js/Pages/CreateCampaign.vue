@@ -63,8 +63,9 @@ const info = {
 const form = useForm({
     name: null,
     direction: null,
+    rate_model: null,
+    target_url:null,
     remember: false,
-    pricingModel: null,
 });
 </script>
 
@@ -315,7 +316,7 @@ const form = useForm({
                                     type="radio"
                                     value="cpagoal"
                                     name="pricing-model"
-                                    v-model="form.pricingModel"
+                                    v-model="form.rate_model"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
@@ -337,7 +338,7 @@ const form = useForm({
                                     type="radio"
                                     value="cpagoal2"
                                     name="pricing-model"
-                                    v-model="form.pricingModel"
+                                    v-model="form.rate_model"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
@@ -359,7 +360,7 @@ const form = useForm({
                                     type="radio"
                                     value="smartCPC"
                                     name="pricing-model"
-                                    v-model="form.pricingModel"
+                                    v-model="form.rate_model"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
@@ -381,7 +382,7 @@ const form = useForm({
                                     type="radio"
                                     value="smartcpm"
                                     name="pricing-model"
-                                    v-model="form.pricingModel"
+                                    v-model="form.rate_model"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
@@ -403,7 +404,7 @@ const form = useForm({
                                     type="radio"
                                     value="cpc"
                                     name="pricing-model"
-                                    v-model="form.pricingModel"
+                                    v-model="form.rate_model"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
@@ -425,7 +426,7 @@ const form = useForm({
                                     type="radio"
                                     value="cpm"
                                     name="pricing-model"
-                                    v-model="form.pricingModel"
+                                    v-model="form.rate_model"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
                                 />
                                 <label
@@ -439,66 +440,66 @@ const form = useForm({
                         <AlertInfo
                             v-if="
                                 form.direction === 'push_notifications' &&
-                                form.pricingModel === 'smartCPC'
+                                form.rate_model === 'smartCPC'
                             "
                             :info="info.infoSmartCPC"
                         />
                         <AlertInfo
                             v-if="
                                 form.direction === 'survey_exit' &&
-                                form.pricingModel === 'smartCPC'
+                                form.rate_model === 'smartCPC'
                             "
                             :info="info.infoSmartCPC_noFeature"
                         />
                         <AlertInfo
                             v-if="
                                 form.direction === 'onclick' &&
-                                form.pricingModel === 'smartcpm'
+                                form.rate_model === 'smartcpm'
                             "
                             :info="info.infoSmartCPM"
                         />
                         <AlertInfo
                             v-if="
                                 (form.direction === 'push_notifications' &&
-                                    form.pricingModel === 'cpc') ||
+                                    form.rate_model === 'cpc') ||
                                 (form.direction === 'interstitial' &&
-                                    form.pricingModel === 'cpc')
+                                    form.rate_model === 'cpc')
                             "
                             :info="info.infoCPC"
                         />
                         <AlertInfo
                             v-if="
                                 form.direction === 'survey_exit' &&
-                                form.pricingModel === 'cpc'
+                                form.rate_model === 'cpc'
                             "
                             :info="info.infoCPC_noFeature"
                         />
                         <AlertInfo
                             v-if="
                                 (form.direction === 'onclick' &&
-                                    form.pricingModel === 'cpm') ||
+                                    form.rate_model === 'cpm') ||
                                 (form.direction === 'push_notifications' &&
-                                    form.pricingModel === 'cpm')
+                                    form.rate_model === 'cpm')
                             "
                             :info="info.infoCPM"
                         />
                         <AlertInfo
                             v-if="
                                 form.direction === 'interstitial' &&
-                                form.pricingModel === 'cpm'
+                                form.rate_model === 'cpm'
                             "
                             :info="info.infoCPM_lowOptimization"
                         />
                         <AlertInfo
                             v-else-if="
                                 (form.direction === 'onclick' &&
-                                    form.pricingModel === 'cpagoal2') ||
+                                    form.rate_model === 'cpagoal2') ||
                                 (form.direction === 'push_notifications' &&
-                                    form.pricingModel === 'cpagoal') ||
+                                    form.rate_model === 'cpagoal') ||
                                 (form.direction === 'interstitial' &&
-                                    form.pricingModel === 'cpagoal') ||
+                                    form.rate_model === 'cpagoal') ||
                                 (form.direction === 'survey_exit' &&
-                                    form.pricingModel === 'cpagoal2')
+                                    form.rate_model === 'cpagoal2')
                             "
                             :info="info.infoCPA"
                         />
@@ -506,7 +507,7 @@ const form = useForm({
                         <AlertInfo
                             v-else-if="
                                 form.direction !== null &&
-                                form.pricingModel === null
+                                form.rate_model === null
                             "
                             :info="info.infoCPA"
                         />
@@ -520,6 +521,7 @@ const form = useForm({
                             >
                             <input
                                 type="url"
+                                v-model="form.target_url"
                                 id="website"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Start typing..."
