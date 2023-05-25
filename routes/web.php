@@ -4,6 +4,7 @@ use App\Http\Controllers\OnclickcpagController;
 use App\Http\Controllers\OnclickcpmController;
 use App\Http\Controllers\OnclickscpmController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PushcpagController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -53,6 +54,8 @@ Route::middleware('auth')->group(function (){
     Route::post('/onclick-cpm-create',[OnclickcpmController::class,'create']);
     Route::get('/onclick-scpm',[OnclickscpmController::class,'index'])->name('onclickscpm');
     Route::post('/onclick-scpm-create',[OnclickscpmController::class,'create']);
+    Route::get('/push-cpag',[PushcpagController::class,'index'])->name('pushcpag');
+    Route::post('/push-cpag-create',[PushcpagController::class,'create']);
 });
 
 Route::middleware('auth')->group(function () {

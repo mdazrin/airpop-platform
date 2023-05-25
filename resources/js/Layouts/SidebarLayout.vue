@@ -185,6 +185,14 @@ const open = ref(false);
                                     Onclick Smart CPM
                                 </Link>
                             </li>
+                            <li>
+                                <Link
+                                    :href="route('pushcpag')"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                >
+                                    Push Notifications CPA Goal
+                                </Link>
+                            </li>
                         </ul>
                     </li>
                     <li>
