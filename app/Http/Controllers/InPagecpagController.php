@@ -108,7 +108,7 @@ class InPagecpagController extends Controller
             ]);
 
 
-        dd($response->json());
+        //dd($response->json());
         return Inertia::render('InPagecpag',[
             'success'=>$response->created()
         ]);
