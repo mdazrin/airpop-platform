@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\InPagecpagController;
 use App\Http\Controllers\OnclickcpagController;
 use App\Http\Controllers\OnclickcpmController;
@@ -49,6 +50,9 @@ Route::get('/finance', function () {
 
 //create campaign routes
 Route::middleware('auth')->group(function (){
+    //campaign list
+    Route::get('/campaign-list',[CampaignController::class,'index'])->name('campaignlist');
+    //the rest is campaign plans
     Route::get('/onclick-cpag',[OnclickcpagController::class,'index'])->name('onclickcpag');
     Route::post('/onclick-cpag-create',[OnclickcpagController::class,'create']);
     Route::get('/onclick-cpm',[OnclickcpmController::class,'index'])->name('onclickcpm');

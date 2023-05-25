@@ -101,7 +101,7 @@ class InPagecpagController extends Controller
                         'description'=>'This is the first creative',
                         'icon'=>'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADAAQMAAABoEv5EAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAANQTFRF////p8QbyAAAABxJREFUeJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAdLBrL4AAAAASUVORK5CYII=',
                         'image'=>'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAADwAQMAAAAXaWwMAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAANQTFRF////p8QbyAAAACFJREFUeJztwQENAAAAwqD3T20PBxQAAAAAAAAAAAAA/BgrIAAB/BxM7QAAAABJRU5ErkJggg==',
-                        
+
                     ]
 
                 ]
