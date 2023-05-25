@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class OnclickcpmController extends Controller
+class OnclickscpmController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Onclickcpm');
+        return Inertia::render('Onclickscpm');
     }
     public function create(Request $request): Response
     {
@@ -20,7 +20,7 @@ class OnclickcpmController extends Controller
             [
                 'name'=>$request->get('name'),
                 'direction'=>'onclick',
-                'rate_model'=>'cpm',
+                'rate_model'=>'scpm',
                 'target_url'=>'https://propellerads.com/?zoneid=zoneId',
                 'frequency'=>3,
                 'capping'=>86400,
@@ -28,20 +28,17 @@ class OnclickcpmController extends Controller
                 'started_at'=>'26/5/2023',
                 'expired_at'=>'27/5/2023',
                 'is_adblock_buy'=>1,
+                'evenly_limits_usage'=>false,
+                'cpa_goal_bid'=>0.85,
+                'cpa_goal_status'=>true,
+                'daily_amount'=>50,
+                'total_amount'=>100,
                 'targeting'=>[
                     'country'=>[
                         'list'=>[
                             'in',
                             'us',
                             'it'
-                        ],
-                        'is_excluded'=>false
-                    ],
-                    'user_activity'=>[
-                        'list'=>[
-                            1,
-                            2,
-                            3
                         ],
                         'is_excluded'=>false
                     ],
@@ -95,7 +92,7 @@ class OnclickcpmController extends Controller
 
 
         dd($response->json());
-        return Inertia::render('Onclickcpm',[
+        return Inertia::render('Onclickscpm',[
             'success'=>$response->created()
         ]);
     }

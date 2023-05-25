@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OnclickcpagController;
 use App\Http\Controllers\OnclickcpmController;
+use App\Http\Controllers\OnclickscpmController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,8 @@ Route::middleware('auth')->group(function (){
     Route::post('/onclick-cpag-create',[OnclickcpagController::class,'create']);
     Route::get('/onclick-cpm',[OnclickcpmController::class,'index'])->name('onclickcpm');
     Route::post('/onclick-cpm-create',[OnclickcpmController::class,'create']);
+    Route::get('/onclick-scpm',[OnclickscpmController::class,'index'])->name('onclickscpm');
+    Route::post('/onclick-scpm-create',[OnclickscpmController::class,'create']);
 });
 
 Route::middleware('auth')->group(function () {

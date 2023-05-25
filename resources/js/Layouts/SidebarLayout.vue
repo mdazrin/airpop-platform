@@ -177,6 +177,14 @@ const open = ref(false);
                                     Onclick CPM
                                 </Link>
                             </li>
+                            <li>
+                                <Link
+                                    :href="route('onclickscpm')"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                >
+                                    Onclick Smart CPM
+                                </Link>
+                            </li>
                         </ul>
                     </li>
                     <li>
