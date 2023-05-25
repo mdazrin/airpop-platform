@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InPagecpagController;
 use App\Http\Controllers\OnclickcpagController;
 use App\Http\Controllers\OnclickcpmController;
 use App\Http\Controllers\OnclickscpmController;
@@ -56,6 +57,8 @@ Route::middleware('auth')->group(function (){
     Route::post('/onclick-scpm-create',[OnclickscpmController::class,'create']);
     Route::get('/push-cpag',[PushcpagController::class,'index'])->name('pushcpag');
     Route::post('/push-cpag-create',[PushcpagController::class,'create']);
+    Route::get('/in-page-cpag',[InPagecpagController::class,'index'])->name('inpagecpag');
+    Route::post('/in-page-cpag-create',[InPagecpagController::class,'create']);
 });
 
 Route::middleware('auth')->group(function () {
