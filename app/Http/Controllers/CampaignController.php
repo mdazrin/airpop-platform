@@ -27,18 +27,18 @@ class CampaignController extends Controller
         $response = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')->post('https://ssp-api.propellerads.com/v5/adv/campaigns',
         [
             'name'=>$request->get('name'),
-            'direction'=>$request->get('direction'),
-            'rate_model'=>$request->get('rate_model'),
-            'frequency'=>3,
-            'capping'=>86400,
+            'direction'=>'nativeads',
+            'rate_model'=>'cpag',
+            'frequency'=>null,
+            'capping'=>null,
             'target_url'=>$target,
             'status'=>1,
-            'started_at'=>'24/5/2023',
-            'expired_at'=>'25/5/2023',
-            'is_adblock_buy'=>1,
-            'evenly_limits_usage'=>false,
-            'cpa_goal_bid'=>0.05,
-            'cpa_goal_status'=>true,
+            'started_at'=>'25/5/2023',
+            'expired_at'=>'26/5/2023',
+            'is_adblock_buy'=>null,
+            'evenly_limits_usage'=>null,
+            'cpa_goal_bid'=>null,
+            'cpa_goal_status'=>null,
             'daily_amount'=>50,
             'total_amount'=>100,
             'targeting'=>[
@@ -50,7 +50,15 @@ class CampaignController extends Controller
                     ],
                     'is_excluded'=>false
                 ],
-                'user_activity'=>null,
+                'user_activity'=>[
+                    'list'=>[
+                        1,
+                        2,
+                        3
+                    ],
+                    'is_excluded'=>false
+
+                ],
                 'time_table'=>[
                     'list'=>[
                         'Mon00'
@@ -100,7 +108,7 @@ class CampaignController extends Controller
         ]);
 
 
-        dd($target);
+        dd($response->json());
         return Inertia::render('CreateCampaign',[
             'success'=>$response->created()
         ]);

@@ -22,4 +22,5 @@ class Campaign extends Model
 
     }
 
+
 }
