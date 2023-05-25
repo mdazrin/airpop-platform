@@ -8,14 +8,6 @@ import AlertInfo from "@/Components/AlertInfo.vue";
 import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
-
-const form = useForm({
-    name: null,
-    direction: null,
-    rate_model: null,
-    target_url:null,
-    remember: false,
-});
 </script>
 
 <template>

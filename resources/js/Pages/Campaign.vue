@@ -2,7 +2,7 @@
 import SidebarLayout from "@/Layouts/SidebarLayout.vue";
 import { ref } from "vue";
 
-defineProps({ user: Object });
+defineProps({ campaign: Object });
 const header = ref([
     "ID",
     "Name",
@@ -42,7 +42,7 @@ const header = ref([
                         <tbody>
                             <tr
                                 class="bg-white border-b"
-                                v-for="item in user.result"
+                                v-for="item in campaign.result"
                                 :key="item.id"
                             >
                                 <th
