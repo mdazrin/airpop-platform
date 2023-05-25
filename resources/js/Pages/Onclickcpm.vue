@@ -22,8 +22,8 @@ const form = useForm({
     <SidebarLayout>
         <template #content>
             <div>
-                OnClick CPA Goal 2.0
-                <form @submit.prevent="form.post('/onclick-cpag-create')">
+                OnClick CPM
+                <form @submit.prevent="form.post('/onclick-cpm-create')">
                     <!-- name -->
                     <input type="text" v-model="form.name">
                     <button type="submit" :disabled="form.processing">Create</button>

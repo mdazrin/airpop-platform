@@ -166,15 +166,15 @@ const open = ref(false);
                                     :href="route('onclickcpag')"
                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
                                 >
-                                    Campaign List
+                                    Onclick CPA Goal 2.0
                                 </Link>
                             </li>
                             <li>
                                 <Link
-                                    :href="route('onclickcpag')"
+                                    :href="route('onclickcpm')"
                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
                                 >
-                                    Create Campaign
+                                    Onclick CPM
                                 </Link>
                             </li>
                         </ul>

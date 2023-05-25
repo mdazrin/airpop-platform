@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\OnclickcpagController;
+use App\Http\Controllers\OnclickcpmController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +48,8 @@ Route::get('/finance', function () {
 Route::middleware('auth')->group(function (){
     Route::get('/onclick-cpag',[OnclickcpagController::class,'index'])->name('onclickcpag');
     Route::post('/onclick-cpag-create',[OnclickcpagController::class,'create']);
+    Route::get('/onclick-cpm',[OnclickcpmController::class,'index'])->name('onclickcpm');
+    Route::post('/onclick-cpm-create',[OnclickcpmController::class,'create']);
 });
 
 Route::middleware('auth')->group(function () {
