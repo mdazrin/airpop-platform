@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\OnclickcpagController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -42,15 +43,18 @@ Route::get('/finance', function () {
     return Inertia::render('Finance');
 })->middleware(['auth', 'verified'])->name('finance');
 
+
+//create campaign routes
 Route::middleware('auth')->group(function (){
-    Route::get('/create-form',[CampaignController::class,'index'])->name('campaign');
+    Route::get('/onclick-cpag',[OnclickcpagController::class,'index'])->name('onclickcpag');
+    Route::post('/onclick-cpag-create',[OnclickcpagController::class,'create']);
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::post('/create-form',[CampaignController::class,'create'])->name('create');
+
 });
 
 require __DIR__.'/auth.php';
