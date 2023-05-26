@@ -2,11 +2,20 @@
 
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\InPagecpagController;
+use App\Http\Controllers\InPagecpcController;
+use App\Http\Controllers\InPagecpmController;
+use App\Http\Controllers\InPagescpcController;
+use App\Http\Controllers\InterstitialcpagController;
+use App\Http\Controllers\InterstitialcpcController;
+use App\Http\Controllers\InterstitialcpmController;
 use App\Http\Controllers\OnclickcpagController;
 use App\Http\Controllers\OnclickcpmController;
 use App\Http\Controllers\OnclickscpmController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PushcpagController;
+use App\Http\Controllers\PushcpcController;
+use App\Http\Controllers\PushcpmController;
+use App\Http\Controllers\PushscpcController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -61,8 +70,27 @@ Route::middleware('auth')->group(function (){
     Route::post('/onclick-scpm-create',[OnclickscpmController::class,'create']);
     Route::get('/push-cpag',[PushcpagController::class,'index'])->name('pushcpag');
     Route::post('/push-cpag-create',[PushcpagController::class,'create']);
+    Route::get('/push-cpc',[PushcpcController::class,'index'])->name('pushcpc');
+    Route::post('/push-cpc-create',[PushcpcController::class,'create']);
+    Route::get('/push-scpc',[PushscpcController::class,'index'])->name('pushscpc');
+    Route::post('/push-scpc-create',[PushscpcController::class,'create']);
+    Route::get('/push-cpm',[PushcpmController::class,'index'])->name('pushcpm');
+    Route::post('/push-cpm-create',[PushcpmController::class,'create']);
     Route::get('/in-page-cpag',[InPagecpagController::class,'index'])->name('inpagecpag');
     Route::post('/in-page-cpag-create',[InPagecpagController::class,'create']);
+    Route::get('/in-page-cpc',[InPagecpcController::class,'index'])->name('inpagecpc');
+    Route::post('/in-page-cpc-create',[InPagecpcController::class,'create']);
+    Route::get('/in-page-scpc',[InPagescpcController::class,'index'])->name('inpagescpc');
+    Route::post('/in-page-scpc-create',[InPagescpcController::class,'create']);
+    Route::get('/in-page-cpm',[InPagecpmController::class,'index'])->name('inpagecpm');
+    Route::post('/in-page-cpm-create',[InPagecpmController::class,'create']);
+    Route::get('/interstitial-cpag',[InterstitialcpagController::class,'index'])->name('interstitialcpag');
+    Route::post('/interstitial-cpag-create',[InterstitialcpagController::class,'create']);
+    Route::get('/interstitial-cpc',[InterstitialcpcController::class,'index'])->name('interstitialcpc');
+    Route::post('/interstitial-cpc-create',[InterstitialcpcController::class,'create']);
+    Route::get('/interstitial-cpm',[InterstitialcpmController::class,'index'])->name('interstitialcpm');
+    Route::post('/interstitial-cpm-create',[InterstitialcpmController::class,'create']);
+
 });
 
 Route::middleware('auth')->group(function () {

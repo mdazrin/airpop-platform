@@ -209,6 +209,78 @@ const open = ref(false);
                                     In-Page Push CPA Goal
                                 </Link>
                             </li>
+                            <li>
+                                <Link
+                                    :href="route('pushcpc')"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                >
+                                    Push Notifications CPC
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    :href="route('pushscpc')"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                >
+                                    Push Notifications Smart CPC
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    :href="route('pushcpm')"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                >
+                                    Push Notifications CPM
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    :href="route('inpagecpc')"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                >
+                                    In-Page Push CPC
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    :href="route('inpagescpc')"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                >
+                                    In-Page Push Smart CPC
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    :href="route('inpagecpm')"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                >
+                                    In-Page Push CPM
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    :href="route('interstitialcpag')"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                >
+                                    Interstitial CPA Goal
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    :href="route('interstitialcpc')"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                >
+                                    Interstitial CPC
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    :href="route('interstitialcpm')"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                >
+                                    Interstitial CPM
+                                </Link>
+                            </li>
                         </ul>
                     </li>
                     <li>
