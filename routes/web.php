@@ -5,6 +5,7 @@ use App\Http\Controllers\InPagecpagController;
 use App\Http\Controllers\InPagecpcController;
 use App\Http\Controllers\InPagecpmController;
 use App\Http\Controllers\InPagescpcController;
+use App\Http\Controllers\InterstitialcpagController;
 use App\Http\Controllers\OnclickcpagController;
 use App\Http\Controllers\OnclickcpmController;
 use App\Http\Controllers\OnclickscpmController;
@@ -81,6 +82,8 @@ Route::middleware('auth')->group(function (){
     Route::post('/in-page-scpc-create',[InPagescpcController::class,'create']);
     Route::get('/in-page-cpm',[InPagecpmController::class,'index'])->name('inpagecpm');
     Route::post('/in-page-cpm-create',[InPagecpmController::class,'create']);
+    Route::get('/interstitial-cpag',[InterstitialcpagController::class,'index'])->name('interstitialcpag');
+    Route::post('/interstitial-cpag-create',[InterstitialcpagController::class,'create']);
 
 });
 
