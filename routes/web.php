@@ -8,6 +8,7 @@ use App\Http\Controllers\OnclickscpmController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PushcpagController;
 use App\Http\Controllers\PushcpcController;
+use App\Http\Controllers\PushcpmController;
 use App\Http\Controllers\PushscpcController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -67,6 +68,8 @@ Route::middleware('auth')->group(function (){
     Route::post('/push-cpc-create',[PushcpcController::class,'create']);
     Route::get('/push-scpc',[PushscpcController::class,'index'])->name('pushscpc');
     Route::post('/push-scpc-create',[PushscpcController::class,'create']);
+    Route::get('/push-cpm',[PushcpmController::class,'index'])->name('pushcpm');
+    Route::post('/push-cpm-create',[PushcpmController::class,'create']);
     Route::get('/in-page-cpag',[InPagecpagController::class,'index'])->name('inpagecpag');
     Route::post('/in-page-cpag-create',[InPagecpagController::class,'create']);
 
