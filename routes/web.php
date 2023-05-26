@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\InPagecpagController;
+use App\Http\Controllers\InPagecpcController;
 use App\Http\Controllers\OnclickcpagController;
 use App\Http\Controllers\OnclickcpmController;
 use App\Http\Controllers\OnclickscpmController;
@@ -72,6 +73,8 @@ Route::middleware('auth')->group(function (){
     Route::post('/push-cpm-create',[PushcpmController::class,'create']);
     Route::get('/in-page-cpag',[InPagecpagController::class,'index'])->name('inpagecpag');
     Route::post('/in-page-cpag-create',[InPagecpagController::class,'create']);
+    Route::get('/in-page-cpc',[InPagecpcController::class,'index'])->name('inpagecpc');
+    Route::post('/in-page-cpc-create',[InPagecpcController::class,'create']);
 
 });
 
