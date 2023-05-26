@@ -84,7 +84,7 @@ class OnclickcpagController extends Controller
             ]);
 
 
-        dd($response->json());
+        //dd($response->json());
         return Inertia::render('Onclickcpag',[
             'success'=>$response->created()
         ]);

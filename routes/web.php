@@ -7,6 +7,7 @@ use App\Http\Controllers\InPagecpmController;
 use App\Http\Controllers\InPagescpcController;
 use App\Http\Controllers\InterstitialcpagController;
 use App\Http\Controllers\InterstitialcpcController;
+use App\Http\Controllers\InterstitialcpmController;
 use App\Http\Controllers\OnclickcpagController;
 use App\Http\Controllers\OnclickcpmController;
 use App\Http\Controllers\OnclickscpmController;
@@ -87,6 +88,8 @@ Route::middleware('auth')->group(function (){
     Route::post('/interstitial-cpag-create',[InterstitialcpagController::class,'create']);
     Route::get('/interstitial-cpc',[InterstitialcpcController::class,'index'])->name('interstitialcpc');
     Route::post('/interstitial-cpc-create',[InterstitialcpcController::class,'create']);
+    Route::get('/interstitial-cpm',[InterstitialcpmController::class,'index'])->name('interstitialcpm');
+    Route::post('/interstitial-cpm-create',[InterstitialcpmController::class,'create']);
 
 });
 

@@ -91,7 +91,7 @@ class OnclickscpmController extends Controller
             ]);
 
 
-        dd($response->json());
+        //dd($response->json());
         return Inertia::render('Onclickscpm',[
             'success'=>$response->created()
         ]);

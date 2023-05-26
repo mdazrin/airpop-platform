@@ -125,7 +125,7 @@ class PushcpmController extends Controller
             ]);
 
 
-        dd($response->json());
+        //dd($response->json());
         return Inertia::render('Pushcpm',[
             'success'=>$response->created()
         ]);

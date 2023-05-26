@@ -111,7 +111,7 @@ class PushscpcController extends Controller
             ]);
 
 
-        dd($response->json());
+        //dd($response->json());
         return Inertia::render('Pushscpc',[
             'success'=>$response->created()
         ]);

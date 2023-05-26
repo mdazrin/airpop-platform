@@ -115,7 +115,7 @@ class PushcpagController extends Controller
             ]);
 
 
-        dd($response->json());
+        //dd($response->json());
         return Inertia::render('Pushcpag',[
             'success'=>$response->created()
         ]);

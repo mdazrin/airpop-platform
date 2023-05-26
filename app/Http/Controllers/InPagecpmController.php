@@ -118,7 +118,7 @@ class InPagecpmController extends Controller
             ]);
 
 
-        dd($response->json());
+        //dd($response->json());
         return Inertia::render('InPagecpm',[
             'success'=>$response->created()
         ]);

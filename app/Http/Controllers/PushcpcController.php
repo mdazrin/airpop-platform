@@ -122,7 +122,7 @@ class PushcpcController extends Controller
             ]);
 
 
-        dd($response->json());
+        //dd($response->json());
         return Inertia::render('Pushcpc',[
             'success'=>$response->created()
         ]);

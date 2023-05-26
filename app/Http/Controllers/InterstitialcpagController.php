@@ -97,7 +97,7 @@ class InterstitialcpagController extends Controller
             ]);
 
 
-        dd($response->json());
+        //dd($response->json());
         return Inertia::render('Interstitialcpag',[
             'success'=>$response->created()
         ]);

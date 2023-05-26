@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class InPagescpcController extends Controller
+class InterstitialcpmController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('InPagescpc');
+        return Inertia::render('Interstitialcpm');
     }
     public function create(Request $request): Response
     {
@@ -19,12 +19,16 @@ class InPagescpcController extends Controller
         $response = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')->post('https://ssp-api.propellerads.com/v5/adv/campaigns',
             [
                 'name'=>$request->get('name'),
-                'direction'=>'nativeads',
-                'rate_model'=>'scpc',
-                'target_url'=>'https://propellerads.com/?clickid=${SUBID}',
+                'direction'=>'native',
+                'rate_model'=>'cpm',
+                'target_url'=>'https://propellerads.com/?zoneid=zoneId',
+                'frequency'=>0,
+                'capping'=>0,
                 'status'=>1,
                 'started_at'=>'26/5/2023',
                 'expired_at'=>'27/5/2023',
+                'is_adblock_buy'=>1,
+                'evenly_limits_usage'=>false,
                 'daily_amount'=>50,
                 'total_amount'=>100,
                 'targeting'=>[
@@ -64,12 +68,12 @@ class InPagescpcController extends Controller
                     ],
                     'zone_type'=>[
                         'list'=>[
-                            42
+                            38
                         ],
-                        'is_excluded'=>true
+                        'is_excluded'=>false
                     ],
                     'traffic_categories'=>[
-                        'premium'
+                        'propeller'
                     ]
                 ],
                 'timezone'=>3,
@@ -91,12 +95,10 @@ class InPagescpcController extends Controller
                 'creatives'=>[
                     [
                         'status'=>1,
-                        'click_frequency'=>3,
-                        'click_capping'=>86400,
+                        'frequency'=>3,
+                        'capping'=>86400,
                         'title'=>'Creative One',
-                        'description'=>'This is the first creative',
-                        'icon'=>'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADAAQMAAABoEv5EAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAANQTFRF////p8QbyAAAABxJREFUeJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAdLBrL4AAAAASUVORK5CYII=',
-                        'image'=>'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAADwAQMAAAAXaWwMAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAANQTFRF////p8QbyAAAACFJREFUeJztwQENAAAAwqD3T20PBxQAAAAAAAAAAAAA/BgrIAAB/BxM7QAAAABJRU5ErkJggg==',
+                        'image'=>'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAewAAAFIAQMAAACoaV/bAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAANQTFRF////p8QbyAAAACtJREFUeJztwYEAAAAAw6D5U1/gCFUBAAAAAAAAAAAAAAAAAAAAAAAAAHwDULgAAVNxxnoAAAAASUVORK5CYII=',
 
                     ]
 
@@ -105,7 +107,7 @@ class InPagescpcController extends Controller
 
 
         //dd($response->json());
-        return Inertia::render('InPagescpc',[
+        return Inertia::render('Interstitialcpm',[
             'success'=>$response->created()
         ]);
     }

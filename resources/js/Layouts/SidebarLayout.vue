@@ -273,6 +273,14 @@ const open = ref(false);
                                     Interstitial CPC
                                 </Link>
                             </li>
+                            <li>
+                                <Link
+                                    :href="route('interstitialcpm')"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                >
+                                    Interstitial CPM
+                                </Link>
+                            </li>
                         </ul>
                     </li>
                     <li>
