@@ -8,6 +8,7 @@ use App\Http\Controllers\OnclickscpmController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PushcpagController;
 use App\Http\Controllers\PushcpcController;
+use App\Http\Controllers\PushscpcController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -62,10 +63,13 @@ Route::middleware('auth')->group(function (){
     Route::post('/onclick-scpm-create',[OnclickscpmController::class,'create']);
     Route::get('/push-cpag',[PushcpagController::class,'index'])->name('pushcpag');
     Route::post('/push-cpag-create',[PushcpagController::class,'create']);
-    Route::get('/in-page-cpag',[InPagecpagController::class,'index'])->name('inpagecpag');
-    Route::post('/in-page-cpag-create',[InPagecpagController::class,'create']);
     Route::get('/push-cpc',[PushcpcController::class,'index'])->name('pushcpc');
     Route::post('/push-cpc-create',[PushcpcController::class,'create']);
+    Route::get('/push-scpc',[PushscpcController::class,'index'])->name('pushscpc');
+    Route::post('/push-scpc-create',[PushscpcController::class,'create']);
+    Route::get('/in-page-cpag',[InPagecpagController::class,'index'])->name('inpagecpag');
+    Route::post('/in-page-cpag-create',[InPagecpagController::class,'create']);
+
 });
 
 Route::middleware('auth')->group(function () {
