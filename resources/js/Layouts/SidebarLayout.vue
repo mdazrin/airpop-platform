@@ -241,6 +241,14 @@ const open = ref(false);
                                     In-Page Push CPC
                                 </Link>
                             </li>
+                            <li>
+                                <Link
+                                    :href="route('inpagescpc')"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                >
+                                    In-Page Push Smart CPC
+                                </Link>
+                            </li>
                         </ul>
                     </li>
                     <li>
