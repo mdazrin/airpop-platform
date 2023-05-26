@@ -209,6 +209,14 @@ const open = ref(false);
                                     In-Page Push CPA Goal
                                 </Link>
                             </li>
+                            <li>
+                                <Link
+                                    :href="route('pushcpc')"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                >
+                                    Push Notifications CPC
+                                </Link>
+                            </li>
                         </ul>
                     </li>
                     <li>
