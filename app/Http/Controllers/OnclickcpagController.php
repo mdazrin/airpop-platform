@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
@@ -11,12 +12,45 @@ class OnclickcpagController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Onclickcpag');
+        $propadsTimetable = (new Campaign)->propadsTimetable();
+        $propadsOsVersion = (new Campaign)->propadsOsVersion();
+        $propadsOsType = (new Campaign)->propadsOsType();
+        $propadsOs = (new Campaign)->propadsOs();
+        $propadsDeviceType = (new Campaign)->propadsDeviceType();
+        $propadsDevice = (new Campaign)->propadsDevice();
+        $propadsBrowser = (new Campaign)->propadsBrowser();
+        $propadsZone = (new Campaign)->propadsZone();
+        $propadsConnection = (new Campaign)->propadsConnection();
+        $propadsMobileIsp = (new Campaign)->propadsMobileIsp();
+        $propadsProxy = (new Campaign)->propadsProxy();
+        $propadsLanguage = (new Campaign)->propadsLanguage();
+        $propadsAudience = (new Campaign)->propadsAudience();
+        $propadsTrafficCategories = (new Campaign)->propadsTrafficCategories();
+
+
+        return Inertia::render('Onclickcpag',[
+            'propads_timetable'=>$propadsTimetable,
+            'propads_os_version'=>$propadsOsVersion,
+            'propads_os_type'=>$propadsOsType,
+            'propads_os'=>$propadsOs,
+            'propads_device_type'=>$propadsDeviceType,
+            'propads_device'=>$propadsDevice,
+            'propads_browser'=>$propadsBrowser,
+            'propads_zone'=>$propadsZone,
+            'propads_connection'=>$propadsConnection,
+            'propads_mobile_isp'=>$propadsMobileIsp,
+            'propads_proxy'=>$propadsProxy,
+            'propads_language'=>$propadsLanguage,
+            'propads_audience'=>$propadsAudience,
+            'propads_traffic_categories'=>$propadsTrafficCategories
+
+        ]);
     }
     public function create(Request $request): Response
     {
+        $token = 'b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a';
 
-        $response = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')->post('https://ssp-api.propellerads.com/v5/adv/campaigns',
+        $response = Http::withToken($token)->post('https://ssp-api.propellerads.com/v5/adv/campaigns',
             [
                 'name'=>$request->get('name'),
                 'direction'=>'onclick',
@@ -43,6 +77,12 @@ class OnclickcpagController extends Controller
 
                     ],
                     'connection'=>'mobile',
+                    'device_type'=>[
+                        'list'=>[
+                            'phone'
+                        ],
+                        'is_excluded'=>false
+                    ],
                     'os_type'=>[
                         'list'=>[
                             'mobile'
@@ -83,8 +123,7 @@ class OnclickcpagController extends Controller
                 ]
             ]);
 
-
-        //dd($response->json());
+        dd($response->created());
         return Inertia::render('Onclickcpag',[
             'success'=>$response->created()
         ]);
