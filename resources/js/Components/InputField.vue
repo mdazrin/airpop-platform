@@ -25,6 +25,22 @@ const props = defineProps({
         type: String,
         default: "input",
     },
+    caption: {
+        type: Boolean,
+        default: false,
+    },
+    caption_label: {
+        type: String,
+        default: "",
+    },
+    dropdownOptions: {
+        type: Array,
+        default: () => [],
+    },
+    placeholder_dropdown: {
+        type: String,
+        default: "",
+    },
 });
 </script>
 
@@ -42,17 +58,32 @@ const props = defineProps({
                 :value="modelValue"
                 @input="$emit('update:modelValue', $event.target.value)"
             />
+            <label
+                v-if="caption"
+                for="target_by"
+                class="block mb-2 ml-1 pb-4 text-xs font-medium text-gray-500"
+                >{{ caption_label }}</label
+            >
         </template>
 
         <template v-else-if="inputType === 'dropdown'">
-            <input
+            <select
                 :id="id"
-                class="bg-gray-50 border text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 v-bind="$attrs"
                 :type="type"
                 :value="modelValue"
                 @input="$emit('update:modelValue', $event.target.value)"
-            />
+            >
+                <option value="" disabled>{{ placeholder_dropdown }}</option>
+                <option
+                    v-for="option in dropdownOptions"
+                    :value="option.value"
+                    :key="option.value"
+                >
+                    {{ option.label }}
+                </option>
+            </select>
         </template>
     </div>
 </template>
