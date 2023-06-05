@@ -5,6 +5,7 @@ import HorizontalLine from "@/Components/HorizontalLine.vue";
 import AddDeleteAlert from "@/Components/AddDeleteAlert.vue";
 import AlertTriangle from "@/Components/AlertTriangle.vue";
 import AlertInfo from "@/Components/AlertInfo.vue";
+import InputField from "@/Components/InputField.vue";
 import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
@@ -32,6 +33,8 @@ const form = useForm({
     target_url: null,
     remember: false,
 });
+
+const inputType_dropdown = ref("dropdown");
 </script>
 
 <template>
@@ -40,61 +43,28 @@ const form = useForm({
             <div>
                 OnClick CPA Goal 2.0
                 <form @submit.prevent="form.post('/onclick-cpag-create')">
-                    <!-- name -->
-                    <!-- <input
-                        type="text"
-                        v-model="form.name"
-                        placeholder="name"
-                    /><br /> -->
-                    <!-- target url -->
-                    <!-- <input
-                        type="text"
-                        v-model="form.target_url"
-                        placeholder="target url"
-                    /><br />
-                    <button type="submit" :disabled="form.processing">
-                        Create
-                    </button> -->
-
                     <h3 class="text-2xl font-bold text-left py-2">
                         Create Campaign
                     </h3>
 
-                    <div class="mb-6">
-                        <label
-                            for="campaignTitle"
-                            class="block mb-2 text-sm font-medium text-gray-900"
-                            >Campaign Name</label
-                        >
-                        <input
-                            type="text"
-                            v-model="form.name"
-                            id="campaignTitle"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            placeholder=""
-                        />
-                    </div>
+                    <!-- campaign name -->
+                    <InputField
+                        id="campaignName"
+                        v-model="form.name"
+                        title="Campaign Name"
+                        placeholder="Start typing..."
+                    />
 
                     <!-- target url -->
-                    <div class="block mt-4">
-                        <label
-                            class="block mb-2 text-sm font-medium text-gray-900"
-                            for="campaignTitle"
-                            >Target URL</label
-                        >
-                        <input
-                            type="url"
-                            id="website"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            placeholder="Start typing..."
-                            required
-                        />
-                        <label
-                            for="target_by"
-                            class="block mb-2 ml-1 pb-4 text-xs font-medium text-gray-500"
-                            >https://www.domain.com/in.php?clickid=${SUBID}</label
-                        >
-                    </div>
+
+                    <InputField
+                        id="targetURL"
+                        v-model="form.target_url"
+                        title="Target URL"
+                        placeholder="Start typing..."
+                        inputType="dropdown"
+                    />
+
                     <!-- Countries & Conversion price -->
                     <div class="mb-6">
                         <HorizontalLine />
@@ -272,6 +242,20 @@ const form = useForm({
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     placeholder="Start typing..."
                                 />
+                            </div>
+
+                            <InputField
+                                id="platform"
+                                v-model="form.target_url"
+                                title="Target URL"
+                                placeholder="Start typing..."
+                            />
+
+                            <div>
+                                <h3 class="text-xl font-bold text-left py-2">
+                                    Countries &amp; Conversion Price
+                                    <span>{{ form.target_url }}</span>
+                                </h3>
                             </div>
 
                             <!-- os -->
