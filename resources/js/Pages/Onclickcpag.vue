@@ -27,11 +27,27 @@ defineProps({
 });
 
 const isOpen = ref(false);
+const captionTargetURL = [
+    "https://www.domain.com/in.php?clickid=${SUBID}",
+    "Add city targeting to reach people in certain cities",
+];
+const placeholder_dropdown = ref("Select an option");
+const dropdownOptions = [
+    { value: "option1", label: "Option 1" },
+    { value: "option2", label: "Option 2" },
+    { value: "option3", label: "Option 3" },
+];
 
 const form = useForm({
     name: null,
     target_url: null,
     remember: false,
+    countries: null,
+    cpa_goal_required: null,
+    cpa_goal: null,
+    cities_list: null,
+    platform: null,
+    os: null,
 });
 
 const inputType_dropdown = ref("dropdown");
@@ -53,6 +69,7 @@ const inputType_dropdown = ref("dropdown");
                         v-model="form.name"
                         title="Campaign Name"
                         placeholder="Start typing..."
+                        inputType="input"
                     />
 
                     <!-- target url -->
@@ -62,7 +79,9 @@ const inputType_dropdown = ref("dropdown");
                         v-model="form.target_url"
                         title="Target URL"
                         placeholder="Start typing..."
-                        inputType="dropdown"
+                        inputType="input"
+                        caption="true"
+                        :caption_label="captionTargetURL[0]"
                     />
 
                     <!-- Countries & Conversion price -->
@@ -73,31 +92,25 @@ const inputType_dropdown = ref("dropdown");
                         </h3>
                         <div class="grid gap-6 mb-6 md:grid-cols-6">
                             <div class="col-span-5">
-                                <label
-                                    for="first_name"
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Countries*</label
-                                >
-                                <input
-                                    type="text"
-                                    id="first_name"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    placeholder="Start typing..."
+                                <InputField
+                                    id="countries"
+                                    v-model="form.countries"
+                                    title="Countries*"
+                                    placeholder="Choose a country"
+                                    inputType="dropdown"
+                                    :dropdownOptions="dropdownOptions"
+                                    :placeholder_dropdown="placeholder_dropdown"
                                     required
                                 />
                             </div>
                             <div>
-                                <label
-                                    for="last_name"
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                    >CPA Goal, $*</label
-                                >
-                                <input
+                                <InputField
+                                    id="cpa_goal_required"
+                                    v-model="form.cpa_goal_required"
+                                    title="CPA Goal, $*"
+                                    inputType="input"
                                     type="number"
                                     step="0.01"
-                                    id="cpa_goal_required"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    placeholder=""
                                     required
                                 />
                             </div>
@@ -109,17 +122,13 @@ const inputType_dropdown = ref("dropdown");
                                 </div>
                             </div>
                             <div>
-                                <label
-                                    for="cpa_goal"
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                    >CPA Goal, $</label
-                                >
-                                <input
+                                <InputField
+                                    id="cpa_goal"
+                                    v-model="form.cpa_goal"
+                                    title="CPA Goal, $"
+                                    inputType="input"
                                     type="number"
                                     step="0.01"
-                                    id="cpa_goal"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    placeholder=""
                                 />
                             </div>
                         </div>
@@ -202,22 +211,22 @@ const inputType_dropdown = ref("dropdown");
                                         >Exclude</label
                                     >
                                 </div>
-                                <div class="flex flex-auto items-center mr-4">
-                                    <input
+                                <!-- <div class="flex flex-auto items-center mr-4"> -->
+                                <!-- <input
                                         type="text"
                                         id="cities_list"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         placeholder="Start typing..."
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label
-                                    for="target_by"
-                                    class="block mb-2 text-xs font-medium text-gray-500"
-                                    >Add city targeting to reach people in
-                                    certain cities</label
-                                >
+                                    /> -->
+                                <InputField
+                                    id="cities_list"
+                                    v-model="form.cities_list"
+                                    placeholder="Start typing..."
+                                    inputType="input"
+                                    caption="true"
+                                    :caption_label="captionTargetURL[1]"
+                                />
+                                <!-- </div> -->
                             </div>
                         </div>
 
@@ -229,50 +238,27 @@ const inputType_dropdown = ref("dropdown");
                             </h3>
 
                             <!-- platform -->
-                            <div class="mb-6">
-                                <label
-                                    for="campaignTitle"
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Platform</label
-                                >
-                                <input
-                                    type="text"
-                                    v-model="form.name"
-                                    id="campaignTitle"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    placeholder="Start typing..."
-                                />
-                            </div>
 
                             <InputField
                                 id="platform"
-                                v-model="form.target_url"
-                                title="Target URL"
+                                v-model="form.platform"
+                                title="Platform"
                                 placeholder="Start typing..."
+                                inputType="dropdown"
+                                :dropdownOptions="dropdownOptions"
+                                :placeholder_dropdown="placeholder_dropdown"
                             />
 
-                            <div>
-                                <h3 class="text-xl font-bold text-left py-2">
-                                    Countries &amp; Conversion Price
-                                    <span>{{ form.target_url }}</span>
-                                </h3>
-                            </div>
-
                             <!-- os -->
-                            <div class="mb-6">
-                                <label
-                                    for="campaignTitle"
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                    >OS</label
-                                >
-                                <input
-                                    type="text"
-                                    v-model="form.name"
-                                    id="campaignTitle"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    placeholder="Start typing..."
-                                />
-                            </div>
+                            <InputField
+                                id="os"
+                                v-model="form.os"
+                                title="OS"
+                                placeholder="Start typing..."
+                                inputType="dropdown"
+                                :dropdownOptions="dropdownOptions"
+                                :placeholder_dropdown="placeholder_dropdown"
+                            />
 
                             <!-- device -->
                             <div class="mb-6">
