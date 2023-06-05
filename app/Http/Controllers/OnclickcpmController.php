@@ -118,8 +118,8 @@ class OnclickcpmController extends Controller
             ]);
 
 
-        dd($response->json());
-        //dd($request->input('countries'));
+        //dd($response->json());
+        dd($request->input('countries'));
         //dd($wrap);
         return Inertia::render('Onclickcpm',[
             'success'=>$response->created()

@@ -1,12 +1,7 @@
 <script setup>
 import SidebarLayout from "@/Layouts/SidebarLayout.vue";
-import RadioButtonCards from "@/Components/RadioButtonCards.vue";
-import HorizontalLine from "@/Components/HorizontalLine.vue";
-import AddDeleteAlert from "@/Components/AddDeleteAlert.vue";
-import AlertTriangle from "@/Components/AlertTriangle.vue";
-import AlertInfo from "@/Components/AlertInfo.vue";
 import { useForm } from "@inertiajs/vue3";
-import { ref } from "vue";
+import {ref, watch} from "vue";
 
 defineProps({
     propads_timetable: Object,
@@ -25,15 +20,24 @@ defineProps({
     propads_traffic_categories: Object,
 });
 
+//test countries
+const listCountries = ref([])
+//const count = ref(0)
+
+
+
 const isOpen = ref(false);
 
 
 const form = useForm({
     name: null,
     target_url:null,
+    is_adblock_buy:null,
     countries:ref([]),
+    rates:null,
     user_activity:ref([]),
     remember: false,
+
 });
 </script>
 
@@ -42,15 +46,44 @@ const form = useForm({
         <template #content>
             <div>
                 OnClick CPM
-                <p>Checked names: <pre>{{ form.countries }}</pre></p>
-                <p>Checked countries: <pre>{{ form.user_activity }}</pre></p>
+                <p>Checked names: <pre>{{ form.name }}</pre></p>
+                <p>Checked target url: <pre>{{ form.target_url }}</pre></p>
+                <p>Checked adblock: <pre>{{ form.is_adblock_buy }}</pre></p>
+                <p>Checked countries: <pre>{{ form.countries }}</pre></p>
+                <p>Checked rates: <pre>{{ form.rates }}</pre></p>
 
                 <form @submit.prevent="form.post('/onclick-cpm-create')">
                     <!-- name -->
                     <input
                         type="text"
                         v-model="form.name"
+                        placeholder="name"
                     >
+                    <br>
+                    <!-- target url -->
+                    <input
+                        type="text"
+                        v-model="form.target_url"
+                        placeholder="target url"
+                    >
+                    <br>
+                    <!-- adblock buy -->
+                    <input
+                        type="checkbox"
+                        v-model="form.is_adblock_buy"
+                        true-value=1
+                        false-value=null
+                    >
+                    <br>
+                    <!-- Countries -->
+                    <li v-for="item in propads_device_type.result">
+                        <input
+                            type="checkbox"
+                            v-model="form.countries"
+                            :value="item.value"
+                        >
+                        <label>{{item.value}}</label>
+                    </li>
                     <br>
                     <!-- user activity -->
                     <input
@@ -58,6 +91,15 @@ const form = useForm({
                         value="1"
                         v-model="form.user_activity"
                     >
+                    <br>
+                    <!-- Rates -->
+                    <input
+                        type="text"
+                        v-model="form.rates"
+                        placeholder="rates"
+
+                    >
+                    <br>
                     <input
                         type="checkbox"
                         value="2"
@@ -67,13 +109,6 @@ const form = useForm({
                         type="checkbox"
                         value="3"
                         v-model="form.user_activity"
-                    >
-                    <br>
-                    <!-- country -->
-                    <input
-                        type="text"
-                        v-model="form.countries"
-                        placeholder="countries"
                     >
                     <br>
                     <button
