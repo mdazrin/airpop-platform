@@ -176,57 +176,31 @@ const inputType_dropdown = ref("dropdown");
 
                         <!-- cities/states -->
                         <div class="mb-6">
-                            <label
-                                for="target_by"
-                                class="block text-sm font-medium text-gray-900"
-                                >Cities</label
-                            >
-
                             <div class="flex">
                                 <div class="flex items-center mr-4">
-                                    <input
-                                        id="inline-radio"
-                                        type="radio"
-                                        value="include"
-                                        name="radio_cities"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                                    <InputField
+                                        id="countries"
+                                        v-model="form.countries"
+                                        title="Countries*"
+                                        placeholder="Choose a country"
+                                        inputType="dropdown"
+                                        :dropdownOptions="dropdownOptions"
+                                        :placeholder_dropdown="
+                                            placeholder_dropdown
+                                        "
                                     />
-                                    <label
-                                        for="inline-radio"
-                                        class="ml-2 text-sm font-medium text-gray-900"
-                                        >Include</label
-                                    >
                                 </div>
-                                <div class="flex items-center mr-4">
-                                    <input
-                                        id="inline-2-radio"
-                                        type="radio"
-                                        value="exclude"
-                                        name="radio_cities"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                    />
-                                    <label
-                                        for="inline-2-radio"
-                                        class="ml-2 text-sm font-medium text-gray-900"
-                                        >Exclude</label
-                                    >
-                                </div>
-                                <!-- <div class="flex flex-auto items-center mr-4"> -->
-                                <!-- <input
-                                        type="text"
+
+                                <div class="flex flex-auto items-center mr-4">
+                                    <InputField
                                         id="cities_list"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        v-model="form.cities_list"
                                         placeholder="Start typing..."
-                                    /> -->
-                                <InputField
-                                    id="cities_list"
-                                    v-model="form.cities_list"
-                                    placeholder="Start typing..."
-                                    inputType="input"
-                                    caption="true"
-                                    :caption_label="captionTargetURL[1]"
-                                />
-                                <!-- </div> -->
+                                        inputType="input"
+                                        caption="true"
+                                        :caption_label="captionTargetURL[1]"
+                                    />
+                                </div>
                             </div>
                         </div>
 
