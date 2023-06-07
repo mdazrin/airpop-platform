@@ -57,8 +57,8 @@ class OnclickcpagController extends Controller
                 'rate_model'=>'scpa',
                 'target_url'=>'https://propellerads.com/?clickid=${SUBID}',
                 'status'=>1,
-                'started_at'=>'26/5/2023',
-                'expired_at'=>'27/5/2023',
+                'started_at'=>'8/6/2023',
+                'expired_at'=>'9/6/2023',
                 'is_adblock_buy'=>1,
                 'targeting'=>[
                     'country'=>[
@@ -123,7 +123,7 @@ class OnclickcpagController extends Controller
                 ]
             ]);
 
-        dd($response->created());
+        //dd($response->created());
         return Inertia::render('Onclickcpag',[
             'success'=>$response->created()
         ]);
