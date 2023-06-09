@@ -9,6 +9,7 @@ import InputField from "@/Components/FormComponents/InputField.vue";
 import DropdownInputField from "@/Components/FormComponents/DropdownInputField.vue";
 import CaptionLabel from "@/Components/FormComponents/CaptionLabel.vue";
 import TitleLabel from "@/Components/FormComponents/TitleLabel.vue";
+import RadioButtonInput from "@/Components/FormComponents/RadioButtonInput.vue";
 import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
@@ -63,9 +64,15 @@ const dropdownOptions_4 = [
     { value: "no", label: "No Proxy" },
 ];
 
+const radioOptions_1 = [
+    { value: "cities", label: "Cities" },
+    { value: "states", label: "States" },
+];
+
 const form = useForm({
     name: null,
     target_url: null,
+    target_by: null,
     remember: false,
     countries: null,
     cpa_goal_required: null,
@@ -76,6 +83,8 @@ const form = useForm({
     timezone: null,
     cities: "",
     states: null,
+    connection_type: null,
+    proxy_url: null,
 });
 
 const inputType_dropdown = ref("dropdown");
@@ -85,12 +94,11 @@ const inputType_dropdown = ref("dropdown");
     <SidebarLayout>
         <template #content>
             <div>
-                OnClick CPA Goal 2.0
                 <form @submit.prevent="form.post('/onclick-cpag-create')">
                     <TitleLabel
                         class="text-3xl"
                         title_big="true"
-                        title="Create Campaign"
+                        title="Create Campaign (OnClick CPA Goal 2.0)"
                     />
 
                     <!-- campaign name -->
@@ -167,45 +175,11 @@ const inputType_dropdown = ref("dropdown");
                         </div>
 
                         <!-- Target by -->
-                        <div class="mb-6">
-                            <label
-                                for="target_by"
-                                class="block mb-2 text-sm font-medium text-gray-900"
-                                >Target by</label
-                            >
-
-                            <div class="flex">
-                                <div class="flex items-center mr-4">
-                                    <input
-                                        checked
-                                        id="inline-radio"
-                                        type="radio"
-                                        value="cities"
-                                        name="radio_target_by"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                    />
-                                    <label
-                                        for="inline-radio"
-                                        class="ml-2 text-sm font-medium text-gray-900"
-                                        >Cities</label
-                                    >
-                                </div>
-                                <div class="flex items-center mr-4">
-                                    <input
-                                        id="inline-2-radio"
-                                        type="radio"
-                                        value="states"
-                                        name="radio_target_by"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                    />
-                                    <label
-                                        for="inline-2-radio"
-                                        class="ml-2 text-sm font-medium text-gray-900"
-                                        >States</label
-                                    >
-                                </div>
-                            </div>
-                        </div>
+                        <RadioButtonInput
+                            title="Target by"
+                            :options="radioOptions_1"
+                            v-model="form.target_by"
+                        />
 
                         <!-- countries -->
 
@@ -219,26 +193,27 @@ const inputType_dropdown = ref("dropdown");
                             caption="true"
                             :caption_label="captionTargetURL[1]"
                         /> -->
+                        <div>
+                            <TitleLabel title="Cities/States" />
 
-                        <TitleLabel title="Cities/States" />
-
-                        <div class="flex">
-                            <InputField
-                                class="flex items-center mr-2"
-                                v-model="form.cities"
-                                inputType="dropdown"
-                                type="text"
-                                :dropdownOptions="dropdownOptions_2"
-                                :placeholder_dropdown="placeholder_dropdown"
-                            />
-                            <InputField
-                                class="flex flex-auto items-center"
-                                v-model="form.states"
-                                inputType="dropdown"
-                                type="text"
-                                :dropdownOptions="dropdownOptions"
-                                :placeholder_dropdown="placeholder_dropdown"
-                            />
+                            <div class="flex">
+                                <InputField
+                                    class="flex items-center mr-2"
+                                    v-model="form.cities"
+                                    inputType="dropdown"
+                                    type="text"
+                                    :dropdownOptions="dropdownOptions_2"
+                                    :placeholder_dropdown="placeholder_dropdown"
+                                />
+                                <InputField
+                                    class="flex flex-auto items-center"
+                                    v-model="form.states"
+                                    inputType="dropdown"
+                                    type="text"
+                                    :dropdownOptions="dropdownOptions"
+                                    :placeholder_dropdown="placeholder_dropdown"
+                                />
+                            </div>
                         </div>
 
                         <!-- targetting -->
@@ -356,23 +331,35 @@ const inputType_dropdown = ref("dropdown");
                             </div>
 
                             <!-- connection type -->
-                            <InputField
+                            <!-- <InputField
                                 title="Connection Type"
                                 v-model="form.cities"
                                 inputType="dropdown"
                                 type="text"
                                 :dropdownOptions="dropdownOptions_3"
                                 :placeholder_dropdown="placeholder_dropdown"
+                            /> -->
+
+                            <RadioButtonInput
+                                title="Connection Type"
+                                :options="dropdownOptions_3"
+                                v-model="form.connection_type"
                             />
 
                             <!-- proxy -->
-                            <InputField
+                            <!-- <InputField
                                 title="Proxy"
                                 v-model="form.cities"
                                 inputType="dropdown"
                                 type="text"
                                 :dropdownOptions="dropdownOptions_4"
                                 :placeholder_dropdown="placeholder_dropdown"
+                            /> -->
+
+                            <RadioButtonInput
+                                title="Proxy"
+                                :options="dropdownOptions_4"
+                                v-model="form.proxy"
                             />
 
                             <!-- Mobile ISP -->
