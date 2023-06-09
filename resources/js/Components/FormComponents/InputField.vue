@@ -1,5 +1,7 @@
 <script setup>
 import { defineProps } from "vue";
+import CaptionLabel from "./CaptionLabel.vue";
+import TitleLabel from "./TitleLabel.vue";
 
 const props = defineProps({
     id: {
@@ -42,10 +44,9 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="border-none mb-6 pl-[-24px]">
-        <label :for="id" class="block mb-2 text-sm font-medium text-gray-900">
-            {{ title }}
-        </label>
+    <div class="border-none pl-[-24px]">
+        <TitleLabel :title="title" />
+
         <template v-if="inputType === 'input'">
             <input
                 :id="id"
@@ -55,12 +56,7 @@ const props = defineProps({
                 :value="modelValue"
                 @input="$emit('update:modelValue', $event.target.value)"
             />
-            <label
-                v-if="caption"
-                for="target_by"
-                class="block mb-2 ml-1 pb-4 text-xs font-medium text-gray-500"
-                >{{ caption_label }}</label
-            >
+            <CaptionLabel v-if="caption" :caption_label="caption_label" />
         </template>
 
         <template v-else-if="inputType === 'dropdown'">

@@ -5,7 +5,10 @@ import HorizontalLine from "@/Components/HorizontalLine.vue";
 import AddDeleteAlert from "@/Components/AddDeleteAlert.vue";
 import AlertTriangle from "@/Components/AlertTriangle.vue";
 import AlertInfo from "@/Components/AlertInfo.vue";
-import InputField from "@/Components/InputField.vue";
+import InputField from "@/Components/FormComponents/InputField.vue";
+import DropdownInputField from "@/Components/FormComponents/DropdownInputField.vue";
+import CaptionLabel from "@/Components/FormComponents/CaptionLabel.vue";
+import TitleLabel from "@/Components/FormComponents/TitleLabel.vue";
 import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
@@ -30,12 +33,34 @@ const isOpen = ref(false);
 const captionTargetURL = [
     "https://www.domain.com/in.php?clickid=${SUBID}",
     "Add city targeting to reach people in certain cities",
+    "Please set up GEO and select 3G/LTE connection type in order to select Mobile ISP",
+    "Maximum 5000 zones allowed",
 ];
 const placeholder_dropdown = ref("Select an option");
 const dropdownOptions = [
     { value: "option1", label: "Option 1" },
     { value: "option2", label: "Option 2" },
     { value: "option3", label: "Option 3" },
+];
+const dropdownOptions_timezone = [
+    { value: "UTC (GMT)", label: "UTC (GMT)" },
+    { value: "UTC+1", label: "UTC+1" },
+    { value: "UTC+2", label: "UTC+2" },
+];
+const dropdownOptions_2 = [
+    { value: "include", label: "Include" },
+    { value: "exclude", label: "Exclude" },
+];
+const dropdownOptions_3 = [
+    { value: "all", label: "All" },
+    { value: "3g", label: "3G / LTE" },
+    { value: "wifi", label: "WI-FI / Broadband" },
+];
+
+const dropdownOptions_4 = [
+    { value: "all", label: "All" },
+    { value: "only", label: "Only Proxy" },
+    { value: "no", label: "No Proxy" },
 ];
 
 const form = useForm({
@@ -48,6 +73,9 @@ const form = useForm({
     cities_list: null,
     platform: null,
     os: null,
+    timezone: null,
+    cities: "",
+    states: null,
 });
 
 const inputType_dropdown = ref("dropdown");
@@ -59,9 +87,11 @@ const inputType_dropdown = ref("dropdown");
             <div>
                 OnClick CPA Goal 2.0
                 <form @submit.prevent="form.post('/onclick-cpag-create')">
-                    <h3 class="text-2xl font-bold text-left py-2">
-                        Create Campaign
-                    </h3>
+                    <TitleLabel
+                        class="text-3xl"
+                        title_big="true"
+                        title="Create Campaign"
+                    />
 
                     <!-- campaign name -->
                     <InputField
@@ -70,16 +100,17 @@ const inputType_dropdown = ref("dropdown");
                         title="Campaign Name"
                         placeholder="Start typing..."
                         inputType="input"
+                        type="text"
                     />
 
                     <!-- target url -->
-
                     <InputField
                         id="targetURL"
                         v-model="form.target_url"
                         title="Target URL"
                         placeholder="Start typing..."
                         inputType="input"
+                        type="text"
                         caption="true"
                         :caption_label="captionTargetURL[0]"
                     />
@@ -87,9 +118,10 @@ const inputType_dropdown = ref("dropdown");
                     <!-- Countries & Conversion price -->
                     <div class="mb-6">
                         <HorizontalLine />
-                        <h3 class="text-xl font-bold text-left py-2">
-                            Countries &amp; Conversion Price
-                        </h3>
+                        <TitleLabel
+                            title_big="true"
+                            title=" Countries &amp; Conversion Price"
+                        />
                         <div class="grid gap-6 mb-6 md:grid-cols-6">
                             <div class="col-span-5">
                                 <InputField
@@ -98,6 +130,7 @@ const inputType_dropdown = ref("dropdown");
                                     title="Countries*"
                                     placeholder="Choose a country"
                                     inputType="dropdown"
+                                    type="text"
                                     :dropdownOptions="dropdownOptions"
                                     :placeholder_dropdown="placeholder_dropdown"
                                     required
@@ -174,42 +207,44 @@ const inputType_dropdown = ref("dropdown");
                             </div>
                         </div>
 
-                        <!-- cities/states -->
-                        <div class="mb-6">
-                            <div class="flex">
-                                <div class="flex items-center mr-4">
-                                    <InputField
-                                        id="countries"
-                                        v-model="form.countries"
-                                        title="Countries*"
-                                        placeholder="Choose a country"
-                                        inputType="dropdown"
-                                        :dropdownOptions="dropdownOptions"
-                                        :placeholder_dropdown="
-                                            placeholder_dropdown
-                                        "
-                                    />
-                                </div>
+                        <!-- countries -->
 
-                                <div class="flex flex-auto items-center mr-4">
-                                    <InputField
-                                        id="cities_list"
-                                        v-model="form.cities_list"
-                                        placeholder="Start typing..."
-                                        inputType="input"
-                                        caption="true"
-                                        :caption_label="captionTargetURL[1]"
-                                    />
-                                </div>
-                            </div>
+                        <!-- need to do more research for multiple v-model bindings -->
+                        <!-- <DropdownInputField
+                            title="Cities"
+                            v-model:modelValue1="form.cities"
+                            v-model:modelValue2="form.states"
+                            :placeholder_dropdown="placeholder_dropdown"
+                            :dropdownOptions="dropdownOptions_2"
+                            caption="true"
+                            :caption_label="captionTargetURL[1]"
+                        /> -->
+
+                        <TitleLabel title="Cities/States" />
+
+                        <div class="flex">
+                            <InputField
+                                class="flex items-center mr-2"
+                                v-model="form.cities"
+                                inputType="dropdown"
+                                type="text"
+                                :dropdownOptions="dropdownOptions_2"
+                                :placeholder_dropdown="placeholder_dropdown"
+                            />
+                            <InputField
+                                class="flex flex-auto items-center"
+                                v-model="form.states"
+                                inputType="dropdown"
+                                type="text"
+                                :dropdownOptions="dropdownOptions"
+                                :placeholder_dropdown="placeholder_dropdown"
+                            />
                         </div>
 
                         <!-- targetting -->
                         <div class="mb-6">
                             <HorizontalLine />
-                            <h3 class="text-xl font-bold text-left py-2">
-                                Targetting
-                            </h3>
+                            <TitleLabel title_big="true" title=" Targetting" />
 
                             <!-- platform -->
 
@@ -219,6 +254,7 @@ const inputType_dropdown = ref("dropdown");
                                 title="Platform"
                                 placeholder="Start typing..."
                                 inputType="dropdown"
+                                type="text"
                                 :dropdownOptions="dropdownOptions"
                                 :placeholder_dropdown="placeholder_dropdown"
                             />
@@ -230,408 +266,195 @@ const inputType_dropdown = ref("dropdown");
                                 title="OS"
                                 placeholder="Start typing..."
                                 inputType="dropdown"
+                                type="text"
                                 :dropdownOptions="dropdownOptions"
                                 :placeholder_dropdown="placeholder_dropdown"
                             />
 
                             <!-- device -->
-                            <div class="mb-6">
-                                <label
-                                    for="target_by"
-                                    class="block text-sm font-medium text-gray-900"
-                                    >Device
-                                </label>
+                            <div>
+                                <TitleLabel title="Device" />
+
                                 <div class="flex">
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            checked
-                                            id="inline-radio"
-                                            type="radio"
-                                            value="include_device"
-                                            name="radio_device"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >Include</label
-                                        >
-                                    </div>
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            id="inline-2-radio"
-                                            type="radio"
-                                            value="exclude_device"
-                                            name="radio_device"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-2-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >Exclude</label
-                                        >
-                                    </div>
-                                    <div
-                                        class="flex flex-auto items-center mr-4"
-                                    >
-                                        <input
-                                            type="text"
-                                            id="cities_list"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            placeholder="Start typing..."
-                                        />
-                                    </div>
+                                    <InputField
+                                        class="flex items-center mr-2"
+                                        v-model="form.cities"
+                                        inputType="dropdown"
+                                        type="text"
+                                        :dropdownOptions="dropdownOptions_2"
+                                        :placeholder_dropdown="
+                                            placeholder_dropdown
+                                        "
+                                    />
+                                    <InputField
+                                        class="flex flex-auto items-center"
+                                        v-model="form.states"
+                                        inputType="dropdown"
+                                        type="text"
+                                        :dropdownOptions="dropdownOptions"
+                                        :placeholder_dropdown="
+                                            placeholder_dropdown
+                                        "
+                                    />
                                 </div>
                             </div>
 
                             <!-- browser -->
-                            <div class="mb-6">
-                                <label
-                                    for="target_by"
-                                    class="block text-sm font-medium text-gray-900"
-                                    >Browser
-                                </label>
+                            <div>
+                                <TitleLabel title="Browser" />
+
                                 <div class="flex">
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            checked
-                                            id="inline-radio"
-                                            type="radio"
-                                            value="include_browser"
-                                            name="radio_browser"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >Include</label
-                                        >
-                                    </div>
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            id="inline-2-radio"
-                                            type="radio"
-                                            value="exclude_browser"
-                                            name="radio_browser"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-2-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >Exclude</label
-                                        >
-                                    </div>
-                                    <div
-                                        class="flex flex-auto items-center mr-4"
-                                    >
-                                        <input
-                                            type="text"
-                                            id="cities_list"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            placeholder="Start typing..."
-                                        />
-                                    </div>
+                                    <InputField
+                                        class="flex items-center mr-2"
+                                        v-model="form.cities"
+                                        inputType="dropdown"
+                                        type="text"
+                                        :dropdownOptions="dropdownOptions_2"
+                                        :placeholder_dropdown="
+                                            placeholder_dropdown
+                                        "
+                                    />
+                                    <InputField
+                                        class="flex flex-auto items-center"
+                                        v-model="form.states"
+                                        inputType="dropdown"
+                                        type="text"
+                                        :dropdownOptions="dropdownOptions"
+                                        :placeholder_dropdown="
+                                            placeholder_dropdown
+                                        "
+                                    />
                                 </div>
                             </div>
 
                             <!-- browser language -->
-                            <div class="mb-6">
-                                <label
-                                    for="target_by"
-                                    class="block text-sm font-medium text-gray-900"
-                                    >Browser Language
-                                </label>
+                            <div>
+                                <TitleLabel title="Browser Language" />
+
                                 <div class="flex">
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            checked
-                                            id="inline-radio"
-                                            type="radio"
-                                            value="include_browser_language"
-                                            name="radio_browser_language"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >Include</label
-                                        >
-                                    </div>
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            id="inline-2-radio"
-                                            type="radio"
-                                            value="exclude_browser_language"
-                                            name="radio_browser_language"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-2-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >Exclude</label
-                                        >
-                                    </div>
-                                    <div
-                                        class="flex flex-auto items-center mr-4"
-                                    >
-                                        <input
-                                            type="text"
-                                            id="cities_list"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            placeholder="Start typing..."
-                                        />
-                                    </div>
+                                    <InputField
+                                        class="flex items-center mr-2"
+                                        v-model="form.cities"
+                                        inputType="dropdown"
+                                        type="text"
+                                        :dropdownOptions="dropdownOptions_2"
+                                        :placeholder_dropdown="
+                                            placeholder_dropdown
+                                        "
+                                    />
+                                    <InputField
+                                        class="flex flex-auto items-center"
+                                        v-model="form.states"
+                                        inputType="dropdown"
+                                        type="text"
+                                        :dropdownOptions="dropdownOptions"
+                                        :placeholder_dropdown="
+                                            placeholder_dropdown
+                                        "
+                                    />
                                 </div>
                             </div>
 
                             <!-- connection type -->
-                            <div class="mb-6">
-                                <label
-                                    for="target_by"
-                                    class="block text-sm font-medium text-gray-900 mb-2"
-                                    >Connection Type
-                                </label>
-                                <div class="flex">
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            checked
-                                            id="inline-radio"
-                                            type="radio"
-                                            value="include"
-                                            name="radio_connection_type"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >All</label
-                                        >
-                                    </div>
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            id="inline-2-radio"
-                                            type="radio"
-                                            value="exclude"
-                                            name="radio_connection_type"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-2-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >3G / LTE</label
-                                        >
-                                    </div>
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            id="inline-2-radio"
-                                            type="radio"
-                                            value="exclude"
-                                            name="radio_connection_type"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-2-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >WI-FI /Broadband
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                            <InputField
+                                title="Connection Type"
+                                v-model="form.cities"
+                                inputType="dropdown"
+                                type="text"
+                                :dropdownOptions="dropdownOptions_3"
+                                :placeholder_dropdown="placeholder_dropdown"
+                            />
 
                             <!-- proxy -->
-                            <div class="mb-6">
-                                <label
-                                    for="target_by"
-                                    class="block text-sm font-medium text-gray-900 mb-2"
-                                    >Proxy
-                                </label>
-                                <div class="flex">
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            id="inline-radio"
-                                            type="radio"
-                                            value="include"
-                                            name="radio_proxy"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >All traffic</label
-                                        >
-                                    </div>
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            id="inline-2-radio"
-                                            type="radio"
-                                            value="exclude"
-                                            name="radio_proxy"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-2-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >Only proxy</label
-                                        >
-                                    </div>
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            checked
-                                            id="inline-2-radio"
-                                            type="radio"
-                                            value="exclude"
-                                            name="radio_proxy"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-2-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >No proxy
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                            <InputField
+                                title="Proxy"
+                                v-model="form.cities"
+                                inputType="dropdown"
+                                type="text"
+                                :dropdownOptions="dropdownOptions_4"
+                                :placeholder_dropdown="placeholder_dropdown"
+                            />
 
                             <!-- Mobile ISP -->
-                            <div class="mb-6">
-                                <label
-                                    for="target_by"
-                                    class="block text-sm font-medium text-gray-900"
-                                    >Mobile ISP
-                                </label>
+                            <div>
+                                <TitleLabel title="Mobile ISP" />
+
                                 <div class="flex">
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            checked
-                                            id="inline-radio"
-                                            type="radio"
-                                            value="include_mobile_isp"
-                                            name="radio_mobile_isp"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >Include</label
-                                        >
-                                    </div>
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            id="inline-2-radio"
-                                            type="radio"
-                                            value="exclude_mobile_isp"
-                                            name="radio_mobile_isp"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-2-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >Exclude</label
-                                        >
-                                    </div>
-                                    <div
-                                        class="flex flex-auto items-center mr-4"
-                                    >
-                                        <input
-                                            type="text"
-                                            id="cities_list"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            placeholder="Start typing..."
-                                        />
-                                    </div>
+                                    <InputField
+                                        class="flex items-center mr-2"
+                                        v-model="form.cities"
+                                        inputType="dropdown"
+                                        type="text"
+                                        :dropdownOptions="dropdownOptions_2"
+                                        :placeholder_dropdown="
+                                            placeholder_dropdown
+                                        "
+                                    />
+                                    <InputField
+                                        class="flex flex-auto items-center"
+                                        v-model="form.states"
+                                        inputType="dropdown"
+                                        type="text"
+                                        :dropdownOptions="dropdownOptions"
+                                        :placeholder_dropdown="
+                                            placeholder_dropdown
+                                        "
+                                    />
                                 </div>
-                                <div>
-                                    <label
-                                        for="target_by"
-                                        class="block mb-2 text-xs font-medium text-gray-500"
-                                        >Please set up GEO and select 3G/LTE
-                                        connection type in order to select
-                                        Mobile ISP</label
-                                    >
-                                </div>
+                                <CaptionLabel
+                                    :caption_label="captionTargetURL[2]"
+                                />
                             </div>
 
                             <!-- zone limitation -->
-                            <div class="mb-6">
-                                <label
-                                    for="target_by"
-                                    class="block text-sm font-medium text-gray-900"
-                                    >Zone limitation
-                                </label>
+                            <div>
+                                <TitleLabel title="Zone limitation" />
+
                                 <div class="flex">
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            checked
-                                            id="inline-radio"
-                                            type="radio"
-                                            value="include_zone_limitation"
-                                            name="inline-radio_zone_limitation"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >Include</label
-                                        >
-                                    </div>
-                                    <div class="flex items-center mr-4">
-                                        <input
-                                            id="inline-2-radio"
-                                            type="radio"
-                                            value="exclude_zone_limitation"
-                                            name="inline-radio_zone_limitation"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        />
-                                        <label
-                                            for="inline-2-radio"
-                                            class="ml-2 text-sm font-medium text-gray-900"
-                                            >Exclude</label
-                                        >
-                                    </div>
-                                    <div
-                                        class="flex flex-auto items-center mr-4"
-                                    >
-                                        <textarea
-                                            id="message"
-                                            rows="1"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            placeholder="Zone IDs separated by comma"
-                                        ></textarea>
-                                    </div>
+                                    <InputField
+                                        class="flex items-center mr-2"
+                                        v-model="form.cities"
+                                        inputType="dropdown"
+                                        type="text"
+                                        :dropdownOptions="dropdownOptions_2"
+                                        :placeholder_dropdown="
+                                            placeholder_dropdown
+                                        "
+                                    />
+                                    <InputField
+                                        class="flex flex-auto items-center"
+                                        v-model="form.states"
+                                        inputType="dropdown"
+                                        type="text"
+                                        :dropdownOptions="dropdownOptions"
+                                        :placeholder_dropdown="
+                                            placeholder_dropdown
+                                        "
+                                    />
                                 </div>
-                                <div>
-                                    <label
-                                        for="target_by"
-                                        class="block mb-2 text-xs font-medium text-gray-500"
-                                        >Maximum 5000 zones allowed
-                                    </label>
-                                </div>
+                                <CaptionLabel
+                                    :caption_label="captionTargetURL[3]"
+                                />
                             </div>
                         </div>
 
                         <!-- campaign schedule -->
                         <div class="mb-6">
                             <HorizontalLine />
-                            <h3 class="text-xl font-bold text-left py-2">
-                                Campaign Schedule
-                            </h3>
-                            <div>
-                                <label
-                                    for="audience_name"
-                                    class="block mb-2 mt-4 text-sm font-medium text-gray-900"
-                                    >Select Timezone</label
-                                >
-                                <select
-                                    id="countries"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    placeholder="Create new or select the existing one"
-                                >
-                                    <option>UTC (GMT)</option>
-                                    <option>UTC+1</option>
-                                    <option>UTC+2</option>
-                                    <option>UTC+3</option>
-                                </select>
-                            </div>
+                            <TitleLabel
+                                title_big="true"
+                                title=" Campaign Schedule"
+                            />
+
+                            <InputField
+                                id="timezone"
+                                v-model="form.os"
+                                title="Select Timezone"
+                                inputType="dropdown"
+                                :dropdownOptions="dropdownOptions_timezone"
+                                :placeholder_dropdown="placeholder_dropdown"
+                            />
+
                             <!-- <div> date picker </div> -->
 
                             <AlertTriangle
