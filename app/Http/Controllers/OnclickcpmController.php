@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -53,6 +54,23 @@ class OnclickcpmController extends Controller
 
     public function create(Request $request): Response
     {
+        //break countries array
+        //break amount array
+
+        $testcountries = collect([['us','it'],['in']]);
+        $testrate = collect([1,2]);
+        $collection = collect();
+
+        for($i=0;$i<2;$i++){
+            $seats['countries']= $testcountries[$i];
+            $seats['amount']=$testrate->get($i);
+            $collection->push($seats);
+        }
+
+
+
+        //dd($collection);
+
 
         $response = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')->post('https://ssp-api.propellerads.com/v5/adv/campaigns',
             [
@@ -63,12 +81,17 @@ class OnclickcpmController extends Controller
                 'frequency'=>3,
                 'capping'=>86400,
                 'status'=>1,
-                'started_at'=>'2/6/2023',
-                'expired_at'=>'3/6/2023',
+                'started_at'=>'8/8/2023',
+                'expired_at'=>'9/8/2023',
                 'is_adblock_buy'=>1,
                 'targeting'=>[
                     'country'=>[
-                        'list'=>$request->input('countries'),
+                        'list'=>[
+                            'it',
+                            'us',
+                            'in'
+
+                        ],
                         'is_excluded'=>false
                     ],
                     'user_activity'=>[
@@ -106,20 +129,16 @@ class OnclickcpmController extends Controller
                     ]
                 ],
                 'timezone'=>3,
-                'rates'=>[
-                    [
-                        'countries'=>[
-                            'in',
+                'rates'=> $collection
 
-                        ],
-                        'amount'=>0.5
-                    ]
-                ]
+
+
+
             ]);
 
 
-        //dd($response->json());
-        dd($request->input('countries'));
+        dd($response->json());
+        //dd($request->input('amount'));
         //dd($wrap);
         return Inertia::render('Onclickcpm',[
             'success'=>$response->created()
