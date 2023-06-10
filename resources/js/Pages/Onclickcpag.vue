@@ -78,6 +78,13 @@ const checkedBox_QualityGuidelines = [
     },
 ];
 
+const checkedBox_anti_adblock = [
+    {
+        value: "true",
+        label: "Include Anti-AdBlock",
+    },
+];
+
 const form = useForm({
     name: null,
     target_url: null,
@@ -95,6 +102,7 @@ const form = useForm({
     connection_type: null,
     proxy_url: null,
     checkedBox_QualityGuidelines: [],
+    checkedBox_anti_adblock: [],
 });
 
 const inputType_dropdown = ref("dropdown");
@@ -131,6 +139,12 @@ const inputType_dropdown = ref("dropdown");
                         type="text"
                         caption="true"
                         :caption_label="captionTargetURL[0]"
+                    />
+
+                    <CheckBox
+                        title="Traffic Sources"
+                        :options="checkedBox_anti_adblock"
+                        v-model="form.checkedBox_anti_adblock"
                     />
 
                     <!-- Countries & Conversion price -->
