@@ -10,6 +10,8 @@ import DropdownInputField from "@/Components/FormComponents/DropdownInputField.v
 import CaptionLabel from "@/Components/FormComponents/CaptionLabel.vue";
 import TitleLabel from "@/Components/FormComponents/TitleLabel.vue";
 import RadioButtonInput from "@/Components/FormComponents/RadioButtonInput.vue";
+import CheckBox from "@/Components/FormComponents/CheckBox.vue";
+
 import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
@@ -64,9 +66,12 @@ const dropdownOptions_4 = [
     { value: "no", label: "No Proxy" },
 ];
 
-const radioOptions_1 = [
-    { value: "cities", label: "Cities" },
-    { value: "states", label: "States" },
+const checkedBox_QualityGuidelines = [
+    {
+        value: "true",
+        label: "I declare and guarantee that my campaign meets the",
+        label_blue: "Quality Guidelines",
+    },
 ];
 
 const form = useForm({
@@ -85,6 +90,7 @@ const form = useForm({
     states: null,
     connection_type: null,
     proxy_url: null,
+    checkedBox_QualityGuidelines: [],
 });
 
 const inputType_dropdown = ref("dropdown");
@@ -394,28 +400,11 @@ const inputType_dropdown = ref("dropdown");
                             title="Please note that an Interstitial campaign can be rejected in case your landing page cannot be opened via Interstitial banner (is using more than 4 megabytes of network bandwidth)"
                         />
 
-                        <div class="flex items-start mb-6">
-                            <div class="flex items-center h-5">
-                                <input
-                                    id="terms"
-                                    type="checkbox"
-                                    value=""
-                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                                    required
-                                />
-                            </div>
-                            <label
-                                for="terms"
-                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                >I declare and guarantee that my campaign meets
-                                the
-                                <a
-                                    href="#"
-                                    class="text-blue-600 hover:underline dark:text-blue-500"
-                                    >Quality Guidelines</a
-                                ></label
-                            >
-                        </div>
+                        <CheckBox
+                            :options="checkedBox_QualityGuidelines"
+                            v-model="form.checkedBox_QualityGuidelines"
+                        />
+
                         <div class="flex items-center justify-end">
                             <button
                                 type="button"
