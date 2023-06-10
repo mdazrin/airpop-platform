@@ -107,8 +107,6 @@ const form = useForm({
     checkedBox_QualityGuidelines: [],
     checkedBox_UserActivity: [],
 });
-
-const inputType_dropdown = ref("dropdown");
 </script>
 
 <template>
@@ -390,6 +388,32 @@ const inputType_dropdown = ref("dropdown");
                     </div>
 
                     <!-- Audiences -->
+                    <div>
+                        <TitleLabel title="Audiences" />
+
+                        <div class="flex">
+                            <InputField
+                                class="flex items-center mr-2"
+                                v-model="form.cities"
+                                inputType="dropdown"
+                                type="text"
+                                :dropdownOptions="dropdownOptions_2"
+                                :placeholder_dropdown="placeholder_dropdown"
+                            />
+                            <InputField
+                                class="flex flex-auto items-center"
+                                v-model="form.states"
+                                inputType="dropdown"
+                                type="text"
+                                :dropdownOptions="dropdownOptions"
+                                :placeholder_dropdown="placeholder_dropdown"
+                            />
+                        </div>
+                        <CaptionLabel
+                            caption_label="Show ads only to the users who visited your website earlier.
+                    More about Retargeting."
+                        />
+                    </div>
 
                     <!-- Collect an audience for retargeting -->
 

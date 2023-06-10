@@ -104,8 +104,6 @@ const form = useForm({
     checkedBox_QualityGuidelines: [],
     checkedBox_anti_adblock: [],
 });
-
-const inputType_dropdown = ref("dropdown");
 </script>
 
 <template>
