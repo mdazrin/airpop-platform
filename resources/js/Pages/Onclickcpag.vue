@@ -124,67 +124,66 @@ const inputType_dropdown = ref("dropdown");
                     />
 
                     <!-- Countries & Conversion price -->
-                    <div class="mb-6">
-                        <HorizontalLine />
-                        <TitleLabel
-                            title_big="true"
-                            title=" Countries &amp; Conversion Price"
-                        />
-                        <div class="grid gap-6 mb-6 md:grid-cols-6">
-                            <div class="col-span-5">
-                                <InputField
-                                    id="countries"
-                                    v-model="form.countries"
-                                    title="Countries*"
-                                    placeholder="Choose a country"
-                                    inputType="dropdown"
-                                    type="text"
-                                    :dropdownOptions="dropdownOptions"
-                                    :placeholder_dropdown="placeholder_dropdown"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <InputField
-                                    id="cpa_goal_required"
-                                    v-model="form.cpa_goal_required"
-                                    title="CPA Goal, $*"
-                                    inputType="input"
-                                    type="number"
-                                    step="0.01"
-                                    required
-                                />
-                            </div>
-                            <div class="col-span-5">
-                                <div
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                >
-                                    Add separate rate for Interstitial campaign
-                                </div>
-                            </div>
-                            <div>
-                                <InputField
-                                    id="cpa_goal"
-                                    v-model="form.cpa_goal"
-                                    title="CPA Goal, $"
-                                    inputType="input"
-                                    type="number"
-                                    step="0.01"
-                                />
+                    <HorizontalLine />
+                    <TitleLabel
+                        title_big="true"
+                        title=" Countries &amp; Conversion Price"
+                    />
+                    <div class="grid gap-6 mb-6 md:grid-cols-6">
+                        <div class="col-span-5">
+                            <InputField
+                                id="countries"
+                                v-model="form.countries"
+                                title="Countries*"
+                                placeholder="Choose a country"
+                                inputType="dropdown"
+                                type="text"
+                                :dropdownOptions="dropdownOptions"
+                                :placeholder_dropdown="placeholder_dropdown"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <InputField
+                                id="cpa_goal_required"
+                                v-model="form.cpa_goal_required"
+                                title="CPA Goal, $*"
+                                inputType="input"
+                                type="number"
+                                step="0.01"
+                                required
+                            />
+                        </div>
+                        <div class="col-span-5">
+                            <div
+                                class="block mb-2 text-sm font-medium text-gray-900"
+                            >
+                                Add separate rate for Interstitial campaign
                             </div>
                         </div>
+                        <div>
+                            <InputField
+                                id="cpa_goal"
+                                v-model="form.cpa_goal"
+                                title="CPA Goal, $"
+                                inputType="input"
+                                type="number"
+                                step="0.01"
+                            />
+                        </div>
+                    </div>
 
-                        <!-- Target by -->
-                        <RadioButtonInput
-                            title="Target by"
-                            :options="radioOptions_1"
-                            v-model="form.target_by"
-                        />
+                    <!-- Target by -->
+                    <RadioButtonInput
+                        title="Target by"
+                        :options="radioOptions_1"
+                        v-model="form.target_by"
+                    />
 
-                        <!-- countries -->
+                    <!-- countries -->
 
-                        <!-- need to do more research for multiple v-model bindings -->
-                        <!-- <DropdownInputField
+                    <!-- need to do more research for multiple v-model bindings -->
+                    <!-- <DropdownInputField
                             title="Cities"
                             v-model:modelValue1="form.cities"
                             v-model:modelValue2="form.states"
@@ -193,8 +192,62 @@ const inputType_dropdown = ref("dropdown");
                             caption="true"
                             :caption_label="captionTargetURL[1]"
                         /> -->
+                    <div>
+                        <TitleLabel title="Cities/States" />
+
+                        <div class="flex">
+                            <InputField
+                                class="flex items-center mr-2"
+                                v-model="form.cities"
+                                inputType="dropdown"
+                                type="text"
+                                :dropdownOptions="dropdownOptions_2"
+                                :placeholder_dropdown="placeholder_dropdown"
+                            />
+                            <InputField
+                                class="flex flex-auto items-center"
+                                v-model="form.states"
+                                inputType="dropdown"
+                                type="text"
+                                :dropdownOptions="dropdownOptions"
+                                :placeholder_dropdown="placeholder_dropdown"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- targeting -->
+                    <div class="mb-6">
+                        <HorizontalLine />
+                        <TitleLabel title_big="true" title=" Targeting" />
+
+                        <!-- platform -->
+
+                        <InputField
+                            id="platform"
+                            v-model="form.platform"
+                            title="Platform"
+                            placeholder="Start typing..."
+                            inputType="dropdown"
+                            type="text"
+                            :dropdownOptions="dropdownOptions"
+                            :placeholder_dropdown="placeholder_dropdown"
+                        />
+
+                        <!-- os -->
+                        <InputField
+                            id="os"
+                            v-model="form.os"
+                            title="OS"
+                            placeholder="Start typing..."
+                            inputType="dropdown"
+                            type="text"
+                            :dropdownOptions="dropdownOptions"
+                            :placeholder_dropdown="placeholder_dropdown"
+                        />
+
+                        <!-- device -->
                         <div>
-                            <TitleLabel title="Cities/States" />
+                            <TitleLabel title="Device" />
 
                             <div class="flex">
                                 <InputField
@@ -216,122 +269,56 @@ const inputType_dropdown = ref("dropdown");
                             </div>
                         </div>
 
-                        <!-- targetting -->
-                        <div class="mb-6">
-                            <HorizontalLine />
-                            <TitleLabel title_big="true" title=" Targetting" />
+                        <!-- browser -->
+                        <div>
+                            <TitleLabel title="Browser" />
 
-                            <!-- platform -->
-
-                            <InputField
-                                id="platform"
-                                v-model="form.platform"
-                                title="Platform"
-                                placeholder="Start typing..."
-                                inputType="dropdown"
-                                type="text"
-                                :dropdownOptions="dropdownOptions"
-                                :placeholder_dropdown="placeholder_dropdown"
-                            />
-
-                            <!-- os -->
-                            <InputField
-                                id="os"
-                                v-model="form.os"
-                                title="OS"
-                                placeholder="Start typing..."
-                                inputType="dropdown"
-                                type="text"
-                                :dropdownOptions="dropdownOptions"
-                                :placeholder_dropdown="placeholder_dropdown"
-                            />
-
-                            <!-- device -->
-                            <div>
-                                <TitleLabel title="Device" />
-
-                                <div class="flex">
-                                    <InputField
-                                        class="flex items-center mr-2"
-                                        v-model="form.cities"
-                                        inputType="dropdown"
-                                        type="text"
-                                        :dropdownOptions="dropdownOptions_2"
-                                        :placeholder_dropdown="
-                                            placeholder_dropdown
-                                        "
-                                    />
-                                    <InputField
-                                        class="flex flex-auto items-center"
-                                        v-model="form.states"
-                                        inputType="dropdown"
-                                        type="text"
-                                        :dropdownOptions="dropdownOptions"
-                                        :placeholder_dropdown="
-                                            placeholder_dropdown
-                                        "
-                                    />
-                                </div>
+                            <div class="flex">
+                                <InputField
+                                    class="flex items-center mr-2"
+                                    v-model="form.cities"
+                                    inputType="dropdown"
+                                    type="text"
+                                    :dropdownOptions="dropdownOptions_2"
+                                    :placeholder_dropdown="placeholder_dropdown"
+                                />
+                                <InputField
+                                    class="flex flex-auto items-center"
+                                    v-model="form.states"
+                                    inputType="dropdown"
+                                    type="text"
+                                    :dropdownOptions="dropdownOptions"
+                                    :placeholder_dropdown="placeholder_dropdown"
+                                />
                             </div>
+                        </div>
 
-                            <!-- browser -->
-                            <div>
-                                <TitleLabel title="Browser" />
+                        <!-- browser language -->
+                        <div>
+                            <TitleLabel title="Browser Language" />
 
-                                <div class="flex">
-                                    <InputField
-                                        class="flex items-center mr-2"
-                                        v-model="form.cities"
-                                        inputType="dropdown"
-                                        type="text"
-                                        :dropdownOptions="dropdownOptions_2"
-                                        :placeholder_dropdown="
-                                            placeholder_dropdown
-                                        "
-                                    />
-                                    <InputField
-                                        class="flex flex-auto items-center"
-                                        v-model="form.states"
-                                        inputType="dropdown"
-                                        type="text"
-                                        :dropdownOptions="dropdownOptions"
-                                        :placeholder_dropdown="
-                                            placeholder_dropdown
-                                        "
-                                    />
-                                </div>
+                            <div class="flex">
+                                <InputField
+                                    class="flex items-center mr-2"
+                                    v-model="form.cities"
+                                    inputType="dropdown"
+                                    type="text"
+                                    :dropdownOptions="dropdownOptions_2"
+                                    :placeholder_dropdown="placeholder_dropdown"
+                                />
+                                <InputField
+                                    class="flex flex-auto items-center"
+                                    v-model="form.states"
+                                    inputType="dropdown"
+                                    type="text"
+                                    :dropdownOptions="dropdownOptions"
+                                    :placeholder_dropdown="placeholder_dropdown"
+                                />
                             </div>
+                        </div>
 
-                            <!-- browser language -->
-                            <div>
-                                <TitleLabel title="Browser Language" />
-
-                                <div class="flex">
-                                    <InputField
-                                        class="flex items-center mr-2"
-                                        v-model="form.cities"
-                                        inputType="dropdown"
-                                        type="text"
-                                        :dropdownOptions="dropdownOptions_2"
-                                        :placeholder_dropdown="
-                                            placeholder_dropdown
-                                        "
-                                    />
-                                    <InputField
-                                        class="flex flex-auto items-center"
-                                        v-model="form.states"
-                                        inputType="dropdown"
-                                        type="text"
-                                        :dropdownOptions="dropdownOptions"
-                                        :placeholder_dropdown="
-                                            placeholder_dropdown
-                                        "
-                                    />
-                                </div>
-                            </div>
-
-                            <!-- connection type -->
-                            <!-- <InputField
+                        <!-- connection type -->
+                        <!-- <InputField
                                 title="Connection Type"
                                 v-model="form.cities"
                                 inputType="dropdown"
@@ -340,14 +327,14 @@ const inputType_dropdown = ref("dropdown");
                                 :placeholder_dropdown="placeholder_dropdown"
                             /> -->
 
-                            <RadioButtonInput
-                                title="Connection Type"
-                                :options="dropdownOptions_3"
-                                v-model="form.connection_type"
-                            />
+                        <RadioButtonInput
+                            title="Connection Type"
+                            :options="dropdownOptions_3"
+                            v-model="form.connection_type"
+                        />
 
-                            <!-- proxy -->
-                            <!-- <InputField
+                        <!-- proxy -->
+                        <!-- <InputField
                                 title="Proxy"
                                 v-model="form.cities"
                                 inputType="dropdown"
@@ -356,147 +343,139 @@ const inputType_dropdown = ref("dropdown");
                                 :placeholder_dropdown="placeholder_dropdown"
                             /> -->
 
-                            <RadioButtonInput
-                                title="Proxy"
-                                :options="dropdownOptions_4"
-                                v-model="form.proxy"
-                            />
+                        <RadioButtonInput
+                            title="Proxy"
+                            :options="dropdownOptions_4"
+                            v-model="form.proxy"
+                        />
 
-                            <!-- Mobile ISP -->
-                            <div>
-                                <TitleLabel title="Mobile ISP" />
-
-                                <div class="flex">
-                                    <InputField
-                                        class="flex items-center mr-2"
-                                        v-model="form.cities"
-                                        inputType="dropdown"
-                                        type="text"
-                                        :dropdownOptions="dropdownOptions_2"
-                                        :placeholder_dropdown="
-                                            placeholder_dropdown
-                                        "
-                                    />
-                                    <InputField
-                                        class="flex flex-auto items-center"
-                                        v-model="form.states"
-                                        inputType="dropdown"
-                                        type="text"
-                                        :dropdownOptions="dropdownOptions"
-                                        :placeholder_dropdown="
-                                            placeholder_dropdown
-                                        "
-                                    />
-                                </div>
-                                <CaptionLabel
-                                    :caption_label="captionTargetURL[2]"
-                                />
-                            </div>
-
-                            <!-- zone limitation -->
-                            <div>
-                                <TitleLabel title="Zone limitation" />
-
-                                <div class="flex">
-                                    <InputField
-                                        class="flex items-center mr-2"
-                                        v-model="form.cities"
-                                        inputType="dropdown"
-                                        type="text"
-                                        :dropdownOptions="dropdownOptions_2"
-                                        :placeholder_dropdown="
-                                            placeholder_dropdown
-                                        "
-                                    />
-                                    <InputField
-                                        class="flex flex-auto items-center"
-                                        v-model="form.states"
-                                        inputType="dropdown"
-                                        type="text"
-                                        :dropdownOptions="dropdownOptions"
-                                        :placeholder_dropdown="
-                                            placeholder_dropdown
-                                        "
-                                    />
-                                </div>
-                                <CaptionLabel
-                                    :caption_label="captionTargetURL[3]"
-                                />
-                            </div>
-                        </div>
-
-                        <!-- campaign schedule -->
-                        <div class="mb-6">
-                            <HorizontalLine />
-                            <TitleLabel
-                                title_big="true"
-                                title=" Campaign Schedule"
-                            />
-
-                            <InputField
-                                id="timezone"
-                                v-model="form.os"
-                                title="Select Timezone"
-                                inputType="dropdown"
-                                :dropdownOptions="dropdownOptions_timezone"
-                                :placeholder_dropdown="placeholder_dropdown"
-                            />
-
-                            <!-- <div> date picker </div> -->
-
-                            <AlertTriangle
-                                class="mt-8 !text-blue-500 !bg-blue-50 !border-blue-50"
-                                title="Before campaign is started it will be sent for review (takes up to 24 hours). And will start immediately."
-                            />
-
-                            <AlertTriangle
-                                class="!text-blue-500 !bg-blue-50 !border-blue-50"
-                                title="Please note that an Interstitial campaign can be rejected in case your landing page cannot be opened via Interstitial banner (is using more than 4 megabytes of network bandwidth)"
-                            />
-
-                            <div class="flex items-start mb-6">
-                                <div class="flex items-center h-5">
-                                    <input
-                                        id="terms"
-                                        type="checkbox"
-                                        value=""
-                                        class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                                        required
-                                    />
-                                </div>
-                                <label
-                                    for="terms"
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >I declare and guarantee that my campaign
-                                    meets the
-                                    <a
-                                        href="#"
-                                        class="text-blue-600 hover:underline dark:text-blue-500"
-                                        >Quality Guidelines</a
-                                    ></label
-                                >
-                            </div>
-                            <div class="flex items-center justify-end">
-                                <button
-                                    type="button"
-                                    class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mr-2"
-                                >
-                                    Save as Draft
-                                </button>
-                                <button
-                                    @click="isOpen = true"
-                                    type="submit"
-                                    :disabled="form.processing"
-                                    class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5"
-                                >
-                                    Start Campaign
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Modal -->
+                        <!-- Mobile ISP -->
                         <div>
-                            <!-- <button
+                            <TitleLabel title="Mobile ISP" />
+
+                            <div class="flex">
+                                <InputField
+                                    class="flex items-center mr-2"
+                                    v-model="form.cities"
+                                    inputType="dropdown"
+                                    type="text"
+                                    :dropdownOptions="dropdownOptions_2"
+                                    :placeholder_dropdown="placeholder_dropdown"
+                                />
+                                <InputField
+                                    class="flex flex-auto items-center"
+                                    v-model="form.states"
+                                    inputType="dropdown"
+                                    type="text"
+                                    :dropdownOptions="dropdownOptions"
+                                    :placeholder_dropdown="placeholder_dropdown"
+                                />
+                            </div>
+                            <CaptionLabel
+                                :caption_label="captionTargetURL[2]"
+                            />
+                        </div>
+
+                        <!-- zone limitation -->
+                        <div>
+                            <TitleLabel title="Zone limitation" />
+
+                            <div class="flex">
+                                <InputField
+                                    class="flex items-center mr-2"
+                                    v-model="form.cities"
+                                    inputType="dropdown"
+                                    type="text"
+                                    :dropdownOptions="dropdownOptions_2"
+                                    :placeholder_dropdown="placeholder_dropdown"
+                                />
+                                <InputField
+                                    class="flex flex-auto items-center"
+                                    v-model="form.states"
+                                    inputType="dropdown"
+                                    type="text"
+                                    :dropdownOptions="dropdownOptions"
+                                    :placeholder_dropdown="placeholder_dropdown"
+                                />
+                            </div>
+                            <CaptionLabel
+                                :caption_label="captionTargetURL[3]"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- campaign schedule -->
+                    <div class="mb-6">
+                        <HorizontalLine />
+                        <TitleLabel
+                            title_big="true"
+                            title=" Campaign Schedule"
+                        />
+
+                        <InputField
+                            id="timezone"
+                            v-model="form.os"
+                            title="Select Timezone"
+                            inputType="dropdown"
+                            :dropdownOptions="dropdownOptions_timezone"
+                            :placeholder_dropdown="placeholder_dropdown"
+                        />
+
+                        <!-- <div> date picker </div> -->
+
+                        <AlertTriangle
+                            class="mt-8 !text-blue-500 !bg-blue-50 !border-blue-50"
+                            title="Before campaign is started it will be sent for review (takes up to 24 hours). And will start immediately."
+                        />
+
+                        <AlertTriangle
+                            class="!text-blue-500 !bg-blue-50 !border-blue-50"
+                            title="Please note that an Interstitial campaign can be rejected in case your landing page cannot be opened via Interstitial banner (is using more than 4 megabytes of network bandwidth)"
+                        />
+
+                        <div class="flex items-start mb-6">
+                            <div class="flex items-center h-5">
+                                <input
+                                    id="terms"
+                                    type="checkbox"
+                                    value=""
+                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                                    required
+                                />
+                            </div>
+                            <label
+                                for="terms"
+                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                >I declare and guarantee that my campaign meets
+                                the
+                                <a
+                                    href="#"
+                                    class="text-blue-600 hover:underline dark:text-blue-500"
+                                    >Quality Guidelines</a
+                                ></label
+                            >
+                        </div>
+                        <div class="flex items-center justify-end">
+                            <button
+                                type="button"
+                                class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mr-2"
+                            >
+                                Save as Draft
+                            </button>
+                            <button
+                                @click="isOpen = true"
+                                type="submit"
+                                :disabled="form.processing"
+                                class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5"
+                            >
+                                Start Campaign
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div>
+                        <!-- <button
                                 @click="isOpen = true"
                                 class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 type="button"
@@ -504,78 +483,73 @@ const inputType_dropdown = ref("dropdown");
                                 Open Modal
                             </button> -->
 
-                            <div
-                                v-if="isOpen"
-                                class="fixed inset-0 flex items-center justify-center z-50"
-                            >
+                        <div
+                            v-if="isOpen"
+                            class="fixed inset-0 flex items-center justify-center z-50"
+                        >
+                            <div class="relative w-full max-w-md max-h-full">
                                 <div
-                                    class="relative w-full max-w-md max-h-full"
+                                    class="relative bg-white rounded-lg shadow"
                                 >
-                                    <div
-                                        class="relative bg-white rounded-lg shadow"
+                                    <button
+                                        @click="isOpen = false"
+                                        type="button"
+                                        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                                     >
-                                        <button
-                                            @click="isOpen = false"
-                                            type="button"
-                                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                                        <svg
+                                            aria-hidden="true"
+                                            class="w-5 h-5"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg"
                                         >
+                                            <path
+                                                fill-rule="evenodd"
+                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                clip-rule="evenodd"
+                                            ></path>
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                    <div class="p-6 text-center">
+                                        <svg
+                                            viewBox="0 0 1024 1024"
+                                            class="mx-auto mb-4 text-gray-400 w-14 h-14"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            id="IconChangeColor"
+                                            height="200"
+                                            width="200"
+                                        >
+                                            <path
+                                                fill="green"
+                                                d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm-55.808 536.384-99.52-99.584a38.4 38.4 0 1 0-54.336 54.336l126.72 126.72a38.272 38.272 0 0 0 54.336 0l262.4-262.464a38.4 38.4 0 1 0-54.272-54.336L456.192 600.384z"
+                                                id="mainIconPathAttribute"
+                                            ></path>
+                                        </svg>
+                                        <h3
+                                            class="mb-5 text-lg font-normal text-gray-500"
+                                        >
+                                            Campaign Created Sucessfully
+                                        </h3>
+                                        <button
+                                            type="button"
+                                            class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                                        >
+                                            Next
                                             <svg
                                                 aria-hidden="true"
-                                                class="w-5 h-5"
+                                                class="w-5 h-5 ml-2 -mr-1"
                                                 fill="currentColor"
                                                 viewBox="0 0 20 20"
                                                 xmlns="http://www.w3.org/2000/svg"
                                             >
                                                 <path
                                                     fill-rule="evenodd"
-                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
                                                     clip-rule="evenodd"
                                                 ></path>
                                             </svg>
-                                            <span class="sr-only"
-                                                >Close modal</span
-                                            >
                                         </button>
-                                        <div class="p-6 text-center">
-                                            <svg
-                                                viewBox="0 0 1024 1024"
-                                                class="mx-auto mb-4 text-gray-400 w-14 h-14"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                id="IconChangeColor"
-                                                height="200"
-                                                width="200"
-                                            >
-                                                <path
-                                                    fill="green"
-                                                    d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm-55.808 536.384-99.52-99.584a38.4 38.4 0 1 0-54.336 54.336l126.72 126.72a38.272 38.272 0 0 0 54.336 0l262.4-262.464a38.4 38.4 0 1 0-54.272-54.336L456.192 600.384z"
-                                                    id="mainIconPathAttribute"
-                                                ></path>
-                                            </svg>
-                                            <h3
-                                                class="mb-5 text-lg font-normal text-gray-500"
-                                            >
-                                                Campaign Created Sucessfully
-                                            </h3>
-                                            <button
-                                                type="button"
-                                                class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
-                                            >
-                                                Next
-                                                <svg
-                                                    aria-hidden="true"
-                                                    class="w-5 h-5 ml-2 -mr-1"
-                                                    fill="currentColor"
-                                                    viewBox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"
-                                                    ></path>
-                                                </svg>
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
