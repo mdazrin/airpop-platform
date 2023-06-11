@@ -37,9 +37,18 @@ function submit(){
                 <!--Loop every countries and rate -->
 
                     <div v-for="(list,index) in totalCountries">
+
+                    <!--Display a list of countries-->
                         <div>
-                            {{list}}
+                            {{list.countries}}
                         </div>
+
+                    <!--Display amount-->
+                        <div>
+                            {{list.amount}}
+                        </div>
+
+                    <!--Checkboxes for countries-->
                         <div>
                             <input
                                 type="checkbox"
@@ -65,6 +74,14 @@ function submit(){
                             <label>India</label>
                             <br>
 
+                            <input
+                                type="text"
+                                v-model="totalCountries[index].amount"
+                            >
+                            <label>Amount</label>
+                            <br>
+
+                            <!--Delete a list-->
                             <button
                                 type="button"
                                 @click="totalCountries.splice(index,1)"
