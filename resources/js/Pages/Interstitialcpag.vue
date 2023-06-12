@@ -1,109 +1,73 @@
 <script setup>
+import { ref, computed } from "vue";
 import SidebarLayout from "@/Layouts/SidebarLayout.vue";
-import {router} from '@inertiajs/vue3'
-import {ref} from "vue";
 
-const givenCountries = [
-    {name:'United States',value:'us'},
-    {name:'Italy',value:'it'},
-    {name:'India',value:'in'},
-]
+const options = ref([
+    { id: 1, name: "Option 1" },
+    { id: 2, name: "Option 2" },
+    { id: 3, name: "Option 3" },
+    // Add more options as needed
+]);
 
-const totalCountries = ref([
-    {countries:['us','it'], amount:1},
-    {countries:['in'], amount:1}
-])
+const dropdowns = ref([]);
 
-const defaultCountries = ref([])
+const addDropdown = () => {
+    dropdowns.value.push({
+        selectedOptions: [],
+    });
+};
 
-function submit(){
+const removeDropdown = (index) => {
+    dropdowns.value.splice(index, 1);
+};
 
-    router.post('/onclick-cpm-create', {
-        countries:totalCountries
+const filteredOptions = (dropdown) => {
+    const selectedOptions = dropdowns.value
+        .filter((d, i) => i !== dropdowns.value.indexOf(dropdown))
+        .flatMap((d) => d.selectedOptions);
 
-    })
-
-}
-
+    return options.value.filter(
+        (option) => !selectedOptions.includes(option.id)
+    );
+};
 </script>
 
 <template>
     <SidebarLayout>
         <template #content>
-            <div>
-
-                <!--                <pre>{{totalCountries[0]}}</pre>-->
-
-                <!--Loop every countries and rate -->
-
-                <div v-for="(list,index) in totalCountries">
-
-                    <!--Display a list of countries-->
-                    <div>
-                        {{list.countries}}
-                    </div>
-
-                    <!--Display amount-->
-                    <div>
-                        {{list.amount}}
-                    </div>
-
-                    <!--Checkboxes for countries-->
-                    <div>
-                        <input
-                            type="checkbox"
-                            value="us"
-                            v-model="totalCountries[index].countries"
+            <div class="p-4">
+                <div
+                    v-for="(dropdown, index) in dropdowns"
+                    :key="index"
+                    class="mb-4"
+                >
+                    <select
+                        v-model="dropdown.selectedOptions"
+                        multiple
+                        class="border border-gray-300 rounded p-2"
+                    >
+                        <option
+                            v-for="option in filteredOptions(dropdown)"
+                            :value="option.id"
+                            :key="option.id"
                         >
-                        <label>USA</label>
-                        <br>
-
-                        <input
-                            type="checkbox"
-                            value="it"
-                            v-model="totalCountries[index].countries"
-                        >
-                        <label>Italy</label>
-                        <br>
-
-                        <input
-                            type="checkbox"
-                            value="in"
-                            v-model="totalCountries[index].countries"
-                        >
-                        <label>India</label>
-                        <br>
-
-                        <input
-                            type="text"
-                            v-model="totalCountries[index].amount"
-                        >
-                        <label>Amount</label>
-                        <br>
-
-                        <!--Delete a list-->
-                        <button
-                            type="button"
-                            @click="totalCountries.splice(index,1)"
-                        >Delete</button>
-                    </div>
+                            {{ option.name }}
+                        </option>
+                    </select>
+                    <button
+                        @click="removeDropdown(index)"
+                        class="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                    >
+                        Remove
+                    </button>
                 </div>
 
-
-
                 <button
-                    type="button"
-                    @click="totalCountries.push({countries:defaultCountries,amount:0})"
+                    @click="addDropdown"
+                    class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
                 >
-                    Add rate
+                    Add Dropdown
                 </button>
-
-                <br>
-
-                <form @submit.prevent="submit">
-                    <button type="submit">Submit</button>
-                </form>
-
             </div>
         </template>
     </SidebarLayout>

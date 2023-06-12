@@ -131,6 +131,7 @@ const form = useForm({
                     />
 
                     <!-- Countries & Conversion price -->
+                    <!-- add country button & do the logic -->
                     <HorizontalLine />
                     <TitleLabel
                         title_big="true"
