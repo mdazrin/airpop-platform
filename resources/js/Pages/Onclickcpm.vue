@@ -10,7 +10,7 @@ const givenCountries = ref([
 ])
 
 const totalCountries = ref([
-    {countries:[], amount:1},
+    {countries:['us','it'], amount:1},
 
 ])
 
@@ -23,6 +23,12 @@ function deleteList(index){
 
 function removeCountries(index){
     givenCountries.value.splice(index,1)
+}
+
+function pushCountries(countries){
+    givenCountries.value.push({name:'United States',countryValue:countries})
+    totalCountries.value[0].countries.splice(0,1)
+
 }
 
 function submit(){
@@ -41,7 +47,7 @@ function submit(){
         <template #content>
             <div>
 
-<!--                <pre>{{totalCountries}}</pre>-->
+                <pre>{{totalCountries[0].countries}}</pre>
                 <pre>{{givenCountries}}</pre>
 
                 <!--Loop every countries and rate -->
@@ -53,10 +59,20 @@ function submit(){
                             {{list.countries}}
                         </div>
 
-                    <!--Display amount-->
-                        <div>
-                            {{list.amount}}
+<!--                        Display a list of countries in buttons-->
+                        <div v-for="countries in list.countries">
+                            <button
+                            type="button"
+                            @click="pushCountries(countries)"
+                            >
+                                {{countries}}
+                            </button>
                         </div>
+
+<!--                    &lt;!&ndash;Display amount&ndash;&gt;-->
+<!--                        <div>-->
+<!--                            {{list.amount}}-->
+<!--                        </div>-->
 
                     <!--Checkboxes for countries-->
                         <div v-for="(items, index2) in givenCountries">
