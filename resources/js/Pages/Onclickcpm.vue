@@ -3,18 +3,27 @@ import SidebarLayout from "@/Layouts/SidebarLayout.vue";
 import {router} from '@inertiajs/vue3'
 import {ref} from "vue";
 
-const givenCountries = [
-    {name:'United States',value:'us'},
-    {name:'Italy',value:'it'},
-    {name:'India',value:'in'},
-]
+const givenCountries = ref([
+    {name:'United States',countryValue:'us'},
+    {name:'Italy',countryValue:'it'},
+    {name:'India',countryValue:'in'},
+])
 
 const totalCountries = ref([
-    {countries:['us','it'], amount:1},
-    {countries:['in'], amount:1}
+    {countries:[], amount:1},
+
 ])
 
 const defaultCountries = ref([])
+
+function deleteList(index){
+    totalCountries.value.splice(index,1)
+
+}
+
+function removeCountries(index){
+    givenCountries.value.splice(index,1)
+}
 
 function submit(){
 
@@ -32,7 +41,8 @@ function submit(){
         <template #content>
             <div>
 
-<!--                <pre>{{totalCountries[0]}}</pre>-->
+<!--                <pre>{{totalCountries}}</pre>-->
+                <pre>{{givenCountries}}</pre>
 
                 <!--Loop every countries and rate -->
 
@@ -49,44 +59,29 @@ function submit(){
                         </div>
 
                     <!--Checkboxes for countries-->
-                        <div>
+                        <div v-for="(items, index2) in givenCountries">
                             <input
                                 type="checkbox"
-                                value="us"
+                                @change="removeCountries(index2)"
+                                :value="items.countryValue"
                                 v-model="totalCountries[index].countries"
                             >
-                            <label>USA</label>
+                            <label>{{items.name}}</label>
                             <br>
-
-                            <input
-                                type="checkbox"
-                                value="it"
-                                v-model="totalCountries[index].countries"
-                            >
-                            <label>Italy</label>
-                            <br>
-
-                            <input
-                                type="checkbox"
-                                value="in"
-                                v-model="totalCountries[index].countries"
-                            >
-                            <label>India</label>
-                            <br>
-
-                            <input
-                                type="text"
-                                v-model="totalCountries[index].amount"
-                            >
-                            <label>Amount</label>
-                            <br>
-
-                            <!--Delete a list-->
-                            <button
-                                type="button"
-                                @click="totalCountries.splice(index,1)"
-                            >Delete</button>
                         </div>
+
+                        <input
+                            type="text"
+                            v-model="totalCountries[index].amount"
+                        >
+                        <label>Amount</label>
+                        <br>
+
+                        <!--Delete a list-->
+                        <button
+                            type="button"
+                            @click="deleteList(index)"
+                        >Delete</button>
                     </div>
 
 
