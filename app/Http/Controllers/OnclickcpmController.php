@@ -54,22 +54,8 @@ class OnclickcpmController extends Controller
 
     public function create(Request $request): Response
     {
-        //break countries array
-        //break amount array
 
-        $testcountries = collect([['us','it'],['in']]);
-        $testrate = collect([1,2]);
-        $collection = collect();
-
-        for($i=0;$i<2;$i++){
-            $seats['countries']= $testcountries[$i];
-            $seats['amount']=$testrate->get($i);
-            $collection->push($seats);
-        }
-
-
-
-        //dd($collection);
+        $rates = $request->input('countries');
 
 
         $response = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')->post('https://ssp-api.propellerads.com/v5/adv/campaigns',
@@ -129,7 +115,7 @@ class OnclickcpmController extends Controller
                     ]
                 ],
                 'timezone'=>3,
-                'rates'=> $collection
+                'rates'=> $rates
 
 
 
