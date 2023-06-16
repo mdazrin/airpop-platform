@@ -194,7 +194,4 @@ class Campaign extends Model
 
     }
 
-
-
-
 }
