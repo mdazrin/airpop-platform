@@ -201,108 +201,11 @@ const form = useForm({
                             </div>
                         </div>
 
-                        <!-- Target by -->
-                        <div class="mb-6">
-                            <label
-                                for="target_by"
-                                class="block mb-2 text-sm font-medium text-gray-900"
-                                >Target by</label
-                            >
-
-                            <div class="flex">
-                                <div class="flex items-center mr-4">
-                                    <input
-                                        checked
-                                        id="inline-radio"
-                                        type="radio"
-                                        value="cities"
-                                        name="radio_target_by"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                    />
-                                    <label
-                                        for="inline-radio"
-                                        class="ml-2 text-sm font-medium text-gray-900"
-                                        >Cities</label
-                                    >
-                                </div>
-                                <div class="flex items-center mr-4">
-                                    <input
-                                        id="inline-2-radio"
-                                        type="radio"
-                                        value="states"
-                                        name="radio_target_by"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                    />
-                                    <label
-                                        for="inline-2-radio"
-                                        class="ml-2 text-sm font-medium text-gray-900"
-                                        >States</label
-                                    >
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- cities/states -->
-                        <div class="mb-6">
-                            <label
-                                for="target_by"
-                                class="block text-sm font-medium text-gray-900"
-                                >Cities</label
-                            >
-
-                            <div class="flex">
-                                <div class="flex items-center mr-4">
-                                    <input
-                                        id="inline-radio"
-                                        type="radio"
-                                        value="include"
-                                        name="radio_cities"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                    />
-                                    <label
-                                        for="inline-radio"
-                                        class="ml-2 text-sm font-medium text-gray-900"
-                                        >Include</label
-                                    >
-                                </div>
-                                <div class="flex items-center mr-4">
-                                    <input
-                                        id="inline-2-radio"
-                                        type="radio"
-                                        value="exclude"
-                                        name="radio_cities"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                    />
-                                    <label
-                                        for="inline-2-radio"
-                                        class="ml-2 text-sm font-medium text-gray-900"
-                                        >Exclude</label
-                                    >
-                                </div>
-                                <!-- <div class="flex flex-auto items-center mr-4"> -->
-                                <!-- <input
-                                        type="text"
-                                        id="cities_list"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        placeholder="Start typing..."
-                                    /> -->
-                                <InputField
-                                    id="cities_list"
-                                    v-model="form.cities_list"
-                                    placeholder="Start typing..."
-                                    inputType="input"
-                                    caption="true"
-                                    :caption_label="captionTargetURL[1]"
-                                />
-                                <!-- </div> -->
-                            </div>
-                        </div>
-
-                        <!-- targetting -->
+                        <!-- targeting -->
                         <div class="mb-6">
                             <HorizontalLine />
                             <h3 class="text-xl font-bold text-left py-2">
-                                Targetting
+                                Targeting
                             </h3>
 
                             <!-- platform -->
