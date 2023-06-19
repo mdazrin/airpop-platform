@@ -6,6 +6,8 @@ import InputField from "@/Components/InputField.vue";
 import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
+const advertFormat = ref()
+
 
 const isOpen = ref(false);
 const captionTargetURL = [
@@ -62,6 +64,93 @@ const form = useForm({
                         caption="true"
                         :caption_label="captionTargetURL[0]"
                     />
+
+                <!--Advertising Format-->
+                    <div class="mb-6">
+                        <HorizontalLine />
+                        <h3 class="text-xl font-bold text-left py-2">
+                            Advertising Format
+                        </h3>
+
+                        <div class="flex">
+                            <div class="flex items-center mr-4">
+                                <input
+                                    checked
+                                    id="inline-radio"
+                                    type="radio"
+                                    v-model="advertFormat"
+                                    value="onclick"
+                                    name="radio_target_by"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                                />
+                                <label
+                                    for="inline-radio"
+                                    class="ml-2 text-sm font-medium text-gray-900"
+                                >Onclick</label
+                                >
+                            </div>
+                            <div class="flex items-center mr-4">
+                                <input
+                                    id="inline-2-radio"
+                                    type="radio"
+                                    v-model="advertFormat"
+                                    value="push"
+                                    name="radio_target_by"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                                />
+                                <label
+                                    for="inline-2-radio"
+                                    class="ml-2 text-sm font-medium text-gray-900"
+                                >Push Notifications</label
+                                >
+                            </div>
+                            <div class="flex items-center mr-4">
+                                <input
+                                    id="inline-2-radio"
+                                    type="radio"
+                                    v-model="advertFormat"
+                                    value="interstitial"
+                                    name="radio_target_by"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                                />
+                                <label
+                                    for="inline-2-radio"
+                                    class="ml-2 text-sm font-medium text-gray-900"
+                                >Interstitial</label
+                                >
+                            </div>
+                            <div class="flex items-center mr-4">
+                                <input
+                                    id="inline-2-radio"
+                                    type="radio"
+                                    v-model="advertFormat"
+                                    value="surveyexit"
+                                    name="radio_target_by"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                                />
+                                <label
+                                    for="inline-2-radio"
+                                    class="ml-2 text-sm font-medium text-gray-900"
+                                >Survey Exit</label
+                                >
+                            </div>
+                        </div>
+
+                    </div>
+
+                <!--Onclick Multiformat-->
+                    <div v-if="advertFormat === 'onclick'">
+                        A
+                    </div>
+                    <div v-else-if="advertFormat === 'push'">
+                        B
+                    </div>
+                    <div v-else-if="advertFormat === 'interstitial'">
+                        C
+                    </div>
+                    <div v-else-if="advertFormat === 'surveyexit'">
+                        D
+                    </div>
 
                     <!-- Countries & Conversion price -->
                     <div class="mb-6">
