@@ -3,7 +3,7 @@ import SidebarLayout from "@/Layouts/SidebarLayout.vue";
 import HorizontalLine from "@/Components/HorizontalLine.vue";
 import AlertTriangle from "@/Components/AlertTriangle.vue";
 import InputField from "@/Components/InputField.vue";
-import { useForm } from "@inertiajs/vue3";
+import {router} from "@inertiajs/vue3";
 import { ref } from "vue";
 
 //advert format render condition
@@ -15,24 +15,30 @@ const captionTargetURL = [
     "https://www.domain.com/in.php?clickid=${SUBID}",
     "Add city targeting to reach people in certain cities",
 ];
-const placeholder_dropdown = ref("Select an option");
-const dropdownOptions = [
+const placeholder_dropdown = ref("Select an option")
+const dropdownOptions = ref([
     { value: "option1", label: "Option 1" },
     { value: "option2", label: "Option 2" },
     { value: "option3", label: "Option 3" },
-];
+])
 
-const form = useForm({
-    name: null,
-    target_url: null,
-    remember: false,
-    countries: null,
-    cpa_goal_required: null,
-    cpa_goal: null,
-    cities_list: null,
-    platform: null,
-    os: null,
-});
+
+function submit(){
+
+    router.post('/onclick-cpm-create', {
+        name:null,
+        direction:null,
+        model:null,
+        target_url:null,
+        countries:totalCountries,
+        expired_at:null,
+        started_at:null,
+        timezone:null,
+        rates:null
+
+    })
+
+}
 
 </script>
 
@@ -40,7 +46,7 @@ const form = useForm({
     <SidebarLayout>
         <template #content>
             <div>
-                <form @submit.prevent="form.post('/onclick-cpag-create')">
+                <form @submit.prevent="submit">
                     <h3 class="text-2xl font-bold text-left py-2">
                         Create Campaign
                     </h3>
@@ -48,7 +54,7 @@ const form = useForm({
                     <!-- campaign name -->
                     <InputField
                         id="campaignName"
-                        v-model="form.name"
+                        v-model="name"
                         title="Campaign Name"
                         placeholder="Start typing..."
                         inputType="input"
@@ -58,7 +64,7 @@ const form = useForm({
 
                     <InputField
                         id="targetURL"
-                        v-model="form.target_url"
+                        v-model="target_url"
                         title="Target URL"
                         placeholder="Start typing..."
                         inputType="input"
@@ -185,7 +191,7 @@ const form = useForm({
                             <div class="col-span-5">
                                 <InputField
                                     id="countries"
-                                    v-model="form.countries"
+                                    v-model="countries"
                                     title="Countries*"
                                     placeholder="Choose a country"
                                     inputType="dropdown"
@@ -197,7 +203,7 @@ const form = useForm({
                             <div>
                                 <InputField
                                     id="cpa_goal_required"
-                                    v-model="form.cpa_goal_required"
+                                    v-model="cpa_goal_required"
                                     title="CPA Goal, $*"
                                     inputType="input"
                                     type="number"
@@ -215,7 +221,7 @@ const form = useForm({
                             <div>
                                 <InputField
                                     id="cpa_goal"
-                                    v-model="form.cpa_goal"
+                                    v-model="cpa_goal"
                                     title="CPA Goal, $"
                                     inputType="input"
                                     type="number"
@@ -235,7 +241,7 @@ const form = useForm({
 
                             <InputField
                                 id="platform"
-                                v-model="form.platform"
+                                v-model="platform"
                                 title="Platform"
                                 placeholder="Start typing..."
                                 inputType="dropdown"
@@ -246,7 +252,7 @@ const form = useForm({
                             <!-- os -->
                             <InputField
                                 id="os"
-                                v-model="form.os"
+                                v-model="os"
                                 title="OS"
                                 placeholder="Start typing..."
                                 inputType="dropdown"
@@ -652,7 +658,21 @@ const form = useForm({
                                     <option>UTC+3</option>
                                 </select>
                             </div>
-                            <!-- <div> date picker </div> -->
+
+                            <!--Date Picker-->
+                            <div>
+                                Test
+                                <div class="flex items-center mr-4">
+                                    <input
+                                        type="checkbox"
+                                        value=""
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded
+                                        focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                                        focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    >
+                                </div>
+                            </div>
+
 
                             <AlertTriangle
                                 class="mt-8 !text-blue-500 !bg-blue-50 !border-blue-50"
@@ -696,7 +716,6 @@ const form = useForm({
                                 <button
                                     @click="isOpen = true"
                                     type="submit"
-                                    :disabled="form.processing"
                                     class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5"
                                 >
                                     Start Campaign
