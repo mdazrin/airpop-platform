@@ -8,6 +8,8 @@ import { ref } from "vue";
 
 //advert format render condition
 const advertFormat = ref('onclick')
+const onclickMultiFormat = ref('onclick')
+const campaignDays = ref('Monday')
 
 
 const isOpen = ref(false);
@@ -145,31 +147,30 @@ function submit(){
 
                     </div>
 
-                <!-- Multiformat Campaign-->
-                    <div class="mb-6">
-                        Multiformat campaign
-                        <div class="flex items-center mr-4">
-                            <label class="relative inline-flex items-center cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    value=""
-                                    class="sr-only peer"
-                                    checked>
 
-                                <div class="w-11 h-6 bg-gray-200 rounded-full peer
+                <!--Onclick Multiformat-->
+                    <div v-if="advertFormat === 'onclick'">
+                        <!-- Multiformat Campaign-->
+                        <div class="mb-6">
+                            Multiformat campaign
+                            <div class="flex items-center mr-4">
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        value=""
+                                        class="sr-only peer"
+                                        checked>
+
+                                    <div class="w-11 h-6 bg-gray-200 rounded-full peer
                                 peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700
                                 peer-checked:after:translate-x-full
                                 peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white
                                 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600
                                 peer-checked:bg-blue-600"></div>
-                                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Interstitial</span>
-                            </label>
+                                    <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Interstitial</span>
+                                </label>
+                            </div>
                         </div>
-                    </div>
-
-                <!--Onclick Multiformat-->
-                    <div v-if="advertFormat === 'onclick'">
-                        A
                     </div>
                     <div v-else-if="advertFormat === 'push'">
                         B
@@ -660,9 +661,141 @@ function submit(){
                             </div>
 
                             <!--Date Picker-->
-                            <div>
-                                Test
-                                <div class="flex items-center mr-4">
+                            <div class="text-sm font-medium text-gray-500
+                            border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+                                Campaign Days
+                                <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+                                    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center"
+                                        id="myTab"
+                                        data-tabs-toggle="#myTabContent"
+                                        role="tablist">
+                                        <li class="mr-2">
+                                            <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg
+                                            hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                                                    type="button"
+                                                    @click="campaignDays = 'Monday'"
+                                                    >Monday</button>
+                                        </li>
+                                        <li class="mr-2">
+                                            <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg
+                                            hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                                                    type="button"
+                                                    @click="campaignDays = 'Tuesday'"
+                                                    >Tuesday</button>
+                                        </li>
+                                        <li class="mr-2">
+                                            <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg
+                                            hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                                                    type="button"
+                                                    @click="campaignDays = 'Wednesday'"
+                                                    >Wednesday</button>
+                                        </li>
+                                        <li class="mr-2">
+                                            <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg
+                                            hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                                                    type="button"
+                                                    @click="campaignDays = 'Thursday'"
+                                            >Thursday</button>
+                                        </li>
+                                        <li class="mr-2">
+                                            <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg
+                                            hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                                                    type="button"
+                                                    @click="campaignDays = 'Friday'"
+                                            >Friday</button>
+                                        </li>
+                                        <li class="mr-2">
+                                            <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg
+                                            hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                                                    type="button"
+                                                    @click="campaignDays = 'Saturday'"
+                                            >Saturday</button>
+                                        </li>
+                                        <li class="mr-2">
+                                            <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg
+                                            hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                                                    type="button"
+                                                    @click="campaignDays = 'Sunday'"
+                                            >Sunday</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div
+                                    v-if="campaignDays === 'Monday'"
+                                    class="flex items-center mr-4">
+                                    Monday
+                                    <input
+                                        type="checkbox"
+                                        value=""
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded
+                                        focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                                        focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    >
+                                </div>
+                                <div
+                                    v-else-if="campaignDays === 'Tuesday'"
+                                    class="flex items-center mr-4">
+                                    Tuesday
+                                    <input
+                                        type="checkbox"
+                                        value=""
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded
+                                        focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                                        focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    >
+                                </div>
+                                <div
+                                    v-else-if="campaignDays === 'Wednesday'"
+                                    class="flex items-center mr-4">
+                                    Wednesday
+                                    <input
+                                        type="checkbox"
+                                        value=""
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded
+                                        focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                                        focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    >
+                                </div>
+                                <div
+                                    v-else-if="campaignDays === 'Thursday'"
+                                    class="flex items-center mr-4">
+                                    Thursday
+                                    <input
+                                        type="checkbox"
+                                        value=""
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded
+                                        focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                                        focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    >
+                                </div>
+                                <div
+                                    v-else-if="campaignDays === 'Friday'"
+                                    class="flex items-center mr-4">
+                                    Friday
+                                    <input
+                                        type="checkbox"
+                                        value=""
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded
+                                        focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                                        focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    >
+                                </div>
+                                <div
+                                    v-else-if="campaignDays === 'Saturday'"
+                                    class="flex items-center mr-4">
+                                    Saturday
+                                    <input
+                                        type="checkbox"
+                                        value=""
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded
+                                        focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                                        focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    >
+                                </div>
+                                <div
+                                    v-else-if="campaignDays === 'Sunday'"
+                                    class="flex items-center mr-4">
+                                    Sunday
                                     <input
                                         type="checkbox"
                                         value=""
