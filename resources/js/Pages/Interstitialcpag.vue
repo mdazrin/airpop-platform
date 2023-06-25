@@ -1,7 +1,19 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import SidebarLayout from "@/Layouts/SidebarLayout.vue";
+import Multiselect from "@vueform/multiselect";
+import MyMultiselect from "../Components/FormComponents/MyMultiselect.vue";
 
+const days = ref([
+    { title: "Saturday", shortcut: "sat" },
+    { title: "Sunday", shortcut: "sun" },
+    { title: "Monday", shortcut: "mon" },
+    { title: "Tuesday", shortcut: "tue" },
+    { title: "Wednesday", shortcut: "wed" },
+    { title: "Thursday", shortcut: "thu" },
+    { title: "Friday", shortcut: "fri" },
+]);
+const options2 = ref(["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
 const options = ref([
     { id: 1, name: "Option 1" },
     { id: 2, name: "Option 2" },
@@ -27,7 +39,7 @@ const filteredOptions = (dropdown) => {
         .flatMap((d) => d.selectedOptions);
 
     return options.value.filter(
-        (option) => !selectedOptions.includes(option.id)
+        (option) => !selectedOptions.includes(option.name)
     );
 };
 </script>
@@ -41,25 +53,49 @@ const filteredOptions = (dropdown) => {
                     :key="index"
                     class="mb-4"
                 >
+                    <div>
+                        <span
+                            v-for="(item, index) in dropdown.selectedOptions"
+                            :key="index"
+                            class="bg-green-500 text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded"
+                            >{{ item }}</span
+                        >
+                    </div>
                     <select
                         v-model="dropdown.selectedOptions"
                         multiple
-                        class="border border-gray-300 rounded p-2"
+                        class="block w-full border border-gray-300 rounded p-2"
                     >
                         <option
                             v-for="option in filteredOptions(dropdown)"
-                            :value="option.id"
+                            :value="option.name"
                             :key="option.id"
                         >
                             {{ option.name }}
                         </option>
                     </select>
-                    <button
-                        @click="removeDropdown(index)"
-                        class="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-                    >
-                        Remove
-                    </button>
+                    <div>
+                        <Multiselect
+                            mode="tags"
+                            v-model="dropdowns"
+                            :options="options2"
+                        />
+                    </div>
+                    <MyMultiselect
+                        :options="days"
+                        display-property="title"
+                        value-property="shortcut"
+                        v-model="dropdowns"
+                    ></MyMultiselect>
+
+                    <div>
+                        <button
+                            @click="removeDropdown(index)"
+                            class="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                        >
+                            Remove
+                        </button>
+                    </div>
                 </div>
 
                 <button
@@ -72,3 +108,5 @@ const filteredOptions = (dropdown) => {
         </template>
     </SidebarLayout>
 </template>
+<style src="@vueform/multiselect/themes/default.css"></style>
+;
