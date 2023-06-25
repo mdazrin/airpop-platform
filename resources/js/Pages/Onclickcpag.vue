@@ -140,6 +140,7 @@ const form = useForm({
                     />
 
                     <CheckBox
+                        title_yes="true"
                         title="Traffic Sources"
                         :options="checkedBox_anti_adblock"
                         v-model="form.checkedBox_anti_adblock"

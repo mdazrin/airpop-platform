@@ -29,6 +29,10 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+    title_yes: {
+        type: Boolean,
+        default: false,
+    },
     modelValue: {
         type: Array,
         default: () => [],
@@ -42,7 +46,7 @@ const props = defineProps({
 
 <template>
     <div>
-        <TitleLabel :title="title" />
+        <TitleLabel v-if="title_yes" :title="title" />
 
         <div class="flex">
             <div
