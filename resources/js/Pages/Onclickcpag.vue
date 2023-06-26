@@ -21,6 +21,7 @@ const dropdownOptions = ref([
     { value: "in", label: "India" },
 ])
 
+
 const form = ref({
     name:null,
     direction:null,
@@ -56,7 +57,15 @@ function submit(){
                     <!--rate model-->
                     <div>
                         <label for="rate_model">Rate Model:</label>
-                        <input type="checkbox" value="scpm" id="rate_model" v-model="form.rate_model" />
+                        <input type="radio" value="scpm" id="rate_model" v-model="form.rate_model" />
+                        <br>
+
+                        <label for="rate_model">Rate Model:</label>
+                        <input type="radio" value="scpa" id="rate_model" v-model="form.rate_model" />
+                        <br>
+
+                        <label for="rate_model">Rate Model:</label>
+                        <input type="radio" value="cpag" id="rate_model" v-model="form.rate_model" />
                         <br>
                     </div>
 

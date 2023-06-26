@@ -36,7 +36,7 @@ class OnclickcpagController extends Controller
 
         //dd($collapsed);
         dd($response->json());
-        //dd($test);
+        //dd($request->input('rate_model'));
         return Inertia::render('Onclickcpag',[
             'success'=>$response->created()
         ]);

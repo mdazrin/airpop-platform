@@ -19,14 +19,17 @@ class Campaign extends Model
         $arr['direction'] = $request->input('direction');
         $arr['rate_model'] = $request->input('rate_model');
 
-        if($arr['rate_model']=='scpm')
+        if($arr['rate_model']=='scpa'||$arr['rate_model']=='cpa')
         {
-            $arr['target_url'] = 'https://propellerads.com/';
+            $tempArr = array($request->input('target_url'),'/?clickid=${UBID}');
 
-        }elseif($arr['rate_model']=='scpa')
+        }else
         {
-            $arr['target_url'] = 'https://propellerads.com/?clickid=${SUBID}';
+            $tempArr = array($request->input('target_url'),'/?zoneid=zoneId');
         }
+
+        $targetUrl = implode($tempArr);
+        $arr['target_url'] = $targetUrl;
 
         $arr['status'] = 1;
         $arr['started_at'] = '27/6/2023';
