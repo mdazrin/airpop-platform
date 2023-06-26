@@ -161,6 +161,7 @@ const form = useForm({
 
                     <!-- user activity -->
                     <CheckBox
+                        title_yes="true"
                         title="User Activity"
                         :options="checkedBox_UserActivity"
                         v-model="form.checkedBox_UserActivity"

@@ -21,7 +21,10 @@ const props = defineProps({
             </h3>
         </template>
         <template v-else>
-            <label class="block mt-6 mb-2 text-sm font-medium text-gray-900">
+            <label
+                class="block mt-6 mb-2 text-sm font-medium text-gray-900"
+                v-bind="$attrs"
+            >
                 {{ title }}
             </label>
         </template>
