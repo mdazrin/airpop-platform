@@ -86,6 +86,13 @@ const checkedBox_anti_adblock = [
     },
 ];
 
+const checkedBox_dateRange = [
+    {
+        value: "true",
+        label: "Set display period (by EST)",
+    },
+];
+
 const checkbox_campaignSchedule = [
     { value: "00", label: "00" },
     { value: "01", label: "01" },
@@ -141,6 +148,8 @@ const form = useForm({
     proxy_url: null,
     checkedBox_QualityGuidelines: [],
     checkedBox_anti_adblock: [],
+    endDate: "",
+    startDate: "",
 });
 </script>
 
@@ -489,6 +498,36 @@ const form = useForm({
                             :days="checkbox_campaignSchedule_days"
                             :options="checkbox_campaignSchedule"
                         />
+
+                        <CheckBox
+                            class="mt-6"
+                            :options="checkedBox_dateRange"
+                            v-model="form.checkedBox_dateRange"
+                        />
+
+                        <div
+                            v-if="form.checkedBox_dateRange == 'true'"
+                            class="flex"
+                        >
+                            <InputField
+                                id="startdate"
+                                v-model="form.startDate"
+                                title="Start Date"
+                                inputType="input"
+                                type="date"
+                                class="w-32 mr-4"
+                            />
+
+                            <InputField
+                                id="startdate"
+                                v-model="form.endDate"
+                                title="End Date"
+                                inputType="input"
+                                type="date"
+                                class="w-32"
+                                :min="form.startDate"
+                            />
+                        </div>
 
                         <AlertTriangle
                             class="mt-8 !text-blue-500 !bg-blue-50 !border-blue-50"

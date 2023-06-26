@@ -40,6 +40,9 @@ const props = defineProps({
         type: String,
         default: "",
     },
+    min: {
+        type: Date,
+    },
 });
 </script>
 
@@ -55,6 +58,7 @@ const props = defineProps({
                 :type="type"
                 :value="modelValue"
                 @input="$emit('update:modelValue', $event.target.value)"
+                :min="min"
             />
             <CaptionLabel v-if="caption" :caption_label="caption_label" />
         </template>
