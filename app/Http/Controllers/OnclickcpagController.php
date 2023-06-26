@@ -16,6 +16,8 @@ class OnclickcpagController extends Controller
     }
     public function create(Request $request): Response
     {
+
+
         $core = (new Campaign)->coreFields($request);
         $targeting = (new Campaign)->targetingFields($request);
         $optional = (new Campaign)->optionalFields($request);
@@ -33,8 +35,8 @@ class OnclickcpagController extends Controller
 
 
         //dd($collapsed);
-        //dd($response->json());
-        //dd($request->input('name','myname'));
+        dd($response->json());
+        //dd($test);
         return Inertia::render('Onclickcpag',[
             'success'=>$response->created()
         ]);

@@ -12,15 +12,25 @@ class Campaign extends Model
 
     const token = 'b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a';
 
+
     public function coreFields(Request $request): array
     {
-        $arr['name'] = 'test';
-        $arr['direction'] = 'onclick';
-        $arr['rate_model'] = 'scpm';
-        $arr['target_url'] = 'https://propellerads.com/?zoneid=zoneId';
+        $arr['name'] = $request->input('name');
+        $arr['direction'] = $request->input('direction');
+        $arr['rate_model'] = $request->input('rate_model');
+
+        if($arr['rate_model']=='scpm')
+        {
+            $arr['target_url'] = 'https://propellerads.com/';
+
+        }elseif($arr['rate_model']=='scpa')
+        {
+            $arr['target_url'] = 'https://propellerads.com/?clickid=${SUBID}';
+        }
+
         $arr['status'] = 1;
-        $arr['started_at'] = '17/6/2023';
-        $arr['expired_at'] = '18/6/2023';
+        $arr['started_at'] = '27/6/2023';
+        $arr['expired_at'] = '28/6/2023';
         $arr['timezone'] = 3;
         $arr['rates'] =  [
             [
