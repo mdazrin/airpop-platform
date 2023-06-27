@@ -11,6 +11,7 @@ import CaptionLabel from "@/Components/FormComponents/CaptionLabel.vue";
 import TitleLabel from "@/Components/FormComponents/TitleLabel.vue";
 import RadioButtonInput from "@/Components/FormComponents/RadioButtonInput.vue";
 import CheckBox from "@/Components/FormComponents/CheckBox.vue";
+import CheckBoxList from "@/Components/FormComponents/CheckBoxList.vue";
 import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
@@ -85,6 +86,50 @@ const checkedBox_anti_adblock = [
     },
 ];
 
+const checkedBox_dateRange = [
+    {
+        value: "true",
+        label: "Set display period (by EST)",
+    },
+];
+
+const checkbox_campaignSchedule = [
+    { value: "00", label: "00" },
+    { value: "01", label: "01" },
+    { value: "02", label: "02" },
+    { value: "03", label: "03" },
+    { value: "04", label: "04" },
+    { value: "05", label: "05" },
+    { value: "06", label: "06" },
+    { value: "07", label: "07" },
+    { value: "08", label: "08" },
+    { value: "09", label: "09" },
+    { value: "10", label: "10" },
+    { value: "11", label: "11" },
+    { value: "12", label: "12" },
+    { value: "13", label: "13" },
+    { value: "14", label: "14" },
+    { value: "15", label: "15" },
+    { value: "16", label: "16" },
+    { value: "17", label: "17" },
+    { value: "18", label: "18" },
+    { value: "19", label: "19" },
+    { value: "20", label: "20" },
+    { value: "21", label: "21" },
+    { value: "22", label: "22" },
+    { value: "23", label: "23" },
+];
+
+const checkbox_campaignSchedule_days = [
+    { value: "Monday", label: "Monday" },
+    { value: "Tuesday", label: "Tuesday" },
+    { value: "Wednesday", label: "Wednesday" },
+    { value: "Thursday", label: "Thursday" },
+    { value: "Friday", label: "Friday" },
+    { value: "Saturday", label: "Saturday" },
+    { value: "Sunday", label: "Sunday" },
+];
+
 const form = useForm({
     name: null,
     target_url: null,
@@ -103,6 +148,8 @@ const form = useForm({
     proxy_url: null,
     checkedBox_QualityGuidelines: [],
     checkedBox_anti_adblock: [],
+    endDate: "",
+    startDate: "",
 });
 </script>
 
@@ -140,6 +187,7 @@ const form = useForm({
                     />
 
                     <CheckBox
+                        title_yes="true"
                         title="Traffic Sources"
                         :options="checkedBox_anti_adblock"
                         v-model="form.checkedBox_anti_adblock"
@@ -444,6 +492,42 @@ const form = useForm({
                         />
 
                         <!-- <div> date picker </div> -->
+
+                        <CheckBoxList
+                            v-model="form.checkbox_campaignSchedule"
+                            :days="checkbox_campaignSchedule_days"
+                            :options="checkbox_campaignSchedule"
+                        />
+
+                        <CheckBox
+                            class="mt-6"
+                            :options="checkedBox_dateRange"
+                            v-model="form.checkedBox_dateRange"
+                        />
+
+                        <div
+                            v-if="form.checkedBox_dateRange == 'true'"
+                            class="flex"
+                        >
+                            <InputField
+                                id="startdate"
+                                v-model="form.startDate"
+                                title="Start Date"
+                                inputType="input"
+                                type="date"
+                                class="w-32 mr-4"
+                            />
+
+                            <InputField
+                                id="startdate"
+                                v-model="form.endDate"
+                                title="End Date"
+                                inputType="input"
+                                type="date"
+                                class="w-32"
+                                :min="form.startDate"
+                            />
+                        </div>
 
                         <AlertTriangle
                             class="mt-8 !text-blue-500 !bg-blue-50 !border-blue-50"

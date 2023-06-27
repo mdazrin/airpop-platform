@@ -11,6 +11,7 @@ import CaptionLabel from "@/Components/FormComponents/CaptionLabel.vue";
 import TitleLabel from "@/Components/FormComponents/TitleLabel.vue";
 import RadioButtonInput from "@/Components/FormComponents/RadioButtonInput.vue";
 import CheckBox from "@/Components/FormComponents/CheckBox.vue";
+import ToggleButton from "@/Components/FormComponents/ToggleButton.vue";
 import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
@@ -32,6 +33,9 @@ defineProps({
 });
 
 const isOpen = ref(false);
+const maxlengthCreativeTitle = ref("30");
+const maxlengthCreativeDesc = ref("40");
+const maxlengthCreativeButton = ref("15");
 const captionTargetURL = [
     "https://www.domain.com/in.php?clickid=${SUBID}",
     "Add city targeting to reach people in certain cities",
@@ -88,6 +92,13 @@ const checkedBox_UserActivity = [
     },
 ];
 
+const checkedBox_creative_button = [
+    {
+        value: "true",
+        label: "Show Buttons",
+    },
+];
+
 const form = useForm({
     name: null,
     target_url: null,
@@ -106,6 +117,9 @@ const form = useForm({
     proxy_url: null,
     checkedBox_QualityGuidelines: [],
     checkedBox_UserActivity: [],
+    creativeTitle: "",
+    creativeDesc: "",
+    toggle_creative_button: false,
 });
 </script>
 
@@ -147,6 +161,7 @@ const form = useForm({
 
                     <!-- user activity -->
                     <CheckBox
+                        title_yes="true"
                         title="User Activity"
                         :options="checkedBox_UserActivity"
                         v-model="form.checkedBox_UserActivity"
@@ -435,6 +450,175 @@ const form = useForm({
                         />
 
                         <!-- <div> date picker </div> -->
+
+                        <!-- Push Notifications -->
+                        <div class="mb-6">
+                            <HorizontalLine />
+
+                            <TitleLabel
+                                title_big="true"
+                                title="Push Notifications"
+                            />
+
+                            <div
+                                class="w-full max-w-xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
+                            >
+                                <TitleLabel
+                                    title_big="true"
+                                    title="Creative 1"
+                                />
+                                <InputField
+                                    id="creative_title"
+                                    v-model="form.creativeTitle"
+                                    title="Title"
+                                    placeholder="Start typing..."
+                                    inputType="input"
+                                    type="text"
+                                    :maxlength="maxlengthCreativeTitle"
+                                />
+
+                                <CaptionLabel
+                                    class="text-right"
+                                    :caption_label="
+                                        form.creativeTitle.length +
+                                        '/' +
+                                        maxlengthCreativeTitle
+                                    "
+                                />
+
+                                <InputField
+                                    id="creative_description"
+                                    v-model="form.creativeDesc"
+                                    title="Description"
+                                    placeholder="Start typing..."
+                                    inputType="input"
+                                    type="text"
+                                    :maxlength="maxlengthCreativeDesc"
+                                />
+
+                                <CaptionLabel
+                                    class="text-right"
+                                    :caption_label="
+                                        form.creativeDesc.length +
+                                        '/' +
+                                        maxlengthCreativeDesc
+                                    "
+                                />
+
+                                <!-- checkbox for button -->
+                                <div class="grid grid-cols-6 gap-14 mt-6">
+                                    <CheckBox
+                                        class="col-start-1 col-end-3 ..."
+                                        :options="checkedBox_creative_button"
+                                        v-model="
+                                            form.checkedBox_creative_button
+                                        "
+                                    />
+                                    <div
+                                        v-if="
+                                            form.checkedBox_creative_button ==
+                                            'true'
+                                        "
+                                        class="col-end-7 col-span-2 ..."
+                                    >
+                                        <!-- <label
+                                            class="relative inline-flex items-center cursor-pointer"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                v-model="
+                                                    form.toggle_creative_button
+                                                "
+                                                class="sr-only peer"
+                                            />
+                                            <div
+                                                class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"
+                                            ></div>
+                                            <span
+                                                class="ml-3 text-sm font-medium text-gray-900"
+                                                >Custom text</span
+                                            >
+                                        </label> -->
+
+                                        <ToggleButton
+                                            label="Custom text"
+                                            v-model="
+                                                form.toggle_creative_button
+                                            "
+                                            :checkedValue="
+                                                form.toggle_creative_button
+                                            "
+                                        />
+                                    </div>
+                                </div>
+
+                                <TitleLabel
+                                    v-if="
+                                        form.checkedBox_creative_button ==
+                                            'true' &&
+                                        form.toggle_creative_button == false
+                                    "
+                                    title="Default text:  More (auto-translated)"
+                                />
+
+                                <div
+                                    v-else-if="
+                                        form.checkedBox_creative_button ==
+                                            'true' &&
+                                        form.toggle_creative_button == true
+                                    "
+                                >
+                                    <InputField
+                                        id="creative_buttonText"
+                                        v-model="form.creativeDesc"
+                                        title="Button Text"
+                                        placeholder="Start typing..."
+                                        inputType="input"
+                                        type="text"
+                                        :maxlength="maxlengthCreativeButton"
+                                    />
+
+                                    <CaptionLabel
+                                        class="text-right"
+                                        :caption_label="
+                                            form.creativeDesc.length +
+                                            '/' +
+                                            maxlengthCreativeButton
+                                        "
+                                    />
+                                </div>
+
+                                <InputField
+                                    id="creative_icon"
+                                    class="p-0"
+                                    v-model="form.creative_icon"
+                                    title="Icon"
+                                    inputType="input"
+                                    type="file"
+                                    caption="true"
+                                    :caption_label="
+                                        'Image' +
+                                        ' 192x192' +
+                                        ' (.jpg , .png - 200KB max)'
+                                    "
+                                />
+
+                                <InputField
+                                    id="creative_landscape"
+                                    class="p-0"
+                                    v-model="form.creative_landscape"
+                                    title="Icon"
+                                    inputType="input"
+                                    type="file"
+                                    caption="true"
+                                    :caption_label="
+                                        'Image' +
+                                        ' 360x240' +
+                                        ' (We recommend 720x480 to make images look best for users with retina displays. .jpg, .png - 700KB max)'
+                                    "
+                                />
+                            </div>
+                        </div>
 
                         <AlertTriangle
                             class="mt-8 !text-blue-500 !bg-blue-50 !border-blue-50"
