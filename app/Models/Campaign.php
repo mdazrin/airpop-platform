@@ -19,9 +19,9 @@ class Campaign extends Model
         $arr['direction'] = $request->input('direction');
         $arr['rate_model'] = $request->input('rate_model');
 
-        if($arr['rate_model']=='scpa'||$arr['rate_model']=='cpa')
+        if($arr['rate_model']=='scpa'||$arr['rate_model']=='cpag')
         {
-            $tempArr = array($request->input('target_url'),'/?clickid=${UBID}');
+            $tempArr = array($request->input('target_url'),'/?clickid=${SUBID}');
 
         }else
         {
@@ -32,8 +32,8 @@ class Campaign extends Model
         $arr['target_url'] = $targetUrl;
 
         $arr['status'] = 1;
-        $arr['started_at'] = '27/6/2023';
-        $arr['expired_at'] = '28/6/2023';
+        $arr['started_at'] = '30/6/2023';
+        $arr['expired_at'] = '2/7/2023';
         $arr['timezone'] = 3;
         $arr['rates'] =  [
             [
@@ -101,14 +101,14 @@ class Campaign extends Model
 
     public function optionalFields(Request $request): array
     {
-        $arr['frequency'] = 3;
-        $arr['capping'] = 86400;
+        //$arr['frequency'] = 3;
+        //$arr['capping'] = 86400;
         $arr['is_adblock_buy'] = 1;
-        $arr['evenly_limits_usage'] = false;
-        $arr['cpa_goal_bid'] = 0.85;
-        $arr['cpa_goal_status'] = true;
-        $arr['daily_amount'] = 50;
-        $arr['total_amount'] = 100;
+        //$arr['evenly_limits_usage'] = false;
+        //$arr['cpa_goal_bid'] = 0.85;
+        //$arr['cpa_goal_status'] = true;
+        //$arr['daily_amount'] = 50;
+        //$arr['total_amount'] = 100;
 
         return $arr;
 
