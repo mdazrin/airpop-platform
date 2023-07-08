@@ -32,8 +32,8 @@ class Campaign extends Model
         $arr['target_url'] = $targetUrl;
 
         $arr['status'] = 1;
-        $arr['started_at'] = '30/6/2023';
-        $arr['expired_at'] = '2/7/2023';
+        $arr['started_at'] = '10/7/2023';
+        $arr['expired_at'] = '14/7/2023';
         $arr['timezone'] = 3;
         $arr['rates'] =  [
             [

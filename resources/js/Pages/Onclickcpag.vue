@@ -1,11 +1,42 @@
 <script setup>
 import SidebarLayout from "@/Layouts/SidebarLayout.vue";
 import {router} from "@inertiajs/vue3";
-import { ref } from "vue";
+import {computed, ref} from "vue";
 
 //advert format render condition
 const onclickMultiFormat = ref('onclick')
 const campaignDays = ref('Monday')
+
+
+const countriesPool = ref([
+    {name:'USA',countryValue:'us', checkedValue:false},
+    {name:'India',countryValue:'in', checkedValue:false},
+    {name:'Italy',countryValue:'it', checkedValue:false}
+
+])
+
+const countriesRate = ref ([])
+
+//computed properties
+const testCountries = computed(()=>{
+    return countriesPool.value.filter((n)=>n.checkedValue === false)
+})
+
+function checkedCountries(n) {
+    for ( let x of countriesPool.value){
+        if(n === x.countryValue){
+            x.checkedValue = false
+            countriesRate.value.splice(1,1)
+            break
+        }
+    }
+}
+
+function insertCountries(i){
+    countriesRate.value.push()
+
+}
+
 
 
 const form = ref({
@@ -98,14 +129,40 @@ function submit(){
                     <!--Countries and Rates-->
                     <div>
                         <label>Countries and Rate</label>
+                        <br>
+
+                        <li v-for="countries in countriesRate">
+                            <label>
+                             {{countries}}
+                            </label>
+                        </li>
+
+                        <li v-for="countries in countriesPool">
+                            <label>{{countries.name}}</label>
+                            <input
+                            type="checkbox"
+                            :value="countries.countryValue"
+                            v-model="countriesRate"
+                            >
+                            <br>
+                        </li>
+
+<!--                        <input-->
+<!--                            type="checkbox"-->
+<!--                            value="it"-->
+<!--                            v-model="pickedCountries"-->
+<!--                        >-->
+<!--                        <br>-->
+
+<!--                        <input-->
+<!--                            type="checkbox"-->
+<!--                            value="in"-->
+<!--                            v-model="pickedCountries"-->
+<!--                        >-->
+<!--                        <br>-->
                     </div>
                     <br>
 
-                    <!--Advertising Budget-->
-                    <div>
-                        <label>Advertising Budget</label>
-
-                    </div>
 
                     <button type="submit">Submit</button>
                 </form>
