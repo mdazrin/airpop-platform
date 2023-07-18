@@ -15,29 +15,53 @@ const countriesPool = ref([
 
 ])
 
-const countriesRate = ref ([])
+const countriesRate = ref ([
+    {countries:[],amount:1}
+])
 
-//computed properties
-const testCountries = computed(()=>{
-    return countriesPool.value.filter((n)=>n.checkedValue === false)
-})
+function addCountry(countryIndex,index){
+    let a = countriesPool.value[countryIndex].countryValue
+    countriesRate.value[index].countries.push(a)
+    countriesPool.value[countryIndex].checkedValue = true
 
-function checkedCountries(n) {
-    for ( let x of countriesPool.value){
-        if(n === x.countryValue){
-            x.checkedValue = false
-            countriesRate.value.splice(1,1)
-            break
+}
+
+function removeCountry(listIndex,countryIndex,countryList){
+    countriesRate.value[listIndex].countries.splice(countryIndex,1)
+
+    for(let list in countriesPool.value){
+        let a = countriesPool.value[list].countryValue
+        if(a === countryList){
+            countriesPool.value[list].checkedValue = false
+        }
+
+    }
+
+}
+
+function removeList(listIndex){
+
+    for(let list in countriesRate.value){
+        let a = countriesRate.value[list].countries
+        for(let item of a){
+
+            for(let pool in countriesPool.value){
+
+                let b = countriesPool.value[pool].countryValue
+                if(b === item){
+                    console.log(b)
+                    console.log(item)
+                    console.log(pool)
+                    countriesPool.value[pool].checkedValue = false
+                }
+
+            }
         }
     }
-}
 
-function insertCountries(i){
-    countriesRate.value.push()
+    countriesRate.value.splice(listIndex,1)
 
 }
-
-
 
 const form = ref({
     name:null,
@@ -131,38 +155,69 @@ function submit(){
                         <label>Countries and Rate</label>
                         <br>
 
-                        <li v-for="countries in countriesRate">
-                            <label>
-                             {{countries}}
+                        <!--Array of lists-->
+                        <div
+                            class ="border"
+                            v-for="(list,listIndex) in countriesRate">
+
+                            <!--Array of countries and price-->
+                            <li v-for="(countryList,countryIndex) in list.countries">
+                                <button
+                                type="button"
+                                @click="removeCountry(listIndex,countryIndex,countryList)"
+                                >
+                                    {{countryList}}
+                                </button>
+
+                            </li>
+                            <label v-for="price in list.amount">
+                                {{price}}
                             </label>
-                        </li>
 
-                        <li v-for="countries in countriesPool">
-                            <label>{{countries.name}}</label>
-                            <input
-                            type="checkbox"
-                            :value="countries.countryValue"
-                            v-model="countriesRate"
-                            >
-                            <br>
-                        </li>
+                            <!--Insert value of countries-->
+                            <h1 v-for="(countries,index) in countriesPool">
+                                <h1 v-if="countries.checkedValue === false">
+                                    <button
+                                    type="button"
+                                    @click="addCountry(index,listIndex)">
+                                        <label>{{countries.name}}</label>
+                                    </button>
+<!--                                    <input-->
+<!--                                        id="default-checkbox"-->
+<!--                                        @change="countries.checkedValue = true"-->
+<!--                                        type="checkbox"-->
+<!--                                        :value="countries.countryValue"-->
+<!--                                        v-model="list.countries"-->
+<!--                                    >-->
+                                </h1>
+                                <h1 v-else-if="countries.checkedValue === true">
+                                    <label></label>
+                                </h1>
+                                <br>
+                            </h1>
 
-<!--                        <input-->
-<!--                            type="checkbox"-->
-<!--                            value="it"-->
-<!--                            v-model="pickedCountries"-->
-<!--                        >-->
-<!--                        <br>-->
+                            <div>
+                                <button
+                                    type="button"
+                                    @click="removeList(listIndex)">
+                                    Remove List
+                                </button>
+                            </div>
 
-<!--                        <input-->
-<!--                            type="checkbox"-->
-<!--                            value="in"-->
-<!--                            v-model="pickedCountries"-->
-<!--                        >-->
-<!--                        <br>-->
+                        </div>
+                        <!--End of Array Lists-->
+
+
+                    </div>
+
+                    <div>
+                        <button
+                        type="button"
+                        @click="countriesRate.push({countries:[],amount:1})">
+                            Add Countries
+                        </button>
                     </div>
                     <br>
-
 
                     <button type="submit">Submit</button>
                 </form>
