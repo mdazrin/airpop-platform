@@ -23,6 +23,8 @@ function addCountry(countryIndex,index){
     let a = countriesPool.value[countryIndex].countryValue
     countriesRate.value[index].countries.push(a)
     countriesPool.value[countryIndex].checkedValue = true
+    countriesRate.value[index].countries.sort()
+
 
 }
 
@@ -61,6 +63,10 @@ function removeList(listIndex){
 
     countriesRate.value.splice(listIndex,1)
 
+}
+
+function checkedList(){
+    return countriesRate.value.length
 }
 
 const form = ref({
@@ -182,13 +188,6 @@ function submit(){
                                     @click="addCountry(index,listIndex)">
                                         <label>{{countries.name}}</label>
                                     </button>
-<!--                                    <input-->
-<!--                                        id="default-checkbox"-->
-<!--                                        @change="countries.checkedValue = true"-->
-<!--                                        type="checkbox"-->
-<!--                                        :value="countries.countryValue"-->
-<!--                                        v-model="list.countries"-->
-<!--                                    >-->
                                 </h1>
                                 <h1 v-else-if="countries.checkedValue === true">
                                     <label></label>
@@ -196,7 +195,7 @@ function submit(){
                                 <br>
                             </h1>
 
-                            <div>
+                            <div v-if="checkedList() > 1">
                                 <button
                                     type="button"
                                     @click="removeList(listIndex)">
