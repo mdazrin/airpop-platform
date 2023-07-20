@@ -1,7 +1,7 @@
 <script setup>
 import SidebarLayout from "@/Layouts/SidebarLayout.vue";
 import {router} from "@inertiajs/vue3";
-import {computed, ref} from "vue";
+import {ref} from "vue";
 
 //advert format render condition
 const onclickMultiFormat = ref('onclick')
@@ -51,9 +51,6 @@ function removeList(listIndex){
 
                 let b = countriesPool.value[pool].countryValue
                 if(b === item){
-                    console.log(b)
-                    console.log(item)
-                    console.log(pool)
                     countriesPool.value[pool].checkedValue = false
                 }
 
@@ -120,25 +117,27 @@ function submit(){
 
                     <!--rate model-->
                     <div>
-                        <label>Rate Model</label>
+                        <label>Pricing Model</label>
                         <br>
 
-                        <label for="rate_model">scpa</label>
+                        <label for="rate_model">CPA Goal</label>
                         <input type="radio" value="scpa" id="rate_model" v-model="form.rate_model" />
                         <br>
 
-                        <label for="rate_model">cpag</label>
-                        <input type="radio" value="cpag" id="rate_model" v-model="form.rate_model" />
+                        <label for="rate_model">CPM</label>
+                        <input type="radio" value="cpm" id="rate_model" v-model="form.rate_model" />
                         <br>
 
-                        <label for="rate_model">scpm</label>
+                        <label for="rate_model">Smart CPM</label>
                         <input type="radio" value="scpm" id="rate_model" v-model="form.rate_model" />
                         <br>
                         <br>
                     </div>
 
                     <!--Advertising Format Render Condition-->
-                    <div v-if="form.direction === 'onclick' && form.rate_model === 'cpag'">
+                    <div v-if="form.direction === 'onclick' && form.rate_model === 'scpa'">
+                        <label>Multiformat Campaign</label>
+                        <br>
                         <label>Interstitial</label>
                         <input type="checkbox" v-model="form.onclick_multiformat">
                     </div>
