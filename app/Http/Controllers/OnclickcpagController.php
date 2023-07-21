@@ -48,7 +48,7 @@ class OnclickcpagController extends Controller
 
         ]);
 
-        $newCollapsed = $multiformatCollection->collapse();
+        $secondResponse = $multiformatCollection->collapse();
 
 
 
@@ -60,7 +60,7 @@ class OnclickcpagController extends Controller
         {
             $response = Http::withToken(Campaign::token)
                 ->post('https://ssp-api.propellerads.com/v5/adv/campaigns',
-                    $newCollapsed);
+                    $secondResponse);
         }
 
 

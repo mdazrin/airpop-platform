@@ -196,8 +196,6 @@ class Campaign extends Model
         //$arr['evenly_limits_usage'] = false;
         //$arr['cpa_goal_bid'] = 0.85;
         //$arr['cpa_goal_status'] = true;
-        //$arr['daily_amount'] = 50;
-        //$arr['total_amount'] = 100;
 
     }
 
@@ -206,7 +204,8 @@ class Campaign extends Model
         $arr['creatives']=[
             [
                 'template_id'=> 10000000,
-                'landing_url'=> 'http://wewes'
+                'landing_url'=> 'https://www.base64encode.org/',
+                'status'=>1
             ]
         ];
 
