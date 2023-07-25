@@ -11,9 +11,16 @@ class CampaignController extends Controller
 {
     public function index(): Response
     {
-        $response = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')->get('https://ssp-api.propellerads.com/v5/adv/campaigns',[
+        $response = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
+            ->get('https://ssp-api.propellerads.com/v5/adv/campaigns',[
             'is_archived'=>0
         ]);
+
+        $collection = $response->collect('result')->keyBy('id')->keys()->all();
+
+
+
+
 
         $statistics = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
             ->post('https://ssp-api.propellerads.com/v5/adv/statistics',[
@@ -21,19 +28,23 @@ class CampaignController extends Controller
                     'campaign_id'
 
                 ],
-                'day_from' => "2023-05-28 00:00:00",
-                'day_to' => "2023-06-02 23:59:59",
+                'day_from' => "2022-05-28 00:00:00",
+                'day_to' => "2024-06-02 23:59:59",
                 'campaign_id'=>[
+                    7006194,
                     7007572,
-                    7006194
 
                 ]
+
             ]);
 
-        dd($statistics->json());
+        //dd($statistics->json());
+        //dd($collection);
+        //dd($response->json());
 
         return Inertia::render('Campaign', [
-            'campaign' => $response->json()
+            'campaign' => $response->json(),
+            'statistics' => $statistics->json()
         ]);
     }
 

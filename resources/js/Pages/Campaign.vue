@@ -2,7 +2,10 @@
 import SidebarLayout from "@/Layouts/SidebarLayout.vue";
 import { ref } from "vue";
 
-defineProps({ campaign: Object });
+defineProps({
+    campaign: Object,
+    statistics: Object,
+});
 const header = ref([
     "ID",
     "Name",
