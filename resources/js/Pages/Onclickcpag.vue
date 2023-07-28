@@ -71,7 +71,20 @@ const form = ref({
     direction:null,
     rate_model:null,
     target_url:null,
-    onclick_multiformat:null
+    onclick_multi_format:null,
+
+    daily_budget:null,
+    campaign_budget:null,
+    multi_format_daily_budget:null,
+    multi_format_campaign_budget:null,
+
+    targeting_platform:null,
+    targeting_os:null,
+    targeting_device:null,
+    targeting_browser:null,
+
+    timezone:null
+
 })
 
 
@@ -139,7 +152,7 @@ function submit(){
                         <label>Multiformat Campaign</label>
                         <br>
                         <label>Interstitial</label>
-                        <input type="checkbox" v-model="form.onclick_multiformat">
+                        <input type="checkbox" v-model="form.onclick_multi_format">
                     </div>
                     <div v-if="form.direction === 'nativeads'">
                         B
@@ -151,7 +164,10 @@ function submit(){
 
                     <!--Target URL-->
                     <label for="target_url">Target URL</label>
-                    <input id="target_url" class="border-2" v-model="form.target_url" />
+                    <input
+                        id="target_url"
+                        class="border-2"
+                        v-model="form.target_url" />
                     <br>
                     <br>
 
@@ -214,6 +230,108 @@ function submit(){
                         @click="countriesRate.push({countries:[],amount:1})">
                             Add Countries
                         </button>
+                    </div>
+                    <br>
+
+                    <!--Advertising Budget-->
+                    <div>
+                        <label>Advertising Budget</label>
+                        <br>
+                        <div>
+                            <label>Daily Budget</label>
+                            <input
+                                class="border-2"
+                                v-model="form.daily_budget"
+                            >
+                        </div>
+                        <div>
+                            <label>Total Campaign Budget</label>
+                            <input
+                                class="border-2"
+                                v-model="form.campaign_budget"
+                            >
+                        </div>
+
+                        <!--Multiformat Budget-->
+                        <br>
+                        <div v-if="form.onclick_multi_format === true">
+                            <div>
+                                <label>Interstitial Daily Budget</label>
+                                <input
+                                    class="border-2"
+                                    v-model="form.multi_format_daily_budget"
+                                >
+                            </div>
+                            <div>
+                                <label>Interstitial Total Campaign Budget</label>
+                                <input
+                                    class="border-2"
+                                    v-model="form.multi_format_campaign_budget"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <!--Targeting-->
+                    <div>
+                        <label>Targeting</label>
+                        <!--Platform-->
+                        <div>
+                            <label>Platform</label>
+                            <input
+                                class="border-2"
+                                v-model="form.targeting_platform"
+                            >
+                        </div>
+
+                        <!--OS-->
+                        <div>
+                            <label>OS</label>
+                            <input
+                                class="border-2"
+                                v-model="form.targeting_os"
+                            >
+                        </div>
+
+                        <!--Device-->
+                        <div>
+                            <label>Device</label>
+                            <input
+                                class="border-2"
+                                v-model="form.targeting_device"
+                            >
+                        </div>
+
+
+                        <!--Browser-->
+                        <div>
+                            <label>Browser</label>
+                            <input
+                                class="border-2"
+                                v-model="form.targeting_browser"
+                            >
+                        </div>
+
+                        <!--Campaign Schedule-->
+                        <div>
+                            <label>Campaign Schedule</label>
+
+                            <!--Timezone-->
+                            <div>
+                                <label>Timezone</label>
+                                <input
+                                    class="border-2"
+                                    v-model="form.timezone"
+                                >
+                            </div>
+
+                            <div>
+                                <label>Schedule</label>
+                                
+                            </div>
+                        </div>
+
                     </div>
                     <br>
 
