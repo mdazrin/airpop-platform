@@ -34,7 +34,7 @@ const filteredRows = computed(() => {
                 v-model="searchQuery"
                 type="text"
                 placeholder="Search by Campaign Name..."
-                class="px-4 py-2 border rounded w-300"
+                class="px-4 py-2 border rounded w-80"
             />
         </div>
 
