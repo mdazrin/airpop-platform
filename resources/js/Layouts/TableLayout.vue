@@ -15,16 +15,41 @@ const shallowRows = ref([...props.tableData]);
 
 const searchQuery = ref("");
 
-const filteredRows = computed(() => {
-    if (!searchQuery.value) {
-        return shallowRows.value;
+const sortColumn = ref(""); // Column to sort by
+const sortOrder = ref("asc"); // Default sorting order (ascending)
+
+const handleSort = (column) => {
+    if (sortColumn.value === column) {
+        sortOrder.value = sortOrder.value === "asc" ? "desc" : "asc";
     } else {
+        sortColumn.value = column;
+        sortOrder.value = "asc";
+    }
+};
+
+const filteredAndSortedRows = computed(() => {
+    let rows = shallowRows.value.slice();
+
+    if (searchQuery.value) {
         const query = searchQuery.value.toLowerCase();
-        return shallowRows.value.filter((item) => {
+        rows = rows.filter((item) => {
             const nameColumnValue = item["name"].toString().toLowerCase();
             return nameColumnValue.includes(query);
         });
     }
+
+    if (sortColumn.value) {
+        rows.sort((a, b) => {
+            const aValue = a[sortColumn.value];
+            const bValue = b[sortColumn.value];
+            return (
+                (aValue < bValue ? -1 : aValue > bValue ? 1 : 0) *
+                (sortOrder.value === "asc" ? 1 : -1)
+            );
+        });
+    }
+
+    return rows;
 });
 </script>
 <template>
@@ -46,6 +71,7 @@ const filteredRows = computed(() => {
                         class="py-3 px-6"
                         v-for="item in headers"
                         :key="item"
+                        @click="handleSort(item)"
                     >
                         <div class="flex items-center">
                             {{ item }}
@@ -72,7 +98,7 @@ const filteredRows = computed(() => {
             <tbody>
                 <tr
                     class="bg-white border-b"
-                    v-for="(item, index) in filteredRows"
+                    v-for="(item, index) in filteredAndSortedRows"
                     :key="index"
                 >
                     <td
