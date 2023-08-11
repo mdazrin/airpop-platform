@@ -1,45 +1,50 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const props = defineProps({
-    header: {
-        type: Array,
-        default: () => [],
-    },
     tableData: {
-        type: Array,
-        default: () => [],
-    },
-    id: {
-        type: String,
+        type: Object,
         required: true,
     },
-    name: {
-        type: String,
-    },
-    rate_model: {
-        type: String,
-    },
-    is_archived: {
-        type: String,
-    },
-    limit_daily_amount: {
-        type: String,
-    },
-    limit_total_amount: {
-        type: String,
-    },
+});
+const headers = computed(() => {
+    return Object.keys(props.tableData[0]);
+});
+
+const shallowRows = ref([...props.tableData]);
+
+const searchQuery = ref("");
+
+const filteredRows = computed(() => {
+    if (!searchQuery.value) {
+        return shallowRows.value;
+    } else {
+        const query = searchQuery.value.toLowerCase();
+        return shallowRows.value.filter((item) => {
+            const nameColumnValue = item["name"].toString().toLowerCase();
+            return nameColumnValue.includes(query);
+        });
+    }
 });
 </script>
 <template>
     <div class="overflow-x-auto relative sm:rounded-lg p-5">
+        <div class="mb-5">
+            <input
+                v-model="searchQuery"
+                type="text"
+                placeholder="Search by Campaign Name..."
+                class="px-4 py-2 border rounded w-300"
+            />
+        </div>
+
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-200">
                 <tr>
                     <th
                         scope="col"
                         class="py-3 px-6"
-                        v-for="item in header"
+                        v-for="item in headers"
                         :key="item"
                     >
                         <div class="flex items-center">
@@ -67,26 +72,15 @@ const props = defineProps({
             <tbody>
                 <tr
                     class="bg-white border-b"
-                    v-for="item in tableData"
-                    :key="item.id"
+                    v-for="(item, index) in filteredRows"
+                    :key="index"
                 >
-                    <th
-                        scope="row"
-                        class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"
+                    <td
+                        class="py-4 px-6"
+                        v-for="column in Object.values(item)"
+                        :key="column"
                     >
-                        {{ item.id }}
-                    </th>
-                    <td class="py-4 px-6">{{ item.name }}</td>
-                    <td class="py-4 px-6">{{ item.rate_model }}</td>
-                    <td class="py-4 px-6">{{ item.status }}</td>
-                    <td class="py-4 px-6">
-                        {{ item.is_archived }}
-                    </td>
-                    <td class="py-4 px-6">
-                        {{ item.limit_daily_amount }}
-                    </td>
-                    <td class="py-4 px-6">
-                        {{ item.limit_total_amount }}
+                        {{ column }}
                     </td>
                     <td class="py-4 px-6 text-right">
                         <a
