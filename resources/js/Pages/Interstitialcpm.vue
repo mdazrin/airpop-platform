@@ -32,12 +32,28 @@ defineProps({
     propads_traffic_categories: Object,
 });
 
+const tabs = ref([
+    { label: "Prize", id: "prize-tab", target: "prize" },
+    { label: "Image", id: "image-tab", target: "image" },
+    { label: "Classic", id: "classic-tab", target: "classic" },
+    { label: "Landing", id: "landing-tab", target: "landing" },
+    { label: "Animated Message", id: "animated-tab", target: "animated" },
+    { label: "Message", id: "message-tab", target: "message" },
+]);
+
+const activeTab = ref(0);
+
 const isOpen = ref(false);
+const maxlengthCreativeTitle = ref("80");
+const maxlengthCreativeLandingURL = ref("2048");
+const maxlengthCreativeDesc = ref("50");
+const maxlengthCreativeButton = ref("15");
 const captionTargetURL = [
     "https://www.domain.com/in.php?clickid=${SUBID}",
     "Add city targeting to reach people in certain cities",
     "Please set up GEO and select 3G/LTE connection type in order to select Mobile ISP",
     "Maximum 5000 zones allowed",
+    "For higher CTR we recommend using Landing page URL different from Target URL. Landing page recommendations: size <4Mb, time to load <60 seconds. Google Heavy Ad criteria.",
 ];
 const placeholder_dropdown = ref("Select an option");
 const dropdownOptions = [
@@ -91,6 +107,10 @@ const form = useForm({
     connection_type: null,
     proxy_url: null,
     checkedBox_QualityGuidelines: [],
+    creativeTitle: "",
+    creativeDesc: "",
+    toggle_creative_button: false,
+    creativeLanding_url: "",
 });
 </script>
 
@@ -414,6 +434,249 @@ const form = useForm({
                         />
 
                         <!-- <div> date picker </div> -->
+
+                        <!-- Push Notifications -->
+                        <!-- Creative 1 -->
+
+                        <div class="mb-6">
+                            <HorizontalLine />
+
+                            <TitleLabel
+                                title_big="true"
+                                title="Interstitial Ad"
+                            />
+
+                            <div class="mb-4">
+                                <ul
+                                    class="flex flex-wrap -mb-px text-sm font-medium text-center"
+                                    id="myTab"
+                                    role="tablist"
+                                >
+                                    <li
+                                        v-for="(tab, index) in tabs"
+                                        :key="index"
+                                        class="mr-2"
+                                        role="presentation"
+                                    >
+                                        <button
+                                            :class="[
+                                                'inline-block w-full p-4 text-gray-900 bg-white rounded-t-lg border-b-2 ',
+                                                {
+                                                    border: activeTab !== index,
+                                                },
+                                                {
+                                                    'hover:text-gray-600 hover:border-blue-500':
+                                                        activeTab !== index,
+                                                },
+                                                {
+                                                    'border-gray-300 text-gray-600':
+                                                        activeTab === index,
+                                                },
+                                                {
+                                                    'bg-gray-300 border border-gray-300':
+                                                        activeTab === index,
+                                                },
+                                            ]"
+                                            type="button"
+                                            role="tab"
+                                            @click="activeTab = index"
+                                        >
+                                            {{ tab.label }}
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div
+                                    v-for="(tab, index) in tabs"
+                                    :key="index"
+                                    :class="[{ hidden: activeTab !== index }]"
+                                    role="tabpanel"
+                                >
+                                    <div
+                                        class="w-full max-w-xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
+                                    >
+                                        <TitleLabel
+                                            v-if="tab.target !== 'landing'"
+                                            title_big="true"
+                                            title="Creative 1"
+                                        />
+
+                                        <TitleLabel
+                                            v-if="tab.target === 'landing'"
+                                            title_big="true"
+                                            title="Creative URL (Landing page)"
+                                        />
+
+                                        <div v-if="tab.target === 'landing'">
+                                            <InputField
+                                                id="creative_landing_url"
+                                                v-model="
+                                                    form.creativeLanding_url
+                                                "
+                                                placeholder="Landing URL"
+                                                inputType="input"
+                                                type="text"
+                                                :maxlength="
+                                                    maxlengthCreativeLandingURL
+                                                "
+                                            />
+
+                                            <CaptionLabel
+                                                class="text-right"
+                                                :caption_label="
+                                                    form.creativeLanding_url
+                                                        .length +
+                                                    '/' +
+                                                    maxlengthCreativeLandingURL
+                                                "
+                                            />
+                                            <CaptionLabel
+                                                class="mt-4"
+                                                :caption_label="
+                                                    captionTargetURL[4]
+                                                "
+                                            />
+                                        </div>
+
+                                        <div
+                                            v-if="
+                                                tab.target !== 'image' &&
+                                                tab.target !== 'landing'
+                                            "
+                                        >
+                                            <InputField
+                                                id="creative_title"
+                                                v-model="form.creativeTitle"
+                                                title="Title"
+                                                placeholder="Start typing..."
+                                                inputType="input"
+                                                type="text"
+                                                :maxlength="
+                                                    maxlengthCreativeTitle
+                                                "
+                                            />
+
+                                            <CaptionLabel
+                                                class="text-right"
+                                                :caption_label="
+                                                    form.creativeTitle.length +
+                                                    '/' +
+                                                    maxlengthCreativeTitle
+                                                "
+                                            />
+                                        </div>
+
+                                        <div
+                                            v-if="
+                                                tab.target !== 'image' &&
+                                                tab.target !== 'classic' &&
+                                                tab.target !== 'landing'
+                                            "
+                                        >
+                                            <InputField
+                                                id="creative_description"
+                                                v-model="form.creativeDesc"
+                                                title="Description"
+                                                placeholder="Start typing..."
+                                                inputType="input"
+                                                type="text"
+                                                :maxlength="
+                                                    maxlengthCreativeDesc
+                                                "
+                                            />
+
+                                            <CaptionLabel
+                                                class="text-right"
+                                                :caption_label="
+                                                    form.creativeDesc.length +
+                                                    '/' +
+                                                    maxlengthCreativeDesc
+                                                "
+                                            />
+                                        </div>
+
+                                        <div
+                                            v-if="
+                                                tab.target === 'animated' ||
+                                                tab.target == 'message'
+                                            "
+                                        >
+                                            <InputField
+                                                id="creative_buttonText"
+                                                v-model="form.creativeDesc"
+                                                title="Button Text"
+                                                placeholder="Start typing..."
+                                                inputType="input"
+                                                type="text"
+                                                :maxlength="
+                                                    maxlengthCreativeButton
+                                                "
+                                            />
+
+                                            <CaptionLabel
+                                                class="text-right"
+                                                :caption_label="
+                                                    form.creativeDesc.length +
+                                                    '/' +
+                                                    maxlengthCreativeButton
+                                                "
+                                            />
+                                        </div>
+
+                                        <InputField
+                                            v-if="
+                                                tab.target === 'animated' ||
+                                                tab.target == 'message'
+                                            "
+                                            id="creative_icon"
+                                            v-model="form.creative_icon"
+                                            title="Icon"
+                                            inputType="input"
+                                            type="file"
+                                            caption="true"
+                                            :caption_label="
+                                                '256x256' +
+                                                ' (Max 300 kb)' +
+                                                ' JPG, PNG or GIF are supported'
+                                            "
+                                        />
+
+                                        <InputField
+                                            v-if="tab.target === 'image'"
+                                            id="creative_portrait"
+                                            v-model="form.creative_portrait"
+                                            title="Portrait"
+                                            inputType="input"
+                                            type="file"
+                                            caption="true"
+                                            :caption_label="
+                                                'Recommended' +
+                                                ' 500x700' +
+                                                ' (Max 720 kb)' +
+                                                ' JPG, PNG or GIF are supported'
+                                            "
+                                        />
+
+                                        <InputField
+                                            v-if="tab.target !== 'landing'"
+                                            id="creative_landscape"
+                                            v-model="form.creative_landscape"
+                                            title="Landscape"
+                                            inputType="input"
+                                            type="file"
+                                            caption="true"
+                                            :caption_label="
+                                                'Recommended' +
+                                                ' 900x600' +
+                                                ' (Min 492x328 - Max 720 kb)' +
+                                                ' JPG, PNG or GIF are supported'
+                                            "
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <AlertTriangle
                             class="mt-8 !text-blue-500 !bg-blue-50 !border-blue-50"

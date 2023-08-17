@@ -199,11 +199,9 @@ const form = useForm({
                             />
                         </div>
                         <div class="col-span-5">
-                            <div
-                                class="block mb-2 text-sm font-medium text-gray-900"
-                            >
-                                Add separate rate for Interstitial campaign
-                            </div>
+                            <TitleLabel
+                                title="Add separate rate for Interstitial campaign"
+                            />
                         </div>
                         <div>
                             <InputField
@@ -452,6 +450,7 @@ const form = useForm({
                         <!-- <div> date picker </div> -->
 
                         <!-- Push Notifications -->
+                        <!-- Creative 1 -->
                         <div class="mb-6">
                             <HorizontalLine />
 
@@ -590,7 +589,6 @@ const form = useForm({
 
                                 <InputField
                                     id="creative_icon"
-                                    class="p-0"
                                     v-model="form.creative_icon"
                                     title="Icon"
                                     inputType="input"
@@ -605,7 +603,6 @@ const form = useForm({
 
                                 <InputField
                                     id="creative_landscape"
-                                    class="p-0"
                                     v-model="form.creative_landscape"
                                     title="Icon"
                                     inputType="input"
@@ -652,8 +649,6 @@ const form = useForm({
                             </button>
                         </div>
                     </div>
-
-                    <!-- Creative 1 -->
 
                     <!-- Modal -->
                     <div>
