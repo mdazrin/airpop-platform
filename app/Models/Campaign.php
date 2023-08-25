@@ -28,24 +28,10 @@ class Campaign extends Model
         $arr['target_url'] = $targetUrl;
 
         $arr['status'] = 1;
-        $arr['started_at'] = '25/7/2023';
-        $arr['expired_at'] = '27/7/2023';
-        $arr['timezone'] = 3;
-        $arr['rates'] =  [
-            [
-                'countries' => [
-                    'in'
-                ],
-                'amount' => 0.5
-            ],
-            [
-                'countries' => [
-                    'us',
-                    'it'
-                ],
-                'amount' => 0.9
-            ]
-        ];
+        $arr['started_at'] = '30/7/2023';
+        $arr['expired_at'] = '5/8/2023';
+        $arr['timezone'] = $request->input('timezone');
+        $arr['rates'] =  $request->input('countriesRate');
         return $arr;
     }
 
@@ -59,7 +45,7 @@ class Campaign extends Model
     }
 
     //interstitial multiformat
-    public function multiFormatAdvert(Request $request):array
+    public function multiFormatAdvert():array
     {
         $arr['direction'] = 'native';
         $arr['rate_model'] = 'cpag';
@@ -71,11 +57,7 @@ class Campaign extends Model
     {
         $arr['targeting'] = [
             'country' => [
-                'list' => [
-                    'in',
-                    'us',
-                    'it'
-                ],
+                'list' => $request->input('countriesList'),
                 'is_excluded' => false
             ],
             'time_table' => [

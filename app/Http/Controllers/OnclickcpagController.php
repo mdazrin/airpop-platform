@@ -66,7 +66,7 @@ class OnclickcpagController extends Controller
 
         //dd($newCollapsed);
         dd($response->json());
-        //dd($request->input('onclick_multiformat'));
+        //dd($request->input('countriesList'));
         return Inertia::render('Onclickcpag',[
             'success'=>$response->created()
         ]);

@@ -7,7 +7,7 @@ import {ref} from "vue";
 const onclickMultiFormat = ref('onclick')
 const campaignDays = ref('Monday')
 
-
+//countries pool
 const countriesPool = ref([
     {name:'USA',countryValue:'us', checkedValue:false},
     {name:'India',countryValue:'in', checkedValue:false},
@@ -15,22 +15,51 @@ const countriesPool = ref([
 
 ])
 
+//platform
+const platform = ref([
+    {label:'Desktop', value:'desktop'},
+    {label:'Mobile', value:'mobile'}
+])
+
+//desktop os
+const desktop_os = ref ([
+    {label:''}
+])
+
+
+//list of countries and their rate
 const countriesRate = ref ([
     {countries:[],amount:1}
 ])
 
+const countriesList = ref([])
+
 function addCountry(countryIndex,index){
     let a = countriesPool.value[countryIndex].countryValue
+
+    //push into countries Rate
     countriesRate.value[index].countries.push(a)
+
+    //push into countries list
+    countriesList.value.push(a)
+
+    //changed the checked value inside countries pool
     countriesPool.value[countryIndex].checkedValue = true
+
+    //sort countries rate
     countriesRate.value[index].countries.sort()
+    countriesList.value.sort()
 
 
 }
 
 function removeCountry(listIndex,countryIndex,countryList){
+
+    //remove a country from countries rate
     countriesRate.value[listIndex].countries.splice(countryIndex,1)
 
+
+    // changed the value of selected country in countries
     for(let list in countriesPool.value){
         let a = countriesPool.value[list].countryValue
         if(a === countryList){
@@ -39,23 +68,47 @@ function removeCountry(listIndex,countryIndex,countryList){
 
     }
 
+    //remove country from the list
+    for(let list in countriesList.value){
+
+        let a = countriesList.value[list]
+
+        if(a === countryList){
+            countriesList.value.splice(list,1)
+        }
+
+    }
+
 }
 
 function removeList(listIndex){
 
+
     for(let list in countriesRate.value){
-        let a = countriesRate.value[list].countries
-        for(let item of a){
 
-            for(let pool in countriesPool.value){
+        let a = Number(list)
+        let b = Number(listIndex)
+        // console.log(list)
 
-                let b = countriesPool.value[pool].countryValue
-                if(b === item){
-                    countriesPool.value[pool].checkedValue = false
-                }
+        if(a === b){
 
-            }
+            let c = countriesRate.value[list].countries
+
+             for(let item of c){
+
+                 for(let pool in countriesPool.value){
+
+                    let b = countriesPool.value[pool].countryValue
+                    if(b === item){
+                        countriesPool.value[pool].checkedValue = false
+                    }
+
+                 }
+             }
         }
+
+
+
     }
 
     countriesRate.value.splice(listIndex,1)
@@ -66,10 +119,11 @@ function checkedList(){
     return countriesRate.value.length
 }
 
+//Mutated form object
 const form = ref({
     name:null,
-    direction:null,
-    rate_model:null,
+    direction:'onclick',
+    rate_model:'scpa',
     target_url:null,
     onclick_multi_format:null,
 
@@ -88,9 +142,31 @@ const form = ref({
 })
 
 
+//final submission of data, cannot be mutated
 function submit(){
 
-    router.post('/onclick-cpag-create', form.value)
+    router.post('/onclick-cpag-create',{
+        name:form.value.name,
+        direction:form.value.direction,
+        rate_model:form.value.rate_model,
+        target_url:form.value.target_url,
+        onclick_multi_format:form.value.onclick_multi_format,
+
+        daily_budget:form.value.daily_budget,
+        campaign_budget:form.value.campaign_budget,
+        multi_format_daily_budget:form.value.multi_format_daily_budget,
+        multi_format_campaign_budget:form.value.multi_format_campaign_budget,
+
+        targeting_platform:form.value.targeting_platform,
+        targeting_os:form.value.targeting_os,
+        targeting_device:form.value.targeting_device,
+        targeting_browser:form.value.targeting_browser,
+
+        timezone:form.value.timezone,
+        countriesRate:countriesRate.value,
+        countriesList:countriesList.value
+
+    })
 
 }
 
@@ -137,12 +213,12 @@ function submit(){
                         <input type="radio" value="scpa" id="rate_model" v-model="form.rate_model" />
                         <br>
 
-                        <label for="rate_model">CPM</label>
-                        <input type="radio" value="cpm" id="rate_model" v-model="form.rate_model" />
-                        <br>
-
                         <label for="rate_model">Smart CPM</label>
                         <input type="radio" value="scpm" id="rate_model" v-model="form.rate_model" />
+                        <br>
+
+                        <label for="rate_model">CPM</label>
+                        <input type="radio" value="cpm" id="rate_model" v-model="form.rate_model" />
                         <br>
                         <br>
                     </div>
@@ -276,14 +352,18 @@ function submit(){
                     <!--Targeting-->
                     <div>
                         <label>Targeting</label>
+
                         <!--Platform-->
                         <div>
                             <label>Platform</label>
-                            <input
-                                class="border-2"
-                                v-model="form.targeting_platform"
-                            >
+                            <select v-model="form.targeting_platform">
+                                <option v-for="item in platform">
+                                    {{item.label}}
+                                </option>
+                            </select>
+
                         </div>
+
 
                         <!--OS-->
                         <div>
@@ -312,6 +392,7 @@ function submit(){
                                 v-model="form.targeting_browser"
                             >
                         </div>
+                        <br>
 
                         <!--Campaign Schedule-->
                         <div>
@@ -328,7 +409,7 @@ function submit(){
 
                             <div>
                                 <label>Schedule</label>
-                                
+
                             </div>
                         </div>
 
