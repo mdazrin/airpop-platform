@@ -1,649 +1,422 @@
 <script setup>
 import SidebarLayout from "@/Layouts/SidebarLayout.vue";
-import RadioButtonCards from "@/Components/RadioButtonCards.vue";
-import HorizontalLine from "@/Components/HorizontalLine.vue";
-import AddDeleteAlert from "@/Components/AddDeleteAlert.vue";
-import AlertTriangle from "@/Components/AlertTriangle.vue";
-import AlertInfo from "@/Components/AlertInfo.vue";
-import InputField from "@/Components/FormComponents/InputField.vue";
-import DropdownInputField from "@/Components/FormComponents/DropdownInputField.vue";
-import CaptionLabel from "@/Components/FormComponents/CaptionLabel.vue";
-import TitleLabel from "@/Components/FormComponents/TitleLabel.vue";
-import RadioButtonInput from "@/Components/FormComponents/RadioButtonInput.vue";
-import CheckBox from "@/Components/FormComponents/CheckBox.vue";
-import CheckBoxList from "@/Components/FormComponents/CheckBoxList.vue";
-import { useForm } from "@inertiajs/vue3";
-import { ref } from "vue";
+import {router} from "@inertiajs/vue3";
+import {ref} from "vue";
 
-defineProps({
-    propads_timetable: Object,
-    propads_os_version: Object,
-    propads_os_type: Object,
-    propads_os: Object,
-    propads_device_type: Object,
-    propads_device: Object,
-    propads_browser: Object,
-    propads_zone: Object,
-    propads_connection: Object,
-    propads_mobile_isp: Object,
-    propads_proxy: Object,
-    propads_language: Object,
-    propads_audience: Object,
-    propads_traffic_categories: Object,
-});
+//advert format render condition
+const onclickMultiFormat = ref('onclick')
+const campaignDays = ref('Monday')
 
-const isOpen = ref(false);
-const captionTargetURL = [
-    "https://www.domain.com/in.php?clickid=${SUBID}",
-    "Add city targeting to reach people in certain cities",
-    "Please set up GEO and select 3G/LTE connection type in order to select Mobile ISP",
-    "Maximum 5000 zones allowed",
-];
-const placeholder_dropdown = ref("Select an option");
-const dropdownOptions = [
-    { value: "option1", label: "Option 1" },
-    { value: "option2", label: "Option 2" },
-    { value: "option3", label: "Option 3" },
-];
-const dropdownOptions_timezone = [
-    { value: "UTC (GMT)", label: "UTC (GMT)" },
-    { value: "UTC+1", label: "UTC+1" },
-    { value: "UTC+2", label: "UTC+2" },
-];
-const dropdownOptions_2 = [
-    { value: "include", label: "Include" },
-    { value: "exclude", label: "Exclude" },
-];
-const dropdownOptions_3 = [
-    { value: "all", label: "All" },
-    { value: "3g", label: "3G / LTE" },
-    { value: "wifi", label: "WI-FI / Broadband" },
-];
+//countries pool
+const countriesPool = ref([
+    {name:'USA',countryValue:'us', checkedValue:false},
+    {name:'India',countryValue:'in', checkedValue:false},
+    {name:'Italy',countryValue:'it', checkedValue:false}
 
-const dropdownOptions_4 = [
-    { value: "all", label: "All" },
-    { value: "only", label: "Only Proxy" },
-    { value: "no", label: "No Proxy" },
-];
+])
 
-const radioOptions_1 = [
-    { value: "cities", label: "Cities" },
-    { value: "states", label: "States" },
-];
+//platform
+const platform = ref([
+    {label:'Desktop', value:'desktop'},
+    {label:'Mobile', value:'mobile'}
+])
 
-const checkedBox_QualityGuidelines = [
-    {
-        value: "true",
-        label: "I declare and guarantee that my campaign meets the",
-        label_blue: "Quality Guidelines",
-    },
-];
+//desktop os
+const desktop_os = ref ([
+    {label:''}
+])
 
-const checkedBox_anti_adblock = [
-    {
-        value: "true",
-        label: "Include Anti-AdBlock",
-    },
-];
 
-const checkedBox_dateRange = [
-    {
-        value: "true",
-        label: "Set display period (by EST)",
-    },
-];
+//list of countries and their rate
+const countriesRate = ref ([
+    {countries:[],amount:1}
+])
 
-const checkbox_campaignSchedule = [
-    { value: "00", label: "00" },
-    { value: "01", label: "01" },
-    { value: "02", label: "02" },
-    { value: "03", label: "03" },
-    { value: "04", label: "04" },
-    { value: "05", label: "05" },
-    { value: "06", label: "06" },
-    { value: "07", label: "07" },
-    { value: "08", label: "08" },
-    { value: "09", label: "09" },
-    { value: "10", label: "10" },
-    { value: "11", label: "11" },
-    { value: "12", label: "12" },
-    { value: "13", label: "13" },
-    { value: "14", label: "14" },
-    { value: "15", label: "15" },
-    { value: "16", label: "16" },
-    { value: "17", label: "17" },
-    { value: "18", label: "18" },
-    { value: "19", label: "19" },
-    { value: "20", label: "20" },
-    { value: "21", label: "21" },
-    { value: "22", label: "22" },
-    { value: "23", label: "23" },
-];
+const countriesList = ref([])
 
-const checkbox_campaignSchedule_days = [
-    { value: "Monday", label: "Monday" },
-    { value: "Tuesday", label: "Tuesday" },
-    { value: "Wednesday", label: "Wednesday" },
-    { value: "Thursday", label: "Thursday" },
-    { value: "Friday", label: "Friday" },
-    { value: "Saturday", label: "Saturday" },
-    { value: "Sunday", label: "Sunday" },
-];
+function addCountry(countryIndex,index){
+    let a = countriesPool.value[countryIndex].countryValue
 
-const form = useForm({
-    name: null,
-    target_url: null,
-    target_by: null,
-    remember: false,
-    countries: null,
-    cpa_goal_required: null,
-    cpa_goal: null,
-    cities_list: null,
-    platform: null,
-    os: null,
-    timezone: null,
-    cities: "",
-    states: null,
-    connection_type: null,
-    proxy_url: null,
-    checkedBox_QualityGuidelines: [],
-    checkedBox_anti_adblock: [],
-    endDate: "",
-    startDate: "",
-});
+    //push into countries Rate
+    countriesRate.value[index].countries.push(a)
+
+    //push into countries list
+    countriesList.value.push(a)
+
+    //changed the checked value inside countries pool
+    countriesPool.value[countryIndex].checkedValue = true
+
+    //sort countries rate
+    countriesRate.value[index].countries.sort()
+    countriesList.value.sort()
+
+
+}
+
+function removeCountry(listIndex,countryIndex,countryList){
+
+    //remove a country from countries rate
+    countriesRate.value[listIndex].countries.splice(countryIndex,1)
+
+
+    // changed the value of selected country in countries
+    for(let list in countriesPool.value){
+        let a = countriesPool.value[list].countryValue
+        if(a === countryList){
+            countriesPool.value[list].checkedValue = false
+        }
+
+    }
+
+    //remove country from the list
+    for(let list in countriesList.value){
+
+        let a = countriesList.value[list]
+
+        if(a === countryList){
+            countriesList.value.splice(list,1)
+        }
+
+    }
+
+}
+
+function removeList(listIndex){
+
+
+    for(let list in countriesRate.value){
+
+        let a = Number(list)
+        let b = Number(listIndex)
+        // console.log(list)
+
+        if(a === b){
+
+            let c = countriesRate.value[list].countries
+
+             for(let item of c){
+
+                 for(let pool in countriesPool.value){
+
+                    let b = countriesPool.value[pool].countryValue
+                    if(b === item){
+                        countriesPool.value[pool].checkedValue = false
+                    }
+
+                 }
+             }
+        }
+
+
+
+    }
+
+    countriesRate.value.splice(listIndex,1)
+
+}
+
+function checkedList(){
+    return countriesRate.value.length
+}
+
+//Mutated form object
+const form = ref({
+    name:null,
+    direction:'onclick',
+    rate_model:'scpa',
+    target_url:null,
+    onclick_multi_format:null,
+
+    daily_budget:null,
+    campaign_budget:null,
+    multi_format_daily_budget:null,
+    multi_format_campaign_budget:null,
+
+    targeting_platform:null,
+    targeting_os:null,
+    targeting_device:null,
+    targeting_browser:null,
+
+    timezone:null
+
+})
+
+
+//final submission of data, cannot be mutated
+function submit(){
+
+    router.post('/onclick-cpag-create',{
+        name:form.value.name,
+        direction:form.value.direction,
+        rate_model:form.value.rate_model,
+        target_url:form.value.target_url,
+        onclick_multi_format:form.value.onclick_multi_format,
+
+        daily_budget:form.value.daily_budget,
+        campaign_budget:form.value.campaign_budget,
+        multi_format_daily_budget:form.value.multi_format_daily_budget,
+        multi_format_campaign_budget:form.value.multi_format_campaign_budget,
+
+        targeting_platform:form.value.targeting_platform,
+        targeting_os:form.value.targeting_os,
+        targeting_device:form.value.targeting_device,
+        targeting_browser:form.value.targeting_browser,
+
+        timezone:form.value.timezone,
+        countriesRate:countriesRate.value,
+        countriesList:countriesList.value
+
+    })
+
+}
+
 </script>
 
 <template>
     <SidebarLayout>
         <template #content>
             <div>
-                <form @submit.prevent="form.post('/onclick-cpag-create')">
-                    <TitleLabel
-                        class="text-3xl"
-                        title_big="true"
-                        title="Create Campaign (OnClick CPA Goal 2.0)"
-                    />
+                <form @submit.prevent="submit">
 
-                    <!-- campaign name -->
-                    <InputField
-                        id="campaignName"
-                        v-model="form.name"
-                        title="Campaign Name"
-                        placeholder="Start typing..."
-                        inputType="input"
-                        type="text"
-                    />
+                    <!--name-->
+                    <label for="name">Campaign name:</label>
+                    <input id="name" class="border-2" v-model="form.name" />
+                    <br>
+                    <br>
 
-                    <!-- target url -->
-                    <InputField
-                        id="targetURL"
-                        v-model="form.target_url"
-                        title="Target URL"
-                        placeholder="Start typing..."
-                        inputType="input"
-                        type="text"
-                        caption="true"
-                        :caption_label="captionTargetURL[0]"
-                    />
-
-                    <CheckBox
-                        title_yes="true"
-                        title="Traffic Sources"
-                        :options="checkedBox_anti_adblock"
-                        v-model="form.checkedBox_anti_adblock"
-                    />
-
-                    <!-- Countries & Conversion price -->
-                    <HorizontalLine />
-                    <TitleLabel
-                        title_big="true"
-                        title=" Countries &amp; Conversion Price"
-                    />
-                    <div class="grid gap-6 mb-6 md:grid-cols-6">
-                        <div class="col-span-5">
-                            <InputField
-                                id="countries"
-                                v-model="form.countries"
-                                title="Countries*"
-                                placeholder="Choose a country"
-                                inputType="dropdown"
-                                type="text"
-                                :dropdownOptions="dropdownOptions"
-                                :placeholder_dropdown="placeholder_dropdown"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <InputField
-                                id="cpa_goal_required"
-                                v-model="form.cpa_goal_required"
-                                title="CPA Goal, $*"
-                                inputType="input"
-                                type="number"
-                                step="0.01"
-                                required
-                            />
-                        </div>
-                        <div class="col-span-5">
-                            <div
-                                class="block mb-2 text-sm font-medium text-gray-900"
-                            >
-                                Add separate rate for Interstitial campaign
-                            </div>
-                        </div>
-                        <div>
-                            <InputField
-                                id="cpa_goal"
-                                v-model="form.cpa_goal"
-                                title="CPA Goal, $"
-                                inputType="input"
-                                type="number"
-                                step="0.01"
-                            />
-                        </div>
-                    </div>
-
-                    <!-- Target by -->
-                    <RadioButtonInput
-                        title="Target by"
-                        :options="radioOptions_1"
-                        v-model="form.target_by"
-                    />
-
-                    <!-- countries -->
-
-                    <!-- need to do more research for multiple v-model bindings -->
-                    <!-- <DropdownInputField
-                            title="Cities"
-                            v-model:modelValue1="form.cities"
-                            v-model:modelValue2="form.states"
-                            :placeholder_dropdown="placeholder_dropdown"
-                            :dropdownOptions="dropdownOptions_2"
-                            caption="true"
-                            :caption_label="captionTargetURL[1]"
-                        /> -->
+                    <!--direction-->
                     <div>
-                        <TitleLabel title="Cities/States" />
+                        <label>Advertising Format</label>
+                        <br>
 
-                        <div class="flex">
-                            <InputField
-                                class="flex items-center mr-2"
-                                v-model="form.cities"
-                                inputType="dropdown"
-                                type="text"
-                                :dropdownOptions="dropdownOptions_2"
-                                :placeholder_dropdown="placeholder_dropdown"
-                            />
-                            <InputField
-                                class="flex flex-auto items-center"
-                                v-model="form.states"
-                                inputType="dropdown"
-                                type="text"
-                                :dropdownOptions="dropdownOptions"
-                                :placeholder_dropdown="placeholder_dropdown"
-                            />
-                        </div>
+                        <label for="direction">Onclick</label>
+                        <input type="radio" value="onclick" id="direction" v-model="form.direction" />
+                        <br>
+
+                        <label for="direction">NativeAds</label>
+                        <input type="radio" value="nativeads" id="direction" v-model="form.direction" />
+                        <br>
+
+                        <label for="direction">Native</label>
+                        <input type="radio" value="native" id="direction" v-model="form.direction" />
+                        <br>
+                        <br>
                     </div>
 
-                    <!-- targeting -->
-                    <div class="mb-6">
-                        <HorizontalLine />
-                        <TitleLabel title_big="true" title=" Targeting" />
 
-                        <!-- platform -->
-
-                        <InputField
-                            id="platform"
-                            v-model="form.platform"
-                            title="Platform"
-                            placeholder="Start typing..."
-                            inputType="dropdown"
-                            type="text"
-                            :dropdownOptions="dropdownOptions"
-                            :placeholder_dropdown="placeholder_dropdown"
-                        />
-
-                        <!-- os -->
-                        <InputField
-                            id="os"
-                            v-model="form.os"
-                            title="OS"
-                            placeholder="Start typing..."
-                            inputType="dropdown"
-                            type="text"
-                            :dropdownOptions="dropdownOptions"
-                            :placeholder_dropdown="placeholder_dropdown"
-                        />
-
-                        <!-- device -->
-                        <div>
-                            <TitleLabel title="Device" />
-
-                            <div class="flex">
-                                <InputField
-                                    class="flex items-center mr-2"
-                                    v-model="form.cities"
-                                    inputType="dropdown"
-                                    type="text"
-                                    :dropdownOptions="dropdownOptions_2"
-                                    :placeholder_dropdown="placeholder_dropdown"
-                                />
-                                <InputField
-                                    class="flex flex-auto items-center"
-                                    v-model="form.states"
-                                    inputType="dropdown"
-                                    type="text"
-                                    :dropdownOptions="dropdownOptions"
-                                    :placeholder_dropdown="placeholder_dropdown"
-                                />
-                            </div>
-                        </div>
-
-                        <!-- browser -->
-                        <div>
-                            <TitleLabel title="Browser" />
-
-                            <div class="flex">
-                                <InputField
-                                    class="flex items-center mr-2"
-                                    v-model="form.cities"
-                                    inputType="dropdown"
-                                    type="text"
-                                    :dropdownOptions="dropdownOptions_2"
-                                    :placeholder_dropdown="placeholder_dropdown"
-                                />
-                                <InputField
-                                    class="flex flex-auto items-center"
-                                    v-model="form.states"
-                                    inputType="dropdown"
-                                    type="text"
-                                    :dropdownOptions="dropdownOptions"
-                                    :placeholder_dropdown="placeholder_dropdown"
-                                />
-                            </div>
-                        </div>
-
-                        <!-- browser language -->
-                        <div>
-                            <TitleLabel title="Browser Language" />
-
-                            <div class="flex">
-                                <InputField
-                                    class="flex items-center mr-2"
-                                    v-model="form.cities"
-                                    inputType="dropdown"
-                                    type="text"
-                                    :dropdownOptions="dropdownOptions_2"
-                                    :placeholder_dropdown="placeholder_dropdown"
-                                />
-                                <InputField
-                                    class="flex flex-auto items-center"
-                                    v-model="form.states"
-                                    inputType="dropdown"
-                                    type="text"
-                                    :dropdownOptions="dropdownOptions"
-                                    :placeholder_dropdown="placeholder_dropdown"
-                                />
-                            </div>
-                        </div>
-
-                        <!-- connection type -->
-                        <!-- <InputField
-                                title="Connection Type"
-                                v-model="form.cities"
-                                inputType="dropdown"
-                                type="text"
-                                :dropdownOptions="dropdownOptions_3"
-                                :placeholder_dropdown="placeholder_dropdown"
-                            /> -->
-
-                        <RadioButtonInput
-                            title="Connection Type"
-                            :options="dropdownOptions_3"
-                            v-model="form.connection_type"
-                        />
-
-                        <!-- proxy -->
-                        <!-- <InputField
-                                title="Proxy"
-                                v-model="form.cities"
-                                inputType="dropdown"
-                                type="text"
-                                :dropdownOptions="dropdownOptions_4"
-                                :placeholder_dropdown="placeholder_dropdown"
-                            /> -->
-
-                        <RadioButtonInput
-                            title="Proxy"
-                            :options="dropdownOptions_4"
-                            v-model="form.proxy"
-                        />
-
-                        <!-- Mobile ISP -->
-                        <div>
-                            <TitleLabel title="Mobile ISP" />
-
-                            <div class="flex">
-                                <InputField
-                                    class="flex items-center mr-2"
-                                    v-model="form.cities"
-                                    inputType="dropdown"
-                                    type="text"
-                                    :dropdownOptions="dropdownOptions_2"
-                                    :placeholder_dropdown="placeholder_dropdown"
-                                />
-                                <InputField
-                                    class="flex flex-auto items-center"
-                                    v-model="form.states"
-                                    inputType="dropdown"
-                                    type="text"
-                                    :dropdownOptions="dropdownOptions"
-                                    :placeholder_dropdown="placeholder_dropdown"
-                                />
-                            </div>
-                            <CaptionLabel
-                                :caption_label="captionTargetURL[2]"
-                            />
-                        </div>
-
-                        <!-- zone limitation -->
-                        <div>
-                            <TitleLabel title="Zone limitation" />
-
-                            <div class="flex">
-                                <InputField
-                                    class="flex items-center mr-2"
-                                    v-model="form.cities"
-                                    inputType="dropdown"
-                                    type="text"
-                                    :dropdownOptions="dropdownOptions_2"
-                                    :placeholder_dropdown="placeholder_dropdown"
-                                />
-                                <InputField
-                                    class="flex flex-auto items-center"
-                                    v-model="form.states"
-                                    inputType="dropdown"
-                                    type="text"
-                                    :dropdownOptions="dropdownOptions"
-                                    :placeholder_dropdown="placeholder_dropdown"
-                                />
-                            </div>
-                            <CaptionLabel
-                                :caption_label="captionTargetURL[3]"
-                            />
-                        </div>
-                    </div>
-
-                    <!-- campaign schedule -->
-                    <div class="mb-6">
-                        <HorizontalLine />
-                        <TitleLabel
-                            title_big="true"
-                            title=" Campaign Schedule"
-                        />
-
-                        <InputField
-                            id="timezone"
-                            v-model="form.os"
-                            title="Select Timezone"
-                            inputType="dropdown"
-                            :dropdownOptions="dropdownOptions_timezone"
-                            :placeholder_dropdown="placeholder_dropdown"
-                        />
-
-                        <!-- <div> date picker </div> -->
-
-                        <CheckBoxList
-                            v-model="form.checkbox_campaignSchedule"
-                            :days="checkbox_campaignSchedule_days"
-                            :options="checkbox_campaignSchedule"
-                        />
-
-                        <CheckBox
-                            class="mt-6"
-                            :options="checkedBox_dateRange"
-                            v-model="form.checkedBox_dateRange"
-                        />
-
-                        <div
-                            v-if="form.checkedBox_dateRange == 'true'"
-                            class="flex"
-                        >
-                            <InputField
-                                id="startdate"
-                                v-model="form.startDate"
-                                title="Start Date"
-                                inputType="input"
-                                type="date"
-                                class="w-32 mr-4"
-                            />
-
-                            <InputField
-                                id="startdate"
-                                v-model="form.endDate"
-                                title="End Date"
-                                inputType="input"
-                                type="date"
-                                class="w-32"
-                                :min="form.startDate"
-                            />
-                        </div>
-
-                        <AlertTriangle
-                            class="mt-8 !text-blue-500 !bg-blue-50 !border-blue-50"
-                            title="Before campaign is started it will be sent for review (takes up to 24 hours). And will start immediately."
-                        />
-
-                        <AlertTriangle
-                            class="!text-blue-500 !bg-blue-50 !border-blue-50"
-                            title="Please note that an Interstitial campaign can be rejected in case your landing page cannot be opened via Interstitial banner (is using more than 4 megabytes of network bandwidth)"
-                        />
-
-                        <CheckBox
-                            :options="checkedBox_QualityGuidelines"
-                            v-model="form.checkedBox_QualityGuidelines"
-                        />
-
-                        <div class="flex items-center justify-end">
-                            <button
-                                type="button"
-                                class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mr-2"
-                            >
-                                Save as Draft
-                            </button>
-                            <button
-                                @click="isOpen = true"
-                                type="submit"
-                                :disabled="form.processing"
-                                class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5"
-                            >
-                                Start Campaign
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Modal -->
+                    <!--rate model-->
                     <div>
-                        <!-- <button
-                                @click="isOpen = true"
-                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                type="button"
-                            >
-                                Open Modal
-                            </button> -->
+                        <label>Pricing Model</label>
+                        <br>
 
+                        <label for="rate_model">CPA Goal</label>
+                        <input type="radio" value="scpa" id="rate_model" v-model="form.rate_model" />
+                        <br>
+
+                        <label for="rate_model">Smart CPM</label>
+                        <input type="radio" value="scpm" id="rate_model" v-model="form.rate_model" />
+                        <br>
+
+                        <label for="rate_model">CPM</label>
+                        <input type="radio" value="cpm" id="rate_model" v-model="form.rate_model" />
+                        <br>
+                        <br>
+                    </div>
+
+                    <!--Advertising Format Render Condition-->
+                    <div v-if="form.direction === 'onclick' && form.rate_model === 'scpa'">
+                        <label>Multiformat Campaign</label>
+                        <br>
+                        <label>Interstitial</label>
+                        <input type="checkbox" v-model="form.onclick_multi_format">
+                    </div>
+                    <div v-if="form.direction === 'nativeads'">
+                        B
+                    </div>
+                    <div v-if="form.direction === 'native'">
+                        C
+                    </div>
+                    <br>
+
+                    <!--Target URL-->
+                    <label for="target_url">Target URL</label>
+                    <input
+                        id="target_url"
+                        class="border-2"
+                        v-model="form.target_url" />
+                    <br>
+                    <br>
+
+                    <!--Countries and Rates-->
+                    <div>
+                        <label>Countries and Rate</label>
+                        <br>
+
+                        <!--Array of lists-->
                         <div
-                            v-if="isOpen"
-                            class="fixed inset-0 flex items-center justify-center z-50"
-                        >
-                            <div class="relative w-full max-w-md max-h-full">
-                                <div
-                                    class="relative bg-white rounded-lg shadow"
+                            class ="border"
+                            v-for="(list,listIndex) in countriesRate">
+
+                            <!--Array of countries and price-->
+                            <li v-for="(countryList,countryIndex) in list.countries">
+                                <button
+                                type="button"
+                                @click="removeCountry(listIndex,countryIndex,countryList)"
                                 >
+                                    {{countryList}}
+                                </button>
+
+                            </li>
+                            <label v-for="price in list.amount">
+                                {{price}}
+                            </label>
+
+                            <!--Insert value of countries-->
+                            <h1 v-for="(countries,index) in countriesPool">
+                                <h1 v-if="countries.checkedValue === false">
                                     <button
-                                        @click="isOpen = false"
-                                        type="button"
-                                        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                                    >
-                                        <svg
-                                            aria-hidden="true"
-                                            class="w-5 h-5"
-                                            fill="currentColor"
-                                            viewBox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                fill-rule="evenodd"
-                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                clip-rule="evenodd"
-                                            ></path>
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
+                                    type="button"
+                                    @click="addCountry(index,listIndex)">
+                                        <label>{{countries.name}}</label>
                                     </button>
-                                    <div class="p-6 text-center">
-                                        <svg
-                                            viewBox="0 0 1024 1024"
-                                            class="mx-auto mb-4 text-gray-400 w-14 h-14"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            id="IconChangeColor"
-                                            height="200"
-                                            width="200"
-                                        >
-                                            <path
-                                                fill="green"
-                                                d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm-55.808 536.384-99.52-99.584a38.4 38.4 0 1 0-54.336 54.336l126.72 126.72a38.272 38.272 0 0 0 54.336 0l262.4-262.464a38.4 38.4 0 1 0-54.272-54.336L456.192 600.384z"
-                                                id="mainIconPathAttribute"
-                                            ></path>
-                                        </svg>
-                                        <h3
-                                            class="mb-5 text-lg font-normal text-gray-500"
-                                        >
-                                            Campaign Created Sucessfully
-                                        </h3>
-                                        <button
-                                            type="button"
-                                            class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
-                                        >
-                                            Next
-                                            <svg
-                                                aria-hidden="true"
-                                                class="w-5 h-5 ml-2 -mr-1"
-                                                fill="currentColor"
-                                                viewBox="0 0 20 20"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    fill-rule="evenodd"
-                                                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                                    clip-rule="evenodd"
-                                                ></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
+                                </h1>
+                                <h1 v-else-if="countries.checkedValue === true">
+                                    <label></label>
+                                </h1>
+                                <br>
+                            </h1>
+
+                            <div v-if="checkedList() > 1">
+                                <button
+                                    type="button"
+                                    @click="removeList(listIndex)">
+                                    Remove List
+                                </button>
+                            </div>
+
+                        </div>
+                        <!--End of Array Lists-->
+
+
+                    </div>
+
+                    <div>
+                        <button
+                        type="button"
+                        @click="countriesRate.push({countries:[],amount:1})">
+                            Add Countries
+                        </button>
+                    </div>
+                    <br>
+
+                    <!--Advertising Budget-->
+                    <div>
+                        <label>Advertising Budget</label>
+                        <br>
+                        <div>
+                            <label>Daily Budget</label>
+                            <input
+                                class="border-2"
+                                v-model="form.daily_budget"
+                            >
+                        </div>
+                        <div>
+                            <label>Total Campaign Budget</label>
+                            <input
+                                class="border-2"
+                                v-model="form.campaign_budget"
+                            >
+                        </div>
+
+                        <!--Multiformat Budget-->
+                        <br>
+                        <div v-if="form.onclick_multi_format === true">
+                            <div>
+                                <label>Interstitial Daily Budget</label>
+                                <input
+                                    class="border-2"
+                                    v-model="form.multi_format_daily_budget"
+                                >
+                            </div>
+                            <div>
+                                <label>Interstitial Total Campaign Budget</label>
+                                <input
+                                    class="border-2"
+                                    v-model="form.multi_format_campaign_budget"
+                                >
                             </div>
                         </div>
                     </div>
+                    <br>
+
+                    <!--Targeting-->
+                    <div>
+                        <label>Targeting</label>
+
+                        <!--Platform-->
+                        <div>
+                            <label>Platform</label>
+                            <select v-model="form.targeting_platform">
+                                <option v-for="item in platform">
+                                    {{item.label}}
+                                </option>
+                            </select>
+
+                        </div>
+
+
+                        <!--OS-->
+                        <div>
+                            <label>OS</label>
+                            <input
+                                class="border-2"
+                                v-model="form.targeting_os"
+                            >
+                        </div>
+
+                        <!--Device-->
+                        <div>
+                            <label>Device</label>
+                            <input
+                                class="border-2"
+                                v-model="form.targeting_device"
+                            >
+                        </div>
+
+
+                        <!--Browser-->
+                        <div>
+                            <label>Browser</label>
+                            <input
+                                class="border-2"
+                                v-model="form.targeting_browser"
+                            >
+                        </div>
+                        <br>
+
+                        <!--Campaign Schedule-->
+                        <div>
+                            <label>Campaign Schedule</label>
+
+                            <!--Timezone-->
+                            <div>
+                                <label>Timezone</label>
+                                <input
+                                    class="border-2"
+                                    v-model="form.timezone"
+                                >
+                            </div>
+
+                            <div>
+                                <label>Schedule</label>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+
+                    <button type="submit">Submit</button>
                 </form>
             </div>
         </template>

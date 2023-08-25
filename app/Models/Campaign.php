@@ -5,196 +5,193 @@ namespace App\Models;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 
 class Campaign extends Model
 {
     use HasFactory;
 
-    public function propadsTimetable()
+    const token = 'b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a';
+
+    public function coreFields(Request $request): array
     {
-        if(!Cache::has('propads_timetable')) {
+        $arr['name'] = $request->input('name');
 
-            $var = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-                ->get('https://ssp-api.propellerads.com/v5/collections/targeting/time_table');
+        if($request->input('rate_model')=='scpa'||$request->input('rate_model')=='cpag')
+        {
+            $tempArr = array($request->input('target_url'),'/?clickid=${SUBID}');
 
-            Cache::put('propads_timetable', $var->json());
+        }else
+        {
+            $tempArr = array($request->input('target_url'),'/?zoneid=zoneId');
         }
-        return Cache::get('propads_timetable');
+        $targetUrl = implode($tempArr);
+        $arr['target_url'] = $targetUrl;
 
-    }
-
-    public function propadsOsVersion()
-    {
-        if(!Cache::has('propads_os_version')) {
-
-            $var = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-                ->get('https://ssp-api.propellerads.com/v5/collections/targeting/os_version');
-
-            Cache::put('propads_os_version', $var->json());
-        }
-        return Cache::get('propads_os_version');
-
-    }
-
-    public function propadsOsType()
-    {
-        if(!Cache::has('propads_os_type')) {
-
-            $var = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-                ->get('https://ssp-api.propellerads.com/v5/collections/targeting/os_type');
-
-            Cache::put('propads_os_type', $var->json());
-        }
-        return Cache::get('propads_os_type');
-
-    }
-
-    public function propadsOs()
-    {
-        if(!Cache::has('propads_os')) {
-
-            $var = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-                ->get('https://ssp-api.propellerads.com/v5/collections/targeting/os');
-
-            Cache::put('propads_os', $var->json());
-        }
-        return Cache::get('propads_os');
-
-    }
-
-    public function propadsDeviceType()
-    {
-        if(!Cache::has('propads_device_type')) {
-
-            $var = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-                ->get('https://ssp-api.propellerads.com/v5/collections/targeting/device_type');
-
-            Cache::put('propads_device_type', $var->json());
-        }
-        return Cache::get('propads_device_type');
-
-    }
-
-    public function propadsDevice()
-    {
-        if(!Cache::has('propads_device')) {
-
-            $var = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-                ->get('https://ssp-api.propellerads.com/v5/collections/targeting/device');
-
-            Cache::put('propads_device', $var->json());
-        }
-        return Cache::get('propads_device');
-
-    }
-
-    public function propadsBrowser()
-    {
-        if(!Cache::has('propads_browser')) {
-
-            $var = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-                ->get('https://ssp-api.propellerads.com/v5/collections/targeting/browser');
-
-            Cache::put('propads_browser', $var->json());
-        }
-        return Cache::get('propads_browser');
-
-    }
-
-    public function propadsZone()
-    {
-        if(!Cache::has('propads_zone')) {
-
-            $var = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-                ->get('https://ssp-api.propellerads.com/v5/collections/targeting/zone');
-
-            Cache::put('propads_zone', $var->json());
-        }
-        return Cache::get('propads_zone');
-
-    }
-
-    public function propadsConnection()
-    {
-        if(!Cache::has('propads_connection')) {
-
-            $var = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-                ->get('https://ssp-api.propellerads.com/v5/collections/targeting/connection');
-
-            Cache::put('propads_connection', $var->json());
-        }
-        return Cache::get('propads_connection');
-
-    }
-
-    public function propadsMobileIsp()
-    {
-        if(!Cache::has('propads_mobile_isp')) {
-
-            $var = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-                ->get('https://ssp-api.propellerads.com/v5/collections/targeting/mobile_isp');
-
-            Cache::put('propads_mobile_isp', $var->json());
-        }
-        return Cache::get('propads_mobile_isp');
-
-    }
-
-    public function propadsProxy()
-    {
-        if(!Cache::has('propads_proxy')) {
-
-            $var = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-                ->get('https://ssp-api.propellerads.com/v5/collections/targeting/proxy');
-
-            Cache::put('propads_proxy', $var->json());
-        }
-        return Cache::get('propads_proxy');
-
-    }
-
-    public function propadsLanguage()
-    {
-        if(!Cache::has('propads_language')) {
-
-            $var = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-                ->get('https://ssp-api.propellerads.com/v5/collections/targeting/language');
-
-            Cache::put('propads_language', $var->json());
-        }
-        return Cache::get('propads_language');
-
-    }
-
-    public function propadsAudience()
-    {
-        if(!Cache::has('propads_audience')) {
-
-            $var = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-                ->get('https://ssp-api.propellerads.com/v5/collections/targeting/audience');
-
-            Cache::put('propads_audience', $var->json());
-        }
-        return Cache::get('propads_audience');
-
-    }
-
-    public function propadsTrafficCategories()
-    {
-        if(!Cache::has('propads_traffic_categories')) {
-
-            $var = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-                ->get('https://ssp-api.propellerads.com/v5/collections/targeting/traffic_categories');
-
-            Cache::put('propads_traffic_categories', $var->json());
-        }
-        return Cache::get('propads_traffic_categories');
-
+        $arr['status'] = 1;
+        $arr['started_at'] = '30/7/2023';
+        $arr['expired_at'] = '5/8/2023';
+        $arr['timezone'] = $request->input('timezone');
+        $arr['rates'] =  $request->input('countriesRate');
+        return $arr;
     }
 
 
+    public function advertFormat(Request $request): array
+    {
+        $arr['direction'] = $request->input('direction');
+        $arr['rate_model'] = $request->input('rate_model');
 
+        return $arr;
+    }
 
+    //interstitial multiformat
+    public function multiFormatAdvert():array
+    {
+        $arr['direction'] = 'native';
+        $arr['rate_model'] = 'cpag';
+
+        return $arr;
+    }
+
+    public function targetingFields(Request $request): array
+    {
+        $arr['targeting'] = [
+            'country' => [
+                'list' => $request->input('countriesList'),
+                'is_excluded' => false
+            ],
+            'time_table' => [
+                'list' => [
+                    'Mon00'
+                ],
+                'is_excluded' => false
+
+            ],
+            'connection' => 'mobile',
+            'os_type' => [
+                'list' => [
+                    'mobile'
+                ],
+                'is_excluded' => false
+            ],
+            'os' => [
+                'list' => [
+                    'ios'
+                ],
+                'is_excluded' => false
+            ],
+            'os_version' => [
+                'list' => [
+                    'ios13'
+                ],
+                'is_excluded' => false
+            ],
+            'traffic_categories' => [
+                'propeller'
+            ]
+        ];
+        return $arr;
+
+    }
+
+    //interstitial multiformat targeting
+    public function multiFormatTargeting(Request $request): array
+    {
+        $arr['targeting'] = [
+            'country' => [
+                'list' => [
+                    'in',
+                    'us',
+                    'it'
+                ],
+                'is_excluded' => false
+            ],
+            'time_table' => [
+                'list' => [
+                    'Mon00'
+                ],
+                'is_excluded' => false
+
+            ],
+            'connection' => 'mobile',
+            'os_type' => [
+                'list' => [
+                    'mobile'
+                ],
+                'is_excluded' => false
+            ],
+            'os' => [
+                'list' => [
+                    'ios'
+                ],
+                'is_excluded' => false
+            ],
+            'os_version' => [
+                'list' => [
+                    'ios13'
+                ],
+                'is_excluded' => false
+            ],
+            'zone_type' => [
+                'list' => [
+                    38
+                ],
+                'is_excluded' => false
+            ]
+
+        ];
+        return $arr;
+    }
+
+    public function optionalFields(Request $request): array
+    {
+        if($request->input('direction')=='onclick')
+        {
+            $arr['is_adblock_buy'] = 1;
+        }
+
+        $arr['daily_amount'] = 50;
+        $arr['total_amount'] = 100;
+
+        return $arr;
+
+        //$arr['frequency'] = 3;
+        //$arr['capping'] = 86400;
+        //$arr['evenly_limits_usage'] = false;
+        //$arr['cpa_goal_bid'] = 0.85;
+        //$arr['cpa_goal_status'] = true;
+        //$arr['daily_amount'] = 50;
+        //$arr['total_amount'] = 100;
+
+    }
+
+    public function multiFormatOptional(Request $request): array
+    {
+
+        $arr['daily_amount'] = 50;
+        $arr['total_amount'] = 100;
+
+        return $arr;
+
+        //$arr['frequency'] = 3;
+        //$arr['capping'] = 86400;
+        //$arr['evenly_limits_usage'] = false;
+        //$arr['cpa_goal_bid'] = 0.85;
+        //$arr['cpa_goal_status'] = true;
+
+    }
+
+    public function creativeFormat(Request $request):array
+    {
+        $arr['creatives']=[
+            [
+                'template_id'=> 10000000,
+                'landing_url'=> 'https://www.base64encode.org/',
+                'status'=>1
+            ]
+        ];
+
+        return $arr;
+
+    }
 }
