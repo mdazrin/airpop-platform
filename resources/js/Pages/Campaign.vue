@@ -5,7 +5,10 @@ import TitleLabel from "@/Components/FormComponents/TitleLabel.vue";
 import { ref } from "vue";
 import TableLayout from "@/Layouts/TableLayout.vue";
 
-defineProps({ campaign: Object });
+defineProps({
+    campaign: Object,
+    statistics: Object,
+});
 const header = ref([
     "ID",
     "Name",
