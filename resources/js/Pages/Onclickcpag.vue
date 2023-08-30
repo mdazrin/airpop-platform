@@ -566,6 +566,13 @@ function submit(){
     margin-bottom: 2px;
     position: relative;
 }
+.Timetable__items__table {
+    grid-gap: 2px;
+    display: grid;
+    grid-template-columns: repeat(24,min-content);
+    grid-template-rows: repeat(7,min-content);
+    position: relative;
+}
 .Timetable__items__default-item {
     align-items: center;
     background-color: transparent;
@@ -578,11 +585,7 @@ function submit(){
     outline: none;
     width: 18px;
 }
-.Timetable__items__table {
-    grid-gap: 2px;
-    display: grid;
-    grid-template-columns: repeat(24,min-content);
-    grid-template-rows: repeat(7,min-content);
-    position: relative;
+.Timetable__items__selected-item, .Timetable__items__selected-item-disabled {
+    background-color: #0080ff;
 }
 </style>
