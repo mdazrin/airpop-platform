@@ -12,10 +12,15 @@ class OnclickcpagController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Onclickcpag');
+        $timetable = (new Campaign)->campaignSchedule();
+
+        return Inertia::render('Onclickcpag',[
+            'timetable'=>$timetable->json()
+        ]);
     }
     public function create(Request $request): Response
     {
+
 
         $core = (new Campaign)->coreFields($request);
         $advertFormat = (new Campaign)->advertFormat($request);
@@ -64,8 +69,7 @@ class OnclickcpagController extends Controller
         }
 
 
-        //dd($newCollapsed);
-        dd($response->json());
+        //dd($response->json());
         //dd($request->input('countriesList'));
         return Inertia::render('Onclickcpag',[
             'success'=>$response->created()

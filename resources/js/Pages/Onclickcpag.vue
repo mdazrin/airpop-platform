@@ -3,6 +3,8 @@ import SidebarLayout from "@/Layouts/SidebarLayout.vue";
 import {router} from "@inertiajs/vue3";
 import {ref} from "vue";
 
+defineProps({timetable:Object})
+
 //advert format render condition
 const onclickMultiFormat = ref('onclick')
 const campaignDays = ref('Monday')
