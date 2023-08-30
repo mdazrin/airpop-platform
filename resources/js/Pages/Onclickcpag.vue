@@ -119,6 +119,9 @@ function checkedList(){
     return countriesRate.value.length
 }
 
+//Timetable
+const newTimetable = ref("")
+
 //Mutated form object
 const form = ref({
     name:null,
@@ -206,6 +209,8 @@ function submit(){
 
                     <!--rate model-->
                     <div>
+                        <div v-if="form.direction === 'onclick'">
+                        <!-- Onclick Pricing Model -->
                         <label>Pricing Model</label>
                         <br>
 
@@ -221,6 +226,48 @@ function submit(){
                         <input type="radio" value="cpm" id="rate_model" v-model="form.rate_model" />
                         <br>
                         <br>
+                    </div>
+
+                    <div v-if="form.direction === 'nativeads'">
+                        <!-- nativeads Pricing Model -->
+                        <label>Pricing Model</label>
+                        <br>
+
+                        <label for="rate_model">CPA Goal</label>
+                        <input type="radio" value="scpa" id="rate_model" v-model="form.rate_model" />
+                        <br>
+
+                        <label for="rate_model">Smart CPC</label>
+                        <input type="radio" value="scpc" id="rate_model" v-model="form.rate_model" />
+                        <br>
+
+                        <label for="rate_model">CPC</label>
+                        <input type="radio" value="cpc" id="rate_model" v-model="form.rate_model" />
+                        <br>
+                        <br>
+                    </div>
+
+                    <div v-if="form.direction === 'native'">
+                        <!-- Interstitial Pricing Model -->
+                        <div>
+                            <label>Pricing Model</label>
+                            <br>
+
+                            <label for="rate_model">CPA Goal</label>
+                            <input type="radio" value="scpa" id="rate_model" v-model="form.rate_model" />
+                            <br>
+
+                            <label for="rate_model">CPC</label>
+                            <input type="radio" value="cpc" id="rate_model" v-model="form.rate_model" />
+                            <br>
+
+                            <label for="rate_model">CPM</label>
+                            <input type="radio" value="cpm" id="rate_model" v-model="form.rate_model" />
+                            <br>
+                            <br>
+                        </div>
+
+                    </div>
                     </div>
 
                     <!--Advertising Format Render Condition-->
@@ -409,7 +456,82 @@ function submit(){
 
                             <div>
                                 <label>Schedule</label>
-
+                                <div>
+                                    <div class="Timetable__items">
+                                        <div></div>
+                                        <div class="Timetable__items__hours">
+                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
+                                                {{ colIndex }}
+                                            </button>
+                                        </div>
+                                        <div class="Timetable__items__days">
+                                            <button class="Timetable__items__default-item" type="button">Mo</button>
+                                            <button class="Timetable__items__default-item" type="button">Tu</button>
+                                            <button class="Timetable__items__default-item" type="button">We</button>
+                                            <button class="Timetable__items__default-item" type="button">Th</button>
+                                            <button class="Timetable__items__default-item" type="button">Fr</button>
+                                            <button class="Timetable__items__default-item" type="button">Sa</button>
+                                            <button class="Timetable__items__default-item" type="button">Su</button>
+                                        </div>
+                                        <div class="Timetable__items__table">
+                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
+                                                {{ colIndex }}
+                                            </button>
+                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
+                                                {{ colIndex }}
+                                            </button>
+                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
+                                                {{ colIndex }}
+                                            </button>
+                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
+                                                {{ colIndex }}
+                                            </button>
+                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
+                                                {{ colIndex }}
+                                            </button>
+                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
+                                                {{ colIndex }}
+                                            </button>
+                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
+                                                {{ colIndex }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- <table>
+                                        <tr>
+                                            <td></td>
+                                            <td v-for="i in 24" :key="i">{{ i < 10 ? '0' + i : i }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mo</td>
+                                            <td v-for="i in 24" :key="i"><input type="checkbox" name="Schedule" id="" value="Mon{{ i < 10 ? '0' + i : i }}">{{ i < 10 ? '0' + i : i }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tu</td>
+                                            <td v-for="i in 24" :key="i">{{ i < 10 ? '0' + i : i }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>We</td>
+                                            <td v-for="i in 24" :key="i">{{ i < 10 ? '0' + i : i }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Th</td>
+                                            <td v-for="i in 24" :key="i">{{ i < 10 ? '0' + i : i }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fr</td>
+                                            <td v-for="i in 24" :key="i">{{ i < 10 ? '0' + i : i }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sa</td>
+                                            <td v-for="i in 24" :key="i">{{ i < 10 ? '0' + i : i }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Su</td>
+                                            <td v-for="i in 24" :key="i">{{ i < 10 ? '0' + i : i }}</td>
+                                        </tr>
+                                    </table> -->
+                                </div>
                             </div>
                         </div>
 
@@ -422,3 +544,45 @@ function submit(){
         </template>
     </SidebarLayout>
 </template>
+<style>
+.Timetable__items {
+    display: grid;
+    font-size: 11px;
+    grid-template-columns: min-content auto;
+    grid-template-rows: min-content auto;
+    width: 100%;
+}
+.Timetable__items__hours {
+    grid-gap: 2px;
+    display: grid;
+    grid-template-columns: repeat(24,min-content);
+    margin-bottom: 2px;
+    position: relative;
+}
+.Timetable__items__days {
+    grid-gap: 2px;
+    display: grid;
+    grid-template-rows: repeat(7,min-content);
+    margin-bottom: 2px;
+    position: relative;
+}
+.Timetable__items__default-item {
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    height: 18px;
+    justify-content: center;
+    margin: 0;
+    outline: none;
+    width: 18px;
+}
+.Timetable__items__table {
+    grid-gap: 2px;
+    display: grid;
+    grid-template-columns: repeat(24,min-content);
+    grid-template-rows: repeat(7,min-content);
+    position: relative;
+}
+</style>
