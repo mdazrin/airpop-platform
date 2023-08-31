@@ -124,18 +124,20 @@ const days = ref(['Mo', 'Tu', 'We', 'Th', 'Fr','Sa','Su']);
 
 const times = ref(['00', '01', '02', '03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23']);
 
-// const Timetable = ref({});
-
-// days.value.forEach(day => {
-//     Timetable.value[day] = times.value.map(() => true); // Set to true (booked) by default
-// });
+//Put all data into bookedSlot and set the value to true
 const bookedSlots = ref({});
 days.value.forEach(day => {
-  bookedSlots.value[day] = {};
   times.value.forEach(time => {
-    bookedSlots.value[day][time] = true; // Set to true (booked) by default
+    const key = `${day}${time}`;
+    bookedSlots.value[key] = true;
   });
 });
+
+//Toggle to set data to true and false
+const toggleBooking = (day, time) => {
+      const key = `${day}${time}`;
+      bookedSlots.value[key] = !bookedSlots.value[key]; // Toggle booked status
+};
 
 //Mutated form object
 const form = ref({
@@ -482,17 +484,16 @@ function submit(){
                                         <div v-for="day in days" :key="day" class="grid_items bg-cyan-600">
                                             <button class="Timetable__items__default-item" type="button">{{ day }}</button>
                                                 <div v-for="time in times" :key="time">
-                                                    <label :for="`input-${dayIndex}`">
-                                                        <input 
-                                                        :for="`input-${dayIndex}`"
-                                                        :value="day"
-                                                        v-model="bookedSlots[day][time]"
-                                                        type="checkbox">
+                                                    <button
+                                                        :class="{
+                                                            'Timetable__items__default-item bg-red-600': bookedSlots[`${day}${time}`],
+                                                            'Timetable__items__default-item bg-cyan-600': !bookedSlots[`${day}${time}`]
+                                                        }"
+                                                        type="button"
+                                                        @click="toggleBooking(day, time)"
+                                                    >
                                                         {{ time }}
-                                                    </label>
-                                                    <!-- <button class="Timetable__items__default-item" type="button">
-                                                        {{ time }}
-                                                    </button> -->
+                                                    </button>
                                                 </div>
                                         </div>
 
@@ -615,7 +616,6 @@ function submit(){
 }
 .Timetable__items__default-item {
     align-items: center;
-    background-color: transparent;
     border: none;
     cursor: pointer;
     display: flex;
