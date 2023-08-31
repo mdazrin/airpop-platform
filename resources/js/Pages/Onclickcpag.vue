@@ -120,7 +120,22 @@ function checkedList(){
 }
 
 //Timetable
-const newTimetable = ref("")
+const days = ref(['Mo', 'Tu', 'We', 'Th', 'Fr','Sa','Su']);
+
+const times = ref(['00', '01', '02', '03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23']);
+
+// const Timetable = ref({});
+
+// days.value.forEach(day => {
+//     Timetable.value[day] = times.value.map(() => true); // Set to true (booked) by default
+// });
+const bookedSlots = ref({});
+days.value.forEach(day => {
+  bookedSlots.value[day] = {};
+  times.value.forEach(time => {
+    bookedSlots.value[day][time] = true; // Set to true (booked) by default
+  });
+});
 
 //Mutated form object
 const form = ref({
@@ -457,14 +472,48 @@ function submit(){
                             <div>
                                 <label>Schedule</label>
                                 <div>
-                                    <div class="Timetable__items">
-                                        <div></div>
+                                    <div class="flex flex-col">
+                                        <div class="grid_items bg-red-600">
+                                            <div style="width: 18px;"></div>
+                                            <button v-for="time in times" :key="time" class="Timetable__items__default-item" type="button">
+                                                {{ time }}
+                                            </button>
+                                        </div>
+                                        <div v-for="day in days" :key="day" class="grid_items bg-cyan-600">
+                                            <button class="Timetable__items__default-item" type="button">{{ day }}</button>
+                                                <div v-for="time in times" :key="time">
+                                                    <label :for="`input-${dayIndex}`">
+                                                        <input 
+                                                        :for="`input-${dayIndex}`"
+                                                        :value="day"
+                                                        v-model="bookedSlots[day][time]"
+                                                        type="checkbox">
+                                                        {{ time }}
+                                                    </label>
+                                                    <!-- <button class="Timetable__items__default-item" type="button">
+                                                        {{ time }}
+                                                    </button> -->
+                                                </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- <div class="Timetable__items">
                                         <div class="Timetable__items__hours">
-                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
-                                                {{ colIndex }}
+                                            <div style="width: 18px;"></div>
+                                            <button v-for="time in times" :key="time" class="Timetable__items__default-item" type="button">
+                                                {{ time }}
                                             </button>
                                         </div>
                                         <div class="Timetable__items__days">
+                                            <div v-for="day in days" :key="day">
+                                                <button class="Timetable__items__default-item" type="button">{{ day }}</button>
+                                                <div v-for="time in times" :key="time">
+                                                    <button class="Timetable__items__default-item" type="button">
+                                                        {{ time }}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <button v-for="day in days" :key="day" class="Timetable__items__default-item" type="button">{{ day }}</button>
                                             <button class="Timetable__items__default-item" type="button">Mo</button>
                                             <button class="Timetable__items__default-item" type="button">Tu</button>
                                             <button class="Timetable__items__default-item" type="button">We</button>
@@ -474,30 +523,21 @@ function submit(){
                                             <button class="Timetable__items__default-item" type="button">Su</button>
                                         </div>
                                         <div class="Timetable__items__table">
-                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
-                                                {{ colIndex }}
-                                            </button>
-                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
-                                                {{ colIndex }}
-                                            </button>
-                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
-                                                {{ colIndex }}
-                                            </button>
-                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
-                                                {{ colIndex }}
-                                            </button>
-                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
-                                                {{ colIndex }}
-                                            </button>
-                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
-                                                {{ colIndex }}
-                                            </button>
-                                            <button v-for="colIndex in 24" :key="colIndex" class="Timetable__items__default-item">
-                                                {{ colIndex }}
-                                            </button>
+                                            
+                                            <input
+                                                v-for="(day, dayIndex) in days"
+                                                :key="dayIndex"
+                                                :id="`input-${dayIndex}`"
+                                                v-for="(time, timeIndex) in times"
+                                                :key="timeIndex"
+                                                v-model="bookedSlots[day][time]"
+                                                type="checkbox"
+                                                class="Timetable__items__default-item"
+                                            />
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- <table>
+                                        
                                         <tr>
                                             <td></td>
                                             <td v-for="i in 24" :key="i">{{ i < 10 ? '0' + i : i }}</td>
@@ -531,6 +571,7 @@ function submit(){
                                             <td v-for="i in 24" :key="i">{{ i < 10 ? '0' + i : i }}</td>
                                         </tr>
                                     </table> -->
+                                    {{ bookedSlots }}
                                 </div>
                             </div>
                         </div>
@@ -545,32 +586,31 @@ function submit(){
     </SidebarLayout>
 </template>
 <style>
+.grid_items{
+    display: grid;
+    font-size: 11px;
+    grid-template-columns: repeat(25,min-content);
+    margin-bottom: 2px;
+    position: relative;
+}
 .Timetable__items {
     display: grid;
     font-size: 11px;
-    grid-template-columns: min-content auto;
-    grid-template-rows: min-content auto;
+    grid-template-rows: repeat(2,min-content);
     width: 100%;
 }
 .Timetable__items__hours {
     grid-gap: 2px;
     display: grid;
-    grid-template-columns: repeat(24,min-content);
+    grid-template-columns: repeat(25,min-content);
     margin-bottom: 2px;
     position: relative;
 }
 .Timetable__items__days {
     grid-gap: 2px;
     display: grid;
-    grid-template-rows: repeat(7,min-content);
+    grid-template-columns: repeat(25,min-content);
     margin-bottom: 2px;
-    position: relative;
-}
-.Timetable__items__table {
-    grid-gap: 2px;
-    display: grid;
-    grid-template-columns: repeat(24,min-content);
-    grid-template-rows: repeat(7,min-content);
     position: relative;
 }
 .Timetable__items__default-item {
