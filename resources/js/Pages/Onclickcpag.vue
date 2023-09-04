@@ -126,17 +126,32 @@ const times = ref(['00', '01', '02', '03','04','05','06','07','08','09','10','11
 
 //Put all data into bookedSlot and set the value to true
 const bookedSlots = ref({});
+const trueBookedSlotsArray = ref([]);
+
 days.value.forEach(day => {
   times.value.forEach(time => {
     const key = `${day}${time}`;
-    bookedSlots.value[key] = true;
+    bookedSlots.value[key] = false;
   });
 });
 
 //Toggle to set data to true and false
 const toggleBooking = (day, time) => {
-    const key = `${day}${time}`;
-    bookedSlots.value[key] = !bookedSlots.value[key]; // Toggle booked status
+  const key = `${day}${time}`;
+  bookedSlots.value[key] = !bookedSlots.value[key]; // Toggle booked status
+
+  if (bookedSlots.value[key] === true) {
+    alert(`push ${key}`)
+    trueBookedSlotsArray.value.push(key);
+  } else {
+    alert(`splice ${key}`)
+    // If the value is now false, remove it from the array
+    const index = trueBookedSlotsArray.value.indexOf(key);
+    if (index !== -1) {
+      trueBookedSlotsArray.value.splice(index, 1);
+    }
+  }
+  
 };
 
 const toggleBookingWeekend = () => {
@@ -146,7 +161,7 @@ const toggleBookingWeekend = () => {
   weekendDays.forEach(weekendDay => {
     times.value.forEach(time => {
       if (isBothUnbooked) {
-        bookedSlots.value[`${weekendDay}${time}`] = true;
+        bookedSlots.value[`${weekendDay}${time}`] = true;   
       } else {
         toggleBooking(weekendDay, time);
       }
@@ -156,22 +171,21 @@ const toggleBookingWeekend = () => {
 
 // data with true value
 
-const getBookedSlots = () => {
-  const trueBookedSlots = {};
+// const getBookedSlots = () => {
+  
+//   days.value.forEach(day => {
+//     times.value.forEach(time => {
+//       const key = `${day}${time}`;
+//       if (bookedSlots.value[key] === true) {
+//         trueBookedSlots[key] = true;
+//       }
+//     });
+//   });
 
-  days.value.forEach(day => {
-    times.value.forEach(time => {
-      const key = `${day}${time}`;
-      if (bookedSlots.value[key] === true) {
-        trueBookedSlots[key] = true;
-      }
-    });
-  });
+//   return trueBookedSlots;
+// };
 
-  return trueBookedSlots;
-};
-
-const filteredTrueData = getBookedSlots();
+// const filteredTrueData = getBookedSlots();
 
 // const checkbookedSlots
 
@@ -649,6 +663,8 @@ function submit(){
                                         </tr>
                                     </table> -->
                                     {{ bookedSlots }}
+                                    <hr>
+                                    {{ trueBookedSlotsArray }}
                                 </div>
                             </div>
                         </div>
