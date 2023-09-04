@@ -5,12 +5,20 @@ namespace App\Models;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Http;
 
 class Campaign extends Model
 {
     use HasFactory;
 
     const token = 'b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a';
+
+    //get timetable api
+    public function campaignSchedule()
+    {
+        return Http::withToken(self::token)
+            ->get('https://ssp-api.propellerads.com/v5/collections/targeting/time_table');
+    }
 
     public function coreFields(Request $request): array
     {
