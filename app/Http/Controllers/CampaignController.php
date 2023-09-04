@@ -2,50 +2,77 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campaign;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 use Inertia\Response;
-
 
 class CampaignController extends Controller
 {
     public function index(): Response
     {
-        $response = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-            ->get('https://ssp-api.propellerads.com/v5/adv/campaigns',[
-            'is_archived'=>0
-        ]);
+        $timetable = (new Campaign)->campaignSchedule();
 
-        $collection = $response->collect('result')->keyBy('id')->keys()->all();
-
-
-
-
-
-        $statistics = Http::withToken('b616d04fe21127a046c5fcf4024106dadef4792d9e7a889a')
-            ->post('https://ssp-api.propellerads.com/v5/adv/statistics',[
-                'group_by' => [
-                    'campaign_id'
-
-                ],
-                'day_from' => "2022-05-28 00:00:00",
-                'day_to' => "2024-06-02 23:59:59",
-                'campaign_id'=>[
-                    7006194,
-                    7007572,
-
-                ]
-
-            ]);
-
-        //dd($statistics->json());
-        //dd($collection);
-        //dd($response->json());
-
-        return Inertia::render('Campaign', [
-            'campaign' => $response->json(),
-            'statistics' => $statistics->json()
+        return Inertia::render('Onclickcpag',[
+            'timetable'=>$timetable->json()
         ]);
     }
+    public function create(Request $request): Response
+    {
 
+
+        $core = (new Campaign)->coreFields($request);
+        $advertFormat = (new Campaign)->advertFormat($request);
+        $targeting = (new Campaign)->targetingFields($request);
+        $optional = (new Campaign)->optionalFields($request);
+
+        //multiformat
+        $multiFormatAdvert = (new Campaign)->multiFormatAdvert($request);
+        $multiFormatTargeting = (new Campaign)->multiFormatTargeting($request);
+        $creativeFormat = (new Campaign)->creativeFormat($request);
+        $multiFormatOptional = (new Campaign)->multiFormatOptional($request);
+
+        $collection = collect([
+            $core,
+            $advertFormat,
+            $targeting,
+            $optional
+
+        ]);
+
+        $collapsed = $collection->collapse();
+
+        $multiformatCollection = collect([
+            $core,
+            $multiFormatAdvert,
+            $multiFormatTargeting,
+            $multiFormatOptional,
+            $creativeFormat,
+
+
+        ]);
+
+        $secondResponse = $multiformatCollection->collapse();
+
+
+
+        $response = Http::withToken(Campaign::token)
+            ->post('https://ssp-api.propellerads.com/v5/adv/campaigns',
+                $collapsed);
+
+        if($request->boolean('onclick_multiformat'))
+        {
+            $response = Http::withToken(Campaign::token)
+                ->post('https://ssp-api.propellerads.com/v5/adv/campaigns',
+                    $secondResponse);
+        }
+
+
+        //dd($response->json());
+        //dd($request->input('countriesList'));
+        return Inertia::render('Onclickcpag',[
+            'success'=>$response->created()
+        ]);
+    }
 }
