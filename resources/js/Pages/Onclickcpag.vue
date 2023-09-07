@@ -128,18 +128,106 @@ const times = ref(['00', '01', '02', '03','04','05','06','07','08','09','10','11
 
 //Put all data into bookedSlot and set the value to true
 const bookedSlots = ref({});
+const trueBookedSlotsArray = ref([]);
+
 days.value.forEach(day => {
   times.value.forEach(time => {
     const key = `${day}${time}`;
-    bookedSlots.value[key] = true;
+    bookedSlots.value[key] = false;
   });
 });
 
 //Toggle to set data to true and false
 const toggleBooking = (day, time) => {
-      const key = `${day}${time}`;
-      bookedSlots.value[key] = !bookedSlots.value[key]; // Toggle booked status
+  const key = `${day}${time}`;
+  bookedSlots.value[key] = !bookedSlots.value[key]; // Toggle booked status
+
+  if (bookedSlots.value[key] === true) {
+    alert(`push ${key}`)
+    trueBookedSlotsArray.value.push(key);
+  } else {
+    alert(`splice ${key}`)
+    // If the value is now false, remove it from the array
+    const index = trueBookedSlotsArray.value.indexOf(key);
+    if (index !== -1) {
+      trueBookedSlotsArray.value.splice(index, 1);
+    }
+  }
+  
 };
+
+const toggleBookingWeekend = () => {
+  const weekendDays = ['Sa', 'Su'];
+  const isBothUnbooked = weekendDays.every(weekendDay => !bookedSlots.value[`${weekendDay}${times.value[0]}`]);
+
+  weekendDays.forEach(weekendDay => {
+    times.value.forEach(time => {
+      if (isBothUnbooked) {
+        bookedSlots.value[`${weekendDay}${time}`] = true;   
+      } else {
+        toggleBooking(weekendDay, time);
+      }
+    });
+  });
+};
+
+// data with true value
+
+// const getBookedSlots = () => {
+  
+//   days.value.forEach(day => {
+//     times.value.forEach(time => {
+//       const key = `${day}${time}`;
+//       if (bookedSlots.value[key] === true) {
+//         trueBookedSlots[key] = true;
+//       }
+//     });
+//   });
+
+//   return trueBookedSlots;
+// };
+
+// const filteredTrueData = getBookedSlots();
+
+// const checkbookedSlots
+
+// const toggleBookingWeekDay = () => {
+//   const weekDays = ['Mo', 'Tu', 'We', 'Th', 'Fr'];
+//   const isBothUnbooked = weekDays.every(weekDay => !bookedSlots.value[`${weekDay}${times.value[0]}`]);
+
+//   weekDay.forEach(weekDay => {
+//     times.value.forEach(time => {
+//       if (isBothUnbooked) {
+//         bookedSlots.value[`${weekDay}${time}`] = true;
+//       } else {
+//         toggleBooking(weekDay, time);
+//       }
+//     });
+//   });
+// };
+
+// function toggleBookingWeekend() {
+//   const weekendDays = ['Sa', 'Su'];
+//   weekendDays.forEach(weekendDay => {
+//     times.forEach(time => {
+//       toggleBooking(weekendDay, time);
+//     });
+//   });
+// }
+// const toggleBookingWeekend = (day, time) => {
+//   const key = `${day}${time}`;
+
+//   if (key.includes('Sa') || key.includes('Su')) {
+//     bookedSlots.value[key] = true; // Toggle booked status
+//   } else {
+//     bookedSlots.value[key] = false;
+//   }
+// };
+
+// const toggleBooking = (day, time) => {
+//       const key = `${day}${time}`;
+//       bookedSlots.value[key] = !bookedSlots.value[key]; // Toggle booked status
+// };
 
 //Mutated form object
 const form = ref({
@@ -475,6 +563,8 @@ function submit(){
 
                             <div>
                                 <label>Schedule</label>
+                                <button type="button" @click="toggleBookingWeekend()">Weekend</button>
+                                <button type="button" @click="toggleBookingWeekDay()">Weekday</button>
                                 <div>
                                     <div class="flex flex-col">
                                         <div class="grid_items bg-red-600">
@@ -500,6 +590,7 @@ function submit(){
                                         </div>
 
                                     </div>
+
                                 </div>
                             </div>
                         </div>
