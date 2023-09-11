@@ -594,9 +594,108 @@ function submit(){
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <br>
+                    <div>
+                        <!-- Creative Ads -->
+                        <label for="">Creative Ads</label>
+                        <div class="flex justify-start">
+                            <div>
+                                <label for="creative_ads">Prize</label>
+                                <input type="radio" value="" id="creative_ads"/>
+                            </div>
+                            <div>
+                                <label for="creative_ads">Image</label>
+                                <input type="radio" value="" id="creative_ads"/>
+                            </div>
+                            <div>
+                                <label for="creative_ads">Classic</label>
+                                <input type="radio" value="" id="creative_ads"/>
+                            </div>
+                            <div>
+                                <label for="creative_ads">Landing</label>
+                                <input type="radio" value="" id="creative_ads"/>
+                            </div>
+                            <div>
+                                <label for="creative_ads">Animated Message</label>
+                                <input type="radio" value="" id="creative_ads"/>
+                            </div>
+                            <div>
+                                <label for="creative_ads">Message</label>
+                                <input type="radio" value="" id="creative_ads"/>
+                            </div>
+                        </div>
+                        <div>
+                            <!-- Prize -->
+                            <div>
+                            <div class="">Cretive Header</div>
+                            <div>
+                                <label for="name">Title</label>
+                                <input id="name" class="border-2" v-model="form.name" />
+                            </div>
+                            <div>
+                                <label for="name">Description</label>
+                                <input id="name" class="border-2" v-model="form.name" />
+                            </div>
+                            <div>
+                                <input type="file">
+                            </div>
+                            </div>
+                            <!-- Image -->
+                            <div>
+                                <div class="">Cretive Header</div>
+                                <div>
+                                    <label for="name">Potrait</label>
+                                    <input type="file">
+                                </div>
+                                <div>
+                                    <label for="name">Landscape</label>
+                                    <input type="file">
+                                </div>
+                            </div>
+                            <!-- Classic -->
+                            <div>
+                                <div class="">Cretive Header</div>
+                                <div>
+                                    <label for="name">Title</label>
+                                    <input id="name" class="border-2" v-model="form.name" />
+                                </div>
+                                <div>
+                                    <label for="name">Landscape</label>
+                                    <input type="file">
+                                </div>
+                            </div>
+                            <!-- Landing -->
+                            <div>
+                                <label for="name">Creative URL (Landing page)</label>
+                                <input id="name" class="border-2" v-model="form.name" />
+                            </div>
+                            <!-- Animated Message -->
+                            <div>
+                                <div>Creative Header</div>
+                                <label for="name">Title</label>
+                                <input id="name" class="border-2" v-model="form.name" />
+                                <label for="name">Description</label>
+                                <input id="name" class="border-2" v-model="form.name" />
+                                <label for="name">Button text</label>
+                                <input id="name" class="border-2" v-model="form.name" />
+                                <input type="file">
+                                <input type="file">
+                            </div>
+                            <!-- Message -->
+                            <div>
+                                <div>Creative Header</div>
+                                <label for="name">Title</label>
+                                <input id="name" class="border-2" v-model="form.name" />
+                                <label for="name">Description</label>
+                                <input id="name" class="border-2" v-model="form.name" />
+                                <label for="name">Button text</label>
+                                <input id="name" class="border-2" v-model="form.name" />
+                                <input type="file">
+                                <input type="file">
+                            </div>
+                        </div>
+                    </div>
 
                     <button type="submit">Submit</button>
                 </form>
