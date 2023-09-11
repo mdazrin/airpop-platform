@@ -602,36 +602,36 @@ function submit(){
                         <div class="flex justify-start">
                             <div>
                                 <label for="creative_ads">Prize</label>
-                                <input type="radio" value="" id="creative_ads"/>
+                                <input name="creative_ads" type="radio" value="prize" id="creative_ads" v-model="form.creative"/>
                             </div>
                             <div>
                                 <label for="creative_ads">Image</label>
-                                <input type="radio" value="" id="creative_ads"/>
+                                <input name="creative_ads" type="radio" value="image" id="creative_ads" v-model="form.creative"/>
                             </div>
                             <div>
                                 <label for="creative_ads">Classic</label>
-                                <input type="radio" value="" id="creative_ads"/>
+                                <input name="creative_ads" type="radio" value="classic" id="creative_ads" v-model="form.creative"/>
                             </div>
                             <div>
                                 <label for="creative_ads">Landing</label>
-                                <input type="radio" value="" id="creative_ads"/>
+                                <input name="creative_ads" type="radio" value="landing" id="creative_ads" v-model="form.creative"/>
                             </div>
                             <div>
                                 <label for="creative_ads">Animated Message</label>
-                                <input type="radio" value="" id="creative_ads"/>
+                                <input name="creative_ads" type="radio" value="animated_message" id="creative_ads" v-model="form.creative"/>
                             </div>
                             <div>
                                 <label for="creative_ads">Message</label>
-                                <input type="radio" value="" id="creative_ads"/>
+                                <input name="creative_ads" type="radio" value="message" id="creative_ads" v-model="form.creative"/>
                             </div>
                         </div>
                         <div>
                             <!-- Prize -->
-                            <div>
+                            <div v-if="form.creative === 'prize'">
                             <div class="">Cretive Header</div>
                             <div>
                                 <label for="name">Title</label>
-                                <input id="name" class="border-2" v-model="form.name" />
+                                <input id="name" class="border-2" v-model="form.creative" />
                             </div>
                             <div>
                                 <label for="name">Description</label>
@@ -642,7 +642,7 @@ function submit(){
                             </div>
                             </div>
                             <!-- Image -->
-                            <div>
+                            <div v-if="form.creative === 'image'">
                                 <div class="">Cretive Header</div>
                                 <div>
                                     <label for="name">Potrait</label>
@@ -654,7 +654,7 @@ function submit(){
                                 </div>
                             </div>
                             <!-- Classic -->
-                            <div>
+                            <div v-if="form.creative === 'classic'">
                                 <div class="">Cretive Header</div>
                                 <div>
                                     <label for="name">Title</label>
@@ -666,12 +666,12 @@ function submit(){
                                 </div>
                             </div>
                             <!-- Landing -->
-                            <div>
+                            <div v-if="form.creative === 'landing'">
                                 <label for="name">Creative URL (Landing page)</label>
                                 <input id="name" class="border-2" v-model="form.name" />
                             </div>
                             <!-- Animated Message -->
-                            <div>
+                            <div v-if="form.creative === 'animated_message'">
                                 <div>Creative Header</div>
                                 <label for="name">Title</label>
                                 <input id="name" class="border-2" v-model="form.name" />
@@ -683,7 +683,7 @@ function submit(){
                                 <input type="file">
                             </div>
                             <!-- Message -->
-                            <div>
+                            <div v-if="form.creative === 'message'">
                                 <div>Creative Header</div>
                                 <label for="name">Title</label>
                                 <input id="name" class="border-2" v-model="form.name" />
