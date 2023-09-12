@@ -247,8 +247,10 @@ const form = ref({
     targeting_device:null,
     targeting_browser:null,
 
-    timezone:null
+    timezone:null,
 
+    //Creative
+    creative:'prize'
 })
 
 
@@ -274,7 +276,7 @@ function submit(){
 
         timezone:form.value.timezone,
         countriesRate:countriesRate.value,
-        countriesList:countriesList.value
+        countriesList:countriesList.value,
 
     })
 
@@ -598,7 +600,8 @@ function submit(){
                     <br>
                     <div>
                         <!-- Creative Ads -->
-                        <label for="">Creative Ads</label>
+                        <div v-if="form.direction === 'native'">
+                            <label for="">Creative Ads</label>
                         <div class="flex justify-start">
                             <div>
                                 <label for="creative_ads">Prize</label>
@@ -631,11 +634,11 @@ function submit(){
                             <div class="">Creative Header</div>
                             <div>
                                 <label for="name">Title</label>
-                                <input id="name" class="border-2" v-model="form.name" />
+                                <input id="name" class="border-2" v-model="form.creativetitle" />
                             </div>
                             <div>
                                 <label for="name">Description</label>
-                                <input id="name" class="border-2" v-model="form.name" />
+                                <input id="name" class="border-2" v-model="form.creativedescription" />
                             </div>
                             <div>
                                 <input type="file">
@@ -646,7 +649,7 @@ function submit(){
                                 <div class="">Creative Header</div>
                                 <div>
                                     <label for="name">Potrait</label>
-                                    <input type="file" accept="image/png, image/jpeg">
+                                    <input type="file" accept="image/png, image/jpeg" @change="">
                                 </div>
                                 <div>
                                     <label for="name">Landscape</label>
@@ -658,7 +661,7 @@ function submit(){
                                 <div class="">Creative Header</div>
                                 <div>
                                     <label for="name">Title</label>
-                                    <input id="name" class="border-2" v-model="form.name" />
+                                    <input id="name" class="border-2" v-model="form.creativetitle" />
                                 </div>
                                 <div>
                                     <label for="name">Landscape</label>
@@ -668,17 +671,17 @@ function submit(){
                             <!-- Landing -->
                             <div v-if="form.creative === 'landing'">
                                 <label for="name">Creative URL (Landing page)</label>
-                                <input id="name" class="border-2" v-model="form.name" />
+                                <input id="name" class="border-2" v-model="form.landing_url" />
                             </div>
                             <!-- Animated Message -->
                             <div v-if="form.creative === 'animated_message'">
                                 <div>Creative Header</div>
                                 <label for="name">Title</label>
-                                <input id="name" class="border-2" v-model="form.name" />
+                                <input id="name" class="border-2" v-model="form.creativetitle" />
                                 <label for="name">Description</label>
-                                <input id="name" class="border-2" v-model="form.name" />
+                                <input id="name" class="border-2" v-model="form.creativedescription" />
                                 <label for="name">Button text</label>
-                                <input id="name" class="border-2" v-model="form.name" />
+                                <input id="name" class="border-2" v-model="form.buttons" />
                                 <input type="file" accept="image/png, image/jpeg">
                                 <input type="file" accept="image/png, image/jpeg">
                             </div>
@@ -687,15 +690,15 @@ function submit(){
                                 <div>Creative Header</div>
                                 <div>
                                     <label for="name">Title</label>
-                                    <input id="name" class="border-2" v-model="form.name" />
+                                    <input id="name" class="border-2" v-model="form.creativetitle" />
                                 </div>
                                 <div>
                                     <label for="name">Description</label>
-                                    <input id="name" class="border-2" v-model="form.name" />
+                                    <input id="name" class="border-2" v-model="form.creativedescription" />
                                 </div>
                                 <div>
                                     <label for="name">Button text</label>
-                                    <input id="name" class="border-2" v-model="form.name" />
+                                    <input id="name" class="border-2" v-model="form.buttons" />
                                 </div>
                                 <div>
                                     <div class="w-100">
@@ -705,6 +708,7 @@ function submit(){
                                 </div>
                             </div>
                         </div>
+                        </div>   
                     </div>
 
                     <button type="submit">Submit</button>
