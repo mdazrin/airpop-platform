@@ -628,10 +628,10 @@ function submit(){
                         <div>
                             <!-- Prize -->
                             <div v-if="form.creative === 'prize'">
-                            <div class="">Cretive Header</div>
+                            <div class="">Creative Header</div>
                             <div>
                                 <label for="name">Title</label>
-                                <input id="name" class="border-2" v-model="form.creative" />
+                                <input id="name" class="border-2" v-model="form.name" />
                             </div>
                             <div>
                                 <label for="name">Description</label>
@@ -643,7 +643,7 @@ function submit(){
                             </div>
                             <!-- Image -->
                             <div v-if="form.creative === 'image'">
-                                <div class="">Cretive Header</div>
+                                <div class="">Creative Header</div>
                                 <div>
                                     <label for="name">Potrait</label>
                                     <input type="file">
@@ -655,7 +655,7 @@ function submit(){
                             </div>
                             <!-- Classic -->
                             <div v-if="form.creative === 'classic'">
-                                <div class="">Cretive Header</div>
+                                <div class="">Creative Header</div>
                                 <div>
                                     <label for="name">Title</label>
                                     <input id="name" class="border-2" v-model="form.name" />
@@ -685,14 +685,24 @@ function submit(){
                             <!-- Message -->
                             <div v-if="form.creative === 'message'">
                                 <div>Creative Header</div>
-                                <label for="name">Title</label>
-                                <input id="name" class="border-2" v-model="form.name" />
-                                <label for="name">Description</label>
-                                <input id="name" class="border-2" v-model="form.name" />
-                                <label for="name">Button text</label>
-                                <input id="name" class="border-2" v-model="form.name" />
-                                <input type="file">
-                                <input type="file">
+                                <div>
+                                    <label for="name">Title</label>
+                                    <input id="name" class="border-2" v-model="form.name" />
+                                </div>
+                                <div>
+                                    <label for="name">Description</label>
+                                    <input id="name" class="border-2" v-model="form.name" />
+                                </div>
+                                <div>
+                                    <label for="name">Button text</label>
+                                    <input id="name" class="border-2" v-model="form.name" />
+                                </div>
+                                <div>
+                                    <div class="w-100">
+                                        <input type="file">
+                                    </div>
+                                    <input type="file">
+                                </div>
                             </div>
                         </div>
                     </div>
