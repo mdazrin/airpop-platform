@@ -646,11 +646,11 @@ function submit(){
                                 <div class="">Creative Header</div>
                                 <div>
                                     <label for="name">Potrait</label>
-                                    <input type="file">
+                                    <input type="file" accept="image/png, image/jpeg">
                                 </div>
                                 <div>
                                     <label for="name">Landscape</label>
-                                    <input type="file">
+                                    <input type="file" accept="image/png, image/jpeg">
                                 </div>
                             </div>
                             <!-- Classic -->
@@ -662,7 +662,7 @@ function submit(){
                                 </div>
                                 <div>
                                     <label for="name">Landscape</label>
-                                    <input type="file">
+                                    <input type="file" accept="image/png, image/jpeg">
                                 </div>
                             </div>
                             <!-- Landing -->
@@ -679,8 +679,8 @@ function submit(){
                                 <input id="name" class="border-2" v-model="form.name" />
                                 <label for="name">Button text</label>
                                 <input id="name" class="border-2" v-model="form.name" />
-                                <input type="file">
-                                <input type="file">
+                                <input type="file" accept="image/png, image/jpeg">
+                                <input type="file" accept="image/png, image/jpeg">
                             </div>
                             <!-- Message -->
                             <div v-if="form.creative === 'message'">
