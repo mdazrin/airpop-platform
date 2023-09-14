@@ -180,7 +180,7 @@ const toggleBookingWeekDay = () => {
     times.value.forEach(time => {
       if (isUnbooked) {
         bookedSlots.value[`${weekDay}${time}`] = true;
-        trueBookedSlotsArray.value.push(`${weekDay}${time}`);
+        trueBookedSlotsArray.value.push(`${weekDay}${time}`); // can put weekday and time in variable if wan
       } else {
         toggleBooking(weekDay, time);
       }
@@ -199,7 +199,18 @@ const toggleBookingReset = () => {
     trueBookedSlotsArray.value = [];
 }
 
+const toggleBookingAll = () => {
+    days.value.forEach(day => {
+        times.value.forEach(time => {
 
+            const key = `${day}${time}`;
+            bookedSlots.value[key] = true;
+            if (!trueBookedSlotsArray.value.includes(key)) { //if key is not inside put it in array
+                trueBookedSlotsArray.value.push(key);
+            }
+        });
+    });
+}
 
 // const filteredTrueData = getBookedSlots();
 
