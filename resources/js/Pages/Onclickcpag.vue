@@ -143,10 +143,10 @@ const toggleBooking = (day, time) => {
   bookedSlots.value[key] = !bookedSlots.value[key]; // Toggle booked status
 
   if (bookedSlots.value[key] === true) {
-    alert(`push ${key}`)
+    // alert(`push ${key}`)
     trueBookedSlotsArray.value.push(key);
   } else {
-    alert(`splice ${key}`)
+    // alert(`splice ${key}`)
     // If the value is now false, remove it from the array
     const index = trueBookedSlotsArray.value.indexOf(key);
     if (index !== -1) {
@@ -163,7 +163,8 @@ const toggleBookingWeekend = () => {
   weekendDays.forEach(weekendDay => {
     times.value.forEach(time => {
       if (isBothUnbooked) {
-        bookedSlots.value[`${weekendDay}${time}`] = true;   
+        bookedSlots.value[`${weekendDay}${time}`] = true;
+        trueBookedSlotsArray.value.push(`${weekendDay}${time}`);
       } else {
         toggleBooking(weekendDay, time);
       }
@@ -171,21 +172,45 @@ const toggleBookingWeekend = () => {
   });
 };
 
-// data with true value
+const toggleBookingWeekDay = () => {
+  const weekDays = ['Mo', 'Tu', 'We', 'Th', 'Fr'];
+  const isUnbooked = weekDays.every(weekDay => !bookedSlots.value[`${weekDay}${times.value[0]}`]);
 
-// const getBookedSlots = () => {
-  
-//   days.value.forEach(day => {
-//     times.value.forEach(time => {
-//       const key = `${day}${time}`;
-//       if (bookedSlots.value[key] === true) {
-//         trueBookedSlots[key] = true;
-//       }
-//     });
-//   });
+  weekDays.forEach(weekDay => {
+    times.value.forEach(time => {
+      if (isUnbooked) {
+        bookedSlots.value[`${weekDay}${time}`] = true;
+        trueBookedSlotsArray.value.push(`${weekDay}${time}`); // can put weekday and time in variable if wan
+      } else {
+        toggleBooking(weekDay, time);
+      }
+    });
+  });
+};
 
-//   return trueBookedSlots;
-// };
+const toggleBookingReset = () => {
+    days.value.forEach(day => {
+        times.value.forEach(time => {
+            const key = `${day}${time}`;
+            bookedSlots.value[key] = false;
+            
+        });
+    });
+    trueBookedSlotsArray.value = [];
+}
+
+const toggleBookingAll = () => {
+    days.value.forEach(day => {
+        times.value.forEach(time => {
+
+            const key = `${day}${time}`;
+            bookedSlots.value[key] = true;
+            if (!trueBookedSlotsArray.value.includes(key)) { //if key is not inside put it in array
+                trueBookedSlotsArray.value.push(key);
+            }
+        });
+    });
+}
 
 // const filteredTrueData = getBookedSlots();
 
@@ -247,8 +272,10 @@ const form = ref({
     targeting_device:null,
     targeting_browser:null,
 
-    timezone:null
+    timezone:null,
 
+    //Creative
+    creative:'prize'
 })
 
 
@@ -274,7 +301,7 @@ function submit(){
 
         timezone:form.value.timezone,
         countriesRate:countriesRate.value,
-        countriesList:countriesList.value
+        countriesList:countriesList.value,
 
     })
 
@@ -565,6 +592,8 @@ function submit(){
                                 <label>Schedule</label>
                                 <button type="button" @click="toggleBookingWeekend()">Weekend</button>
                                 <button type="button" @click="toggleBookingWeekDay()">Weekday</button>
+                                <button type="button" @click="toggleBookingAll()">All</button>
+                                <button type="button" @click="toggleBookingReset()">Reset</button>
                                 <div>
                                     <div class="flex flex-col">
                                         <div class="grid_items bg-red-600">
@@ -594,9 +623,122 @@ function submit(){
                                 </div>
                             </div>
                         </div>
-
                     </div>
+                    {{ bookedSlots }}
                     <br>
+                    {{ trueBookedSlotsArray }}
+                    <div>
+                        <!-- Creative Ads -->
+                        <div v-if="form.direction === 'native'">
+                            <label for="">Creative Ads</label>
+                        <div class="flex justify-start">
+                            <div>
+                                <label for="creative_ads">Prize</label>
+                                <input name="creative_ads" type="radio" value="prize" id="creative_ads" v-model="form.creative"/>
+                            </div>
+                            <div>
+                                <label for="creative_ads">Image</label>
+                                <input name="creative_ads" type="radio" value="image" id="creative_ads" v-model="form.creative"/>
+                            </div>
+                            <div>
+                                <label for="creative_ads">Classic</label>
+                                <input name="creative_ads" type="radio" value="classic" id="creative_ads" v-model="form.creative"/>
+                            </div>
+                            <div>
+                                <label for="creative_ads">Landing</label>
+                                <input name="creative_ads" type="radio" value="landing" id="creative_ads" v-model="form.creative"/>
+                            </div>
+                            <div>
+                                <label for="creative_ads">Animated Message</label>
+                                <input name="creative_ads" type="radio" value="animated_message" id="creative_ads" v-model="form.creative"/>
+                            </div>
+                            <div>
+                                <label for="creative_ads">Message</label>
+                                <input name="creative_ads" type="radio" value="message" id="creative_ads" v-model="form.creative"/>
+                            </div>
+                        </div>
+                        <div>
+                            <!-- Prize -->
+                            <div v-if="form.creative === 'prize'">
+                            <div class="">Creative Header</div>
+                            <div>
+                                <label for="name">Title</label>
+                                <input id="name" class="border-2" v-model="form.creativetitle" />
+                            </div>
+                            <div>
+                                <label for="name">Description</label>
+                                <input id="name" class="border-2" v-model="form.creativedescription" />
+                            </div>
+                            <div>
+                                <input type="file">
+                            </div>
+                            </div>
+                            <!-- Image -->
+                            <div v-if="form.creative === 'image'">
+                                <div class="">Creative Header</div>
+                                <div>
+                                    <label for="name">Potrait</label>
+                                    <input type="file" accept="image/png, image/jpeg" @change="">
+                                </div>
+                                <div>
+                                    <label for="name">Landscape</label>
+                                    <input type="file" accept="image/png, image/jpeg">
+                                </div>
+                            </div>
+                            <!-- Classic -->
+                            <div v-if="form.creative === 'classic'">
+                                <div class="">Creative Header</div>
+                                <div>
+                                    <label for="name">Title</label>
+                                    <input id="name" class="border-2" v-model="form.creativetitle" />
+                                </div>
+                                <div>
+                                    <label for="name">Landscape</label>
+                                    <input type="file" accept="image/png, image/jpeg">
+                                </div>
+                            </div>
+                            <!-- Landing -->
+                            <div v-if="form.creative === 'landing'">
+                                <label for="name">Creative URL (Landing page)</label>
+                                <input id="name" class="border-2" v-model="form.landing_url" />
+                            </div>
+                            <!-- Animated Message -->
+                            <div v-if="form.creative === 'animated_message'">
+                                <div>Creative Header</div>
+                                <label for="name">Title</label>
+                                <input id="name" class="border-2" v-model="form.creativetitle" />
+                                <label for="name">Description</label>
+                                <input id="name" class="border-2" v-model="form.creativedescription" />
+                                <label for="name">Button text</label>
+                                <input id="name" class="border-2" v-model="form.buttons" />
+                                <input type="file" accept="image/png, image/jpeg">
+                                <input type="file" accept="image/png, image/jpeg">
+                            </div>
+                            <!-- Message -->
+                            <div v-if="form.creative === 'message'">
+                                <div>Creative Header</div>
+                                <div>
+                                    <label for="name">Title</label>
+                                    <input id="name" class="border-2" v-model="form.creativetitle" />
+                                </div>
+                                <div>
+                                    <label for="name">Description</label>
+                                    <input id="name" class="border-2" v-model="form.creativedescription" />
+                                </div>
+                                <div>
+                                    <label for="name">Button text</label>
+                                    <input id="name" class="border-2" v-model="form.buttons" />
+                                </div>
+                                <div>
+                                    <div class="w-100">
+                                        <input type="file">
+                                    </div>
+                                    <input type="file">
+                                </div>
+                            </div>
+                        </div>
+                        </div>   
+                    </div>
 
                     <button type="submit">Submit</button>
                 </form>
