@@ -188,6 +188,19 @@ const toggleBookingWeekDay = () => {
   });
 };
 
+const toggleBookingReset = () => {
+    days.value.forEach(day => {
+        times.value.forEach(time => {
+            const key = `${day}${time}`;
+            bookedSlots.value[key] = false;
+            
+        });
+    });
+    trueBookedSlotsArray.value = [];
+}
+
+
+
 // const filteredTrueData = getBookedSlots();
 
 // const checkbookedSlots
@@ -568,6 +581,8 @@ function submit(){
                                 <label>Schedule</label>
                                 <button type="button" @click="toggleBookingWeekend()">Weekend</button>
                                 <button type="button" @click="toggleBookingWeekDay()">Weekday</button>
+                                <button type="button" @click="toggleBookingAll()">All</button>
+                                <button type="button" @click="toggleBookingReset()">Reset</button>
                                 <div>
                                     <div class="flex flex-col">
                                         <div class="grid_items bg-red-600">
