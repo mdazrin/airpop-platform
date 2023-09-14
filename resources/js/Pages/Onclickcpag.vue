@@ -167,28 +167,26 @@ const toggleBookingWeekend = () => {
         trueBookedSlotsArray.value.push(`${weekendDay}${time}`);
       } else {
         toggleBooking(weekendDay, time);
-        // bookedSlots.value[`${weekendDay}${time}`] = false;
-
       }
     });
   });
 };
 
-// data with true value
+const toggleBookingWeekDay = () => {
+  const weekDays = ['Mo', 'Tu', 'We', 'Th', 'Fr'];
+  const isUnbooked = weekDays.every(weekDay => !bookedSlots.value[`${weekDay}${times.value[0]}`]);
 
-// const getBookedSlots = () => {
-  
-//   days.value.forEach(day => {
-//     times.value.forEach(time => {
-//       const key = `${day}${time}`;
-//       if (bookedSlots.value[key] === true) {
-//         trueBookedSlots[key] = true;
-//       }
-//     });
-//   });
-
-//   return trueBookedSlots;
-// };
+  weekDays.forEach(weekDay => {
+    times.value.forEach(time => {
+      if (isUnbooked) {
+        bookedSlots.value[`${weekDay}${time}`] = true;
+        trueBookedSlotsArray.value.push(`${weekDay}${time}`);
+      } else {
+        toggleBooking(weekDay, time);
+      }
+    });
+  });
+};
 
 // const filteredTrueData = getBookedSlots();
 
