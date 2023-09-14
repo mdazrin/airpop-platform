@@ -143,10 +143,10 @@ const toggleBooking = (day, time) => {
   bookedSlots.value[key] = !bookedSlots.value[key]; // Toggle booked status
 
   if (bookedSlots.value[key] === true) {
-    alert(`push ${key}`)
+    // alert(`push ${key}`)
     trueBookedSlotsArray.value.push(key);
   } else {
-    alert(`splice ${key}`)
+    // alert(`splice ${key}`)
     // If the value is now false, remove it from the array
     const index = trueBookedSlotsArray.value.indexOf(key);
     if (index !== -1) {
@@ -163,9 +163,12 @@ const toggleBookingWeekend = () => {
   weekendDays.forEach(weekendDay => {
     times.value.forEach(time => {
       if (isBothUnbooked) {
-        bookedSlots.value[`${weekendDay}${time}`] = true;   
+        bookedSlots.value[`${weekendDay}${time}`] = true;
+        trueBookedSlotsArray.value.push(`${weekendDay}${time}`);
       } else {
         toggleBooking(weekendDay, time);
+        // bookedSlots.value[`${weekendDay}${time}`] = false;
+
       }
     });
   });
@@ -597,7 +600,9 @@ function submit(){
                             </div>
                         </div>
                     </div>
+                    {{ bookedSlots }}
                     <br>
+                    {{ trueBookedSlotsArray }}
                     <div>
                         <!-- Creative Ads -->
                         <div v-if="form.direction === 'native'">
