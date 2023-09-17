@@ -196,7 +196,7 @@ const form = ref({
 //final submission of data, cannot be mutated
 function submit(){
 
-    router.post('/onclick-cpag-create',{
+    router.post('/create-campaign-create',{
         name:form.value.name,
         direction:form.value.direction,
         rate_model:form.value.rate_model,
