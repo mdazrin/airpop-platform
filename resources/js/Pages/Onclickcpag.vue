@@ -143,17 +143,15 @@ const toggleBooking = (day, time) => {
   bookedSlots.value[key] = !bookedSlots.value[key]; // Toggle booked status
 
   if (bookedSlots.value[key] === true) {
-    alert(`push ${key}`)
     trueBookedSlotsArray.value.push(key);
   } else {
-    alert(`splice ${key}`)
     // If the value is now false, remove it from the array
     const index = trueBookedSlotsArray.value.indexOf(key);
     if (index !== -1) {
       trueBookedSlotsArray.value.splice(index, 1);
     }
   }
-  
+
 };
 
 const toggleBookingWeekend = () => {
@@ -163,7 +161,7 @@ const toggleBookingWeekend = () => {
   weekendDays.forEach(weekendDay => {
     times.value.forEach(time => {
       if (isBothUnbooked) {
-        bookedSlots.value[`${weekendDay}${time}`] = true;   
+        bookedSlots.value[`${weekendDay}${time}`] = true;
       } else {
         toggleBooking(weekendDay, time);
       }
@@ -171,63 +169,6 @@ const toggleBookingWeekend = () => {
   });
 };
 
-// data with true value
-
-// const getBookedSlots = () => {
-  
-//   days.value.forEach(day => {
-//     times.value.forEach(time => {
-//       const key = `${day}${time}`;
-//       if (bookedSlots.value[key] === true) {
-//         trueBookedSlots[key] = true;
-//       }
-//     });
-//   });
-
-//   return trueBookedSlots;
-// };
-
-// const filteredTrueData = getBookedSlots();
-
-// const checkbookedSlots
-
-// const toggleBookingWeekDay = () => {
-//   const weekDays = ['Mo', 'Tu', 'We', 'Th', 'Fr'];
-//   const isBothUnbooked = weekDays.every(weekDay => !bookedSlots.value[`${weekDay}${times.value[0]}`]);
-
-//   weekDay.forEach(weekDay => {
-//     times.value.forEach(time => {
-//       if (isBothUnbooked) {
-//         bookedSlots.value[`${weekDay}${time}`] = true;
-//       } else {
-//         toggleBooking(weekDay, time);
-//       }
-//     });
-//   });
-// };
-
-// function toggleBookingWeekend() {
-//   const weekendDays = ['Sa', 'Su'];
-//   weekendDays.forEach(weekendDay => {
-//     times.forEach(time => {
-//       toggleBooking(weekendDay, time);
-//     });
-//   });
-// }
-// const toggleBookingWeekend = (day, time) => {
-//   const key = `${day}${time}`;
-
-//   if (key.includes('Sa') || key.includes('Su')) {
-//     bookedSlots.value[key] = true; // Toggle booked status
-//   } else {
-//     bookedSlots.value[key] = false;
-//   }
-// };
-
-// const toggleBooking = (day, time) => {
-//       const key = `${day}${time}`;
-//       bookedSlots.value[key] = !bookedSlots.value[key]; // Toggle booked status
-// };
 
 //Mutated form object
 const form = ref({
