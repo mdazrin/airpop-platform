@@ -360,7 +360,6 @@ function submit(){
                         <input type="radio" value="cpm" id="rate_model" v-model="form.rate_model" />
                         <br>
                         <br>
-                        adsad
                     </div>
 
                     <div v-if="form.direction === 'nativeads'">
