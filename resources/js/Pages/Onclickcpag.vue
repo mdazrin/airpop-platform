@@ -193,7 +193,7 @@ const toggleBookingReset = () => {
         times.value.forEach(time => {
             const key = `${day}${time}`;
             bookedSlots.value[key] = false;
-            
+
         });
     });
     trueBookedSlotsArray.value = [];
@@ -212,47 +212,6 @@ const toggleBookingAll = () => {
     });
 }
 
-// const filteredTrueData = getBookedSlots();
-
-// const checkbookedSlots
-
-// const toggleBookingWeekDay = () => {
-//   const weekDays = ['Mo', 'Tu', 'We', 'Th', 'Fr'];
-//   const isBothUnbooked = weekDays.every(weekDay => !bookedSlots.value[`${weekDay}${times.value[0]}`]);
-
-//   weekDay.forEach(weekDay => {
-//     times.value.forEach(time => {
-//       if (isBothUnbooked) {
-//         bookedSlots.value[`${weekDay}${time}`] = true;
-//       } else {
-//         toggleBooking(weekDay, time);
-//       }
-//     });
-//   });
-// };
-
-// function toggleBookingWeekend() {
-//   const weekendDays = ['Sa', 'Su'];
-//   weekendDays.forEach(weekendDay => {
-//     times.forEach(time => {
-//       toggleBooking(weekendDay, time);
-//     });
-//   });
-// }
-// const toggleBookingWeekend = (day, time) => {
-//   const key = `${day}${time}`;
-
-//   if (key.includes('Sa') || key.includes('Su')) {
-//     bookedSlots.value[key] = true; // Toggle booked status
-//   } else {
-//     bookedSlots.value[key] = false;
-//   }
-// };
-
-// const toggleBooking = (day, time) => {
-//       const key = `${day}${time}`;
-//       bookedSlots.value[key] = !bookedSlots.value[key]; // Toggle booked status
-// };
 
 //Mutated form object
 const form = ref({
@@ -624,9 +583,7 @@ function submit(){
                             </div>
                         </div>
                     </div>
-                    {{ bookedSlots }}
                     <br>
-                    {{ trueBookedSlotsArray }}
                     <div>
                         <!-- Creative Ads -->
                         <div v-if="form.direction === 'native'">
@@ -737,7 +694,7 @@ function submit(){
                                 </div>
                             </div>
                         </div>
-                        </div>   
+                        </div>
                     </div>
 
                     <button type="submit">Submit</button>
