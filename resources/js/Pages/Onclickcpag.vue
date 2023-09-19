@@ -314,126 +314,163 @@ function submit(){
         <template #content>
             <div>
                 <form @submit.prevent="submit">
-
                     <!--name-->
-                    <label for="name">Campaign name:</label>
-                    <input id="name" class="border-2" v-model="form.name" />
-                    <br>
-                    <br>
+                    <h1 class="text-3xl main mb-2">Create Campaign</h1>
+                    <div class="mb-4">
+                        <label for="name" class="">Campaign name:</label>
+                        <input id="name" class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2" v-model="form.name" />
+                    </div>
 
                     <!--direction-->
-                    <div>
+                    <div class="mb-4">
                         <label>Advertising Format</label>
                         <br>
-
-                        <label for="direction">Onclick</label>
-                        <input type="radio" value="onclick" id="direction" v-model="form.direction" />
-                        <br>
-
-                        <label for="direction">NativeAds</label>
-                        <input type="radio" value="nativeads" id="direction" v-model="form.direction" />
-                        <br>
-
-                        <label for="direction">Native</label>
-                        <input type="radio" value="native" id="direction" v-model="form.direction" />
-                        <br>
-                        <br>
+                        <div class="flex justify-between space-x-4">
+                            <div class="w-full">
+                                <div class="flex-col">
+                                    <label for="onclick" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">                                        
+                                        <div class="w-full">
+                                            <input type="radio" value="onclick" id="onclick" v-model="form.direction" />
+                                            <div class="w-full text-lg font-semibold mt-4">Onclick</div>
+                                            <div class="w-full mt-4">Full-page and eye-catchy ads opening in the background</div>
+                                            <!-- <div>
+                                                <img src="{{ URL('images/OnClick.png') }}" alt="">
+                                            </div> -->
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="w-full">
+                                <div class="flex-col">
+                                    <label for="nativeads" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">                                        
+                                        <div class="w-full">
+                                            <input type="radio" value="nativeads" id="nativeads" v-model="form.direction" />
+                                            <div class="w-full text-lg font-semibold mt-4">NativeAds</div>
+                                            <div class="w-full mt-4">Full-page and eye-catchy ads opening in the background</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="w-full">
+                                <div class="flex-col">
+                                    <label for="native" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">                                        
+                                        <div class="w-full">
+                                            <input type="radio" value="native" id="native" v-model="form.direction" />
+                                            <div class="w-full text-lg font-semibold mt-4">Native</div>
+                                            <div class="w-full mt-4">Full-page and eye-catchy ads opening in the background</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+    
+                            <!-- <div class="w-full">
+                                <label for="direction">NativeAds</label>
+                                <input type="radio" value="nativeads" id="direction" v-model="form.direction" />
+                            </div>
+    
+                            <div class="w-full">
+                                <label for="direction">Native</label>
+                                <input type="radio" value="native" id="direction" v-model="form.direction" />
+                            </div> -->
+                        </div>
                     </div>
-
 
                     <!--rate model-->
-                    <div>
-                        <div v-if="form.direction === 'onclick'">
-                        <!-- Onclick Pricing Model -->
+                    <div class="mb-4">
                         <label>Pricing Model</label>
-                        <br>
-
-                        <label for="rate_model">CPA Goal</label>
-                        <input type="radio" value="scpa" id="rate_model" v-model="form.rate_model" />
-                        <br>
-
-                        <label for="rate_model">Smart CPM</label>
-                        <input type="radio" value="scpm" id="rate_model" v-model="form.rate_model" />
-                        <br>
-
-                        <label for="rate_model">CPM</label>
-                        <input type="radio" value="cpm" id="rate_model" v-model="form.rate_model" />
-                        <br>
-                        <br>
-                    </div>
-
-                    <div v-if="form.direction === 'nativeads'">
-                        <!-- nativeads Pricing Model -->
-                        <label>Pricing Model</label>
-                        <br>
-
-                        <label for="rate_model">CPA Goal</label>
-                        <input type="radio" value="scpa" id="rate_model" v-model="form.rate_model" />
-                        <br>
-
-                        <label for="rate_model">Smart CPC</label>
-                        <input type="radio" value="scpc" id="rate_model" v-model="form.rate_model" />
-                        <br>
-
-                        <label for="rate_model">CPC</label>
-                        <input type="radio" value="cpc" id="rate_model" v-model="form.rate_model" />
-                        <br>
-                        <br>
-                    </div>
-
-                    <div v-if="form.direction === 'native'">
-                        <!-- Interstitial Pricing Model -->
-                        <div>
-                            <label>Pricing Model</label>
-                            <br>
-
-                            <label for="rate_model">CPA Goal</label>
-                            <input type="radio" value="scpa" id="rate_model" v-model="form.rate_model" />
-                            <br>
-
-                            <label for="rate_model">CPC</label>
-                            <input type="radio" value="cpc" id="rate_model" v-model="form.rate_model" />
-                            <br>
-
-                            <label for="rate_model">CPM</label>
-                            <input type="radio" value="cpm" id="rate_model" v-model="form.rate_model" />
-                            <br>
-                            <br>
+                        <div class="flex space-x-4">
+                            <!-- Onclick Pricing Model -->
+                            <div v-if="form.direction === 'onclick'" class="flex space-x-8">
+                                <div class="flex items-center">
+                                    <input type="radio" value="scpa" id="scpa" v-model="form.rate_model" />
+                                    <label for="scpa" class="px-2">CPA Goal</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" value="scpm" id="scpm" v-model="form.rate_model" />
+                                    <label for="scpm" class="px-2">Smart CPM</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" value="cpm" id="cpm" v-model="form.rate_model" />
+                                    <label for="cpm" class="px-2">CPM</label>
+                                </div>
+                            </div>
+    
+                            <!-- nativeads Pricing Model -->
+                            <div v-if="form.direction === 'nativeads'" class="flex space-x-8">
+                                <div class="flex items-center">
+                                    <input type="radio" value="scpa" id="scpa" v-model="form.rate_model" />
+                                    <label for="scpa" class="px-2">CPA Goal</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" value="scpc" id="scpc" v-model="form.rate_model" />
+                                    <label for="scpc" class="px-2">Smart CPC</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" value="cpc" id="cpc" v-model="form.rate_model" />
+                                    <label for="cpc" class="px-2">CPC</label>
+                                </div>
+                            </div>
+    
+                            <!-- Interstitial Pricing Model -->
+                            <div v-if="form.direction === 'native'" class="flex space-x-8">
+                                <div class="flex items-center">
+                                    <input type="radio" value="scpa" id="scpa" v-model="form.rate_model" />
+                                    <label for="scpa" class="px-2">CPA Goal</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" value="cpc" id="cpc" v-model="form.rate_model" />
+                                    <label for="cpc" class="px-2">CPC</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" value="cpm" id="cpm" v-model="form.rate_model" />
+                                    <label for="cpm" class="px-2">CPM</label>
+                                </div>
+                            </div>
                         </div>
-
-                    </div>
                     </div>
 
                     <!--Advertising Format Render Condition-->
-                    <div v-if="form.direction === 'onclick' && form.rate_model === 'scpa'">
-                        <label>Multiformat Campaign</label>
-                        <br>
-                        <label>Interstitial</label>
-                        <input type="checkbox" v-model="form.onclick_multi_format">
+                    <div class="mb-4">
+                        <div v-if="form.direction === 'onclick' && form.rate_model === 'scpa'">
+                            <label>Multiformat Campaign</label>
+                            <div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" v-model="form.onclick_multi_format">
+                                    <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Interstitial</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div v-if="form.direction === 'nativeads'">
+                            B
+                        </div>
+                        <div v-if="form.direction === 'native'">
+                            C
+                        </div>
                     </div>
-                    <div v-if="form.direction === 'nativeads'">
-                        B
-                    </div>
-                    <div v-if="form.direction === 'native'">
-                        C
-                    </div>
-                    <br>
 
                     <!--Target URL-->
-                    <label for="target_url">Target URL</label>
-                    <input
-                        id="target_url"
-                        class="border-2"
-                        v-model="form.target_url" />
-                    <br>
-                    <br>
+                    <div class="mb-4">
+                        <label for="target_url">Target URL</label>
+                        <input
+                            id="target_url"
+                            class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                            v-model="form.target_url" />
+                    </div>
 
                     <!--Countries and Rates-->
-                    <div>
+                    <div class="mb-4">
                         <label>Countries and Rate</label>
                         <br>
-
+                        <div>
+                            
+                        </div>
                         <!--Array of lists-->
+                        
+                        <select name="" id="">
+                            <option value=""></option>
+                        </select>
+
                         <div
                             class ="border"
                             v-for="(list,listIndex) in countriesRate">
@@ -478,66 +515,69 @@ function submit(){
                         </div>
                         <!--End of Array Lists-->
 
-
+                        <div>
+                            <button
+                            type="button"
+                            @click="countriesRate.push({countries:[],amount:1})">
+                                Add Countries
+                            </button>
+                        </div>
                     </div>
-
-                    <div>
-                        <button
-                        type="button"
-                        @click="countriesRate.push({countries:[],amount:1})">
-                            Add Countries
-                        </button>
-                    </div>
-                    <br>
 
                     <!--Advertising Budget-->
-                    <div>
+                    <div class="mb-4">
                         <label>Advertising Budget</label>
                         <br>
-                        <div>
-                            <label>Daily Budget</label>
-                            <input
-                                class="border-2"
-                                v-model="form.daily_budget"
-                            >
-                        </div>
-                        <div>
-                            <label>Total Campaign Budget</label>
-                            <input
-                                class="border-2"
-                                v-model="form.campaign_budget"
-                            >
+                        <label class="font-bold">OnClick</label>
+                        <div class="flex space-x-4">
+                            <div class="flex flex-col">
+                                <label>Daily Budget</label>
+                                <input
+                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                                    v-model="form.daily_budget"
+                                >
+                            </div>
+                            <div class="flex flex-col">
+                                <label>Total Campaign Budget</label>
+                                <input
+                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                                    v-model="form.campaign_budget"
+                                >
+                            </div>
                         </div>
 
                         <!--Multiformat Budget-->
-                        <br>
                         <div v-if="form.onclick_multi_format === true">
-                            <div>
-                                <label>Interstitial Daily Budget</label>
-                                <input
-                                    class="border-2"
-                                    v-model="form.multi_format_daily_budget"
-                                >
-                            </div>
-                            <div>
-                                <label>Interstitial Total Campaign Budget</label>
-                                <input
-                                    class="border-2"
-                                    v-model="form.multi_format_campaign_budget"
-                                >
+                            <label class="font-bold">Interstitial</label>
+                            <div class="flex space-x-4">
+                                <div class="flex flex-col">
+                                    <label>Interstitial Daily Budget</label>
+                                    <input
+                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                                        v-model="form.multi_format_daily_budget"
+                                    >
+                                </div>
+                                <div class="flex flex-col">
+                                    <label>Interstitial Total Campaign Budget</label>
+                                    <input
+                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                                        v-model="form.multi_format_campaign_budget"
+                                    >
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <br>
 
                     <!--Targeting-->
-                    <div>
+                    <div class="mb-4">
                         <label>Targeting</label>
 
                         <!--Platform-->
                         <div>
                             <label>Platform</label>
-                            <select v-model="form.targeting_platform">
+                            <select
+                            class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-max pl-4" 
+                            v-model="form.targeting_platform">
                                 <option v-for="item in platform">
                                     {{item.label}}
                                 </option>
@@ -550,7 +590,7 @@ function submit(){
                         <div>
                             <label>OS</label>
                             <input
-                                class="border-2"
+                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
                                 v-model="form.targeting_os"
                             >
                         </div>
@@ -559,7 +599,7 @@ function submit(){
                         <div>
                             <label>Device</label>
                             <input
-                                class="border-2"
+                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
                                 v-model="form.targeting_device"
                             >
                         </div>
@@ -569,64 +609,65 @@ function submit(){
                         <div>
                             <label>Browser</label>
                             <input
-                                class="border-2"
+                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
                                 v-model="form.targeting_browser"
                             >
                         </div>
                         <br>
 
-                        <!--Campaign Schedule-->
+                    </div>
+                    <!--Campaign Schedule-->
+                    <div class="mb-4">
+                        <label>Campaign Schedule</label>
+
+                        <!--Timezone-->
+                        <div class="flex flex-col mb-4">
+                            <label>Timezone</label>
+                            <input
+                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                                v-model="form.timezone"
+                            >
+                        </div>
+
                         <div>
-                            <label>Campaign Schedule</label>
-
-                            <!--Timezone-->
-                            <div>
-                                <label>Timezone</label>
-                                <input
-                                    class="border-2"
-                                    v-model="form.timezone"
-                                >
+                            <div class="flex space-x-4 mb-4">
+                                <button type="button" class="text-blue-600" @click="toggleBookingAll()">All</button>
+                                <button type="button" class="text-blue-600" @click="toggleBookingWeekend()">Weekend</button>
+                                <button type="button" class="text-blue-600" @click="toggleBookingWeekDay()">Weekday</button>
+                                <button type="button" class="text-blue-600" @click="toggleBookingReset()">Reset</button>
                             </div>
-
                             <div>
-                                <label>Schedule</label>
-                                <button type="button" @click="toggleBookingWeekend()">Weekend</button>
-                                <button type="button" @click="toggleBookingWeekDay()">Weekday</button>
-                                <button type="button" @click="toggleBookingAll()">All</button>
-                                <button type="button" @click="toggleBookingReset()">Reset</button>
-                                <div>
-                                    <div class="flex flex-col">
-                                        <div class="grid_items bg-red-600">
-                                            <div style="width: 18px;"></div>
-                                            <button v-for="time in times" :key="time" class="Timetable__items__default-item" type="button">
-                                                {{ time }}
-                                            </button>
-                                        </div>
-                                        <div v-for="day in days" :key="day" class="grid_items bg-cyan-600">
-                                            <button class="Timetable__items__default-item" type="button">{{ day }}</button>
-                                                <div v-for="time in times" :key="time">
-                                                    <button
-                                                        :class="{
-                                                            'Timetable__items__default-item bg-red-600': bookedSlots[`${day}${time}`],
-                                                            'Timetable__items__default-item bg-cyan-600': !bookedSlots[`${day}${time}`]
-                                                        }"
-                                                        type="button"
-                                                        @click="toggleBooking(day, time)"
-                                                    >
-                                                        {{ time }}
-                                                    </button>
-                                                </div>
-                                        </div>
-
+                                <div class="flex flex-col">
+                                    <div class="grid_items gap-1">
+                                        <div style="width: 18px;"></div>
+                                        <button v-for="time in times" :key="time" class="Timetable__items__default-item" type="button">
+                                            {{ time }}
+                                        </button>
+                                    </div>
+                                    <div v-for="day in days" :key="day" class="grid_items gap-1 ">
+                                        <button class="Timetable__items__default-item" type="button">{{ day }}</button>
+                                            <div v-for="time in times" :key="time">
+                                                <button
+                                                    :class="{
+                                                        'Timetable__items__default-item bg-cyan-600': bookedSlots[`${day}${time}`],
+                                                        'Timetable__items__default-item bg-red-600': !bookedSlots[`${day}${time}`]
+                                                    }"
+                                                    type="button"
+                                                    @click="toggleBooking(day, time)"
+                                                >
+                                                    {{ time }}
+                                                </button>
+                                            </div>
                                     </div>
 
                                 </div>
+
                             </div>
                         </div>
                     </div>
-                    {{ bookedSlots }}
+                    <!-- {{ bookedSlots }}
                     <br>
-                    {{ trueBookedSlotsArray }}
+                    {{ trueBookedSlotsArray }} -->
                     <div>
                         <!-- Creative Ads -->
                         <div v-if="form.direction === 'native'">
@@ -740,7 +781,9 @@ function submit(){
                         </div>   
                     </div>
 
-                    <button type="submit">Submit</button>
+                    <div class="flex justify-end">
+                        <button class="w-max" type="submit">Submit</button>
+                    </div>
                 </form>
             </div>
         </template>
@@ -785,7 +828,7 @@ function submit(){
     outline: none;
     width: 18px;
 }
-.Timetable__items__selected-item, .Timetable__items__selected-item-disabled {
+/* .Timetable__items__selected-item, .Timetable__items__selected-item-disabled {
     background-color: #0080ff;
-}
+} */
 </style>
