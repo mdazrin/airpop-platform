@@ -273,17 +273,19 @@ function submit(){
         <template #content>
             <div>
                 <form @submit.prevent="submit">
-                    <!--name-->
+                    
                     <h1 class="text-3xl main mb-2">Create Campaign</h1>
+                    <!--name-->
                     <div class="mb-4">
                         <label for="name" class="">Campaign name:</label>
-                        <input id="name" class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2" v-model="form.name" />
+                        <input id="name" 
+                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2" 
+                        v-model="form.name" />
                     </div>
 
                     <!--direction-->
                     <div class="mb-4">
-                        <label>Advertising Format</label>
-                        <br>
+                        <p>Advertising Format:</p>
                         <div class="flex justify-between space-x-4">
                             <div class="w-full">
                                 <div class="flex-col">
@@ -321,22 +323,11 @@ function submit(){
                                     </label>
                                 </div>
                             </div>
-    
-                            <!-- <div class="w-full">
-                                <label for="direction">NativeAds</label>
-                                <input type="radio" value="nativeads" id="direction" v-model="form.direction" />
-                            </div>
-    
-                            <div class="w-full">
-                                <label for="direction">Native</label>
-                                <input type="radio" value="native" id="direction" v-model="form.direction" />
-                            </div> -->
                         </div>
                     </div>
 
                     <!--rate model-->
                     <div class="mb-4">
-                        <label>Pricing Model</label>
                         <div class="flex space-x-4">
                             <!-- Onclick Pricing Model -->
                             <div v-if="form.direction === 'onclick'" class="flex space-x-8">
@@ -499,12 +490,12 @@ function submit(){
                             <div class="flex flex-col">
                                 <label>Total Campaign Budget</label>
                                 <input
-                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
-                                    v-model="form.campaign_budget"
+                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                                v-model="form.campaign_budget"
                                 >
                             </div>
                         </div>
-
+                        
                         <!--Multiformat Budget-->
                         <div v-if="form.onclick_multi_format === true">
                             <label class="font-bold">Interstitial</label>
@@ -563,45 +554,62 @@ function submit(){
                             >
                         </div>
 
-
+                        
                         <!--Browser-->
                         <div>
                             <label>Browser</label>
                             <input
-                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                            class="border-2"
                                 v-model="form.targeting_browser"
-                            >
+                                >
+                            </div>
+                            <br>
                         </div>
-                        <br>
+                            
+                         <!--Campaign Schedule-->
+                        <div class="mb-4">
+                            <label>Campaign Schedule</label>
 
-                    </div>
-                    <!--Campaign Schedule-->
-                    <div class="mb-4">
-                        <label>Campaign Schedule</label>
-
-                        <!--Timezone-->
-                        <div class="flex flex-col mb-4">
-                            <label>Timezone</label>
-                            <input
-                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
-                                v-model="form.timezone"
-                            >
-                        </div>
-
-                        <div>
-                            <div class="flex space-x-4 mb-4">
-                                <button type="button" class="text-blue-600" @click="toggleBookingAll()">All</button>
-                                <button type="button" class="text-blue-600" @click="toggleBookingWeekend()">Weekend</button>
-                                <button type="button" class="text-blue-600" @click="toggleBookingWeekDay()">Weekday</button>
-                                <button type="button" class="text-blue-600" @click="toggleBookingReset()">Reset</button>
+                            <!--Timezone-->
+                            <div class="flex flex-col mb-4">
+                                <label>Timezone</label>
+                                <input
+                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                                    v-model="form.timezone"
+                                >
                             </div>
                             <div>
-                                <div class="flex flex-col">
-                                    <div class="grid_items gap-1">
-                                        <div style="width: 18px;"></div>
-                                        <button v-for="time in times" :key="time" class="Timetable__items__default-item" type="button">
-                                            {{ time }}
-                                        </button>
+                                <label>Schedule</label>
+                                <div class="flex space-x-4 mb-4">
+                                    <button type="button" class="text-blue-600" @click="toggleBookingAll()">All</button>
+                                    <button type="button" class="text-blue-600" @click="toggleBookingWeekend()">Weekend</button>
+                                    <button type="button" class="text-blue-600" @click="toggleBookingWeekDay()">Weekday</button>
+                                    <button type="button" class="text-blue-600" @click="toggleBookingReset()">Reset</button>
+                                </div>
+                                <div>
+                                    <div class="flex flex-col">
+                                        <div class="grid_items gap-1">
+                                            <div style="width: 18px;"></div>
+                                            <button v-for="time in times" :key="time" class="Timetable__items__default-item" type="button">
+                                                {{ time }}
+                                            </button>
+                                        </div>
+                                        <div v-for="day in days" :key="day" class="grid_items gap-1">
+                                            <button class="Timetable__items__default-item" type="button">{{ day }}</button>
+                                                <div v-for="time in times" :key="time">
+                                                    <button
+                                                        :class="{
+                                                            'Timetable__items__default-item bg-cyan-600': bookedSlots[`${day}${time}`],
+                                                            'Timetable__items__default-item bg-red-600': !bookedSlots[`${day}${time}`]
+                                                        }"
+                                                        type="button"
+                                                        @click="toggleBooking(day, time)"
+                                                    >
+                                                        {{ time }}
+                                                    </button>
+                                                </div>
+                                        </div>
+
                                     </div>
                                     <div v-for="day in days" :key="day" class="grid_items gap-1 ">
                                         <button class="Timetable__items__default-item" type="button">{{ day }}</button>
@@ -623,10 +631,9 @@ function submit(){
 
                             </div>
                         </div>
-                    </div>
-                    <!-- {{ bookedSlots }}
+                    <!-- {{ bookedSlots }} -->
                     <br>
-                    {{ trueBookedSlotsArray }} -->
+                    <!-- {{ trueBookedSlotsArray }} -->
                     <div>
                         <!-- Creative Ads -->
                         <div v-if="form.direction === 'native'">
@@ -739,7 +746,6 @@ function submit(){
                         </div>
                         </div>
                     </div>
-
                     <div class="flex justify-end">
                         <button class="w-max" type="submit">Submit</button>
                     </div>
