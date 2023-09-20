@@ -463,8 +463,8 @@ const searchQuery = ref([])
                                             {{countryList}}
                                         </button>
                                         </li>
-                                        <input type="text" v-model="searchQuery" placeholder="Search...">
                                         </ul>
+                                        <input type="text" v-model="searchQuery" placeholder="Search...">
                                 </div>
                                 <div >
                                 </div>
