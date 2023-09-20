@@ -589,51 +589,54 @@ function submit(){
                             >
                         </div>
 
-
+                        
                         <!--Browser-->
                         <div>
                             <label>Browser</label>
                             <input
-                                class="border-2"
+                            class="border-2"
                                 v-model="form.targeting_browser"
-                            >
+                                >
+                            </div>
+                            <br>
                         </div>
-                        <br>
-
-                        <!--Campaign Schedule-->
-                        <div>
+                            
+                         <!--Campaign Schedule-->
+                        <div class="mb-4">
                             <label>Campaign Schedule</label>
 
                             <!--Timezone-->
-                            <div>
+                            <div class="flex flex-col mb-4">
                                 <label>Timezone</label>
                                 <input
-                                    class="border-2"
+                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
                                     v-model="form.timezone"
                                 >
                             </div>
 
                             <div>
                                 <label>Schedule</label>
-                                <button type="button" @click="toggleBookingWeekend()">Weekend</button>
-                                <button type="button" @click="toggleBookingWeekDay()">Weekday</button>
-                                <button type="button" @click="toggleBookingAll()">All</button>
-                                <button type="button" @click="toggleBookingReset()">Reset</button>
+                                <div class="flex space-x-4 mb-4">
+                                    <button type="button" class="text-blue-600" @click="toggleBookingAll()">All</button>
+                                    <button type="button" class="text-blue-600" @click="toggleBookingWeekend()">Weekend</button>
+                                    <button type="button" class="text-blue-600" @click="toggleBookingWeekDay()">Weekday</button>
+                                    <button type="button" class="text-blue-600" @click="toggleBookingReset()">Reset</button>
+                                </div>
                                 <div>
                                     <div class="flex flex-col">
-                                        <div class="grid_items bg-red-600">
+                                        <div class="grid_items gap-1">
                                             <div style="width: 18px;"></div>
                                             <button v-for="time in times" :key="time" class="Timetable__items__default-item" type="button">
                                                 {{ time }}
                                             </button>
                                         </div>
-                                        <div v-for="day in days" :key="day" class="grid_items bg-cyan-600">
+                                        <div v-for="day in days" :key="day" class="grid_items gap-1">
                                             <button class="Timetable__items__default-item" type="button">{{ day }}</button>
                                                 <div v-for="time in times" :key="time">
                                                     <button
                                                         :class="{
-                                                            'Timetable__items__default-item bg-red-600': bookedSlots[`${day}${time}`],
-                                                            'Timetable__items__default-item bg-cyan-600': !bookedSlots[`${day}${time}`]
+                                                            'Timetable__items__default-item bg-cyan-600': bookedSlots[`${day}${time}`],
+                                                            'Timetable__items__default-item bg-red-600': !bookedSlots[`${day}${time}`]
                                                         }"
                                                         type="button"
                                                         @click="toggleBooking(day, time)"
@@ -648,10 +651,9 @@ function submit(){
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {{ bookedSlots }}
+                    <!-- {{ bookedSlots }} -->
                     <br>
-                    {{ trueBookedSlotsArray }}
+                    <!-- {{ trueBookedSlotsArray }} -->
                     <div>
                         <!-- Creative Ads -->
                         <div v-if="form.direction === 'native'">
