@@ -289,11 +289,11 @@ function submit(){
                         <input type="radio" value="onclick" id="direction" v-model="form.direction" />
                         <br>
 
-                        <label for="direction">NativeAds</label>
+                        <label for="direction">Push Notification</label>
                         <input type="radio" value="nativeads" id="direction" v-model="form.direction" />
                         <br>
 
-                        <label for="direction">Native</label>
+                        <label for="direction">Interstitial</label>
                         <input type="radio" value="native" id="direction" v-model="form.direction" />
                         <br>
                         <br>
