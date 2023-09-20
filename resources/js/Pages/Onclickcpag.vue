@@ -273,13 +273,13 @@ function submit(){
         <template #content>
             <div>
                 <form @submit.prevent="submit">
-                    
+
                     <h1 class="text-3xl main mb-2">Create Campaign</h1>
                     <!--name-->
                     <div class="mb-4">
                         <label for="name" class="">Campaign name:</label>
-                        <input id="name" 
-                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2" 
+                        <input id="name"
+                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
                         v-model="form.name" />
                     </div>
 
@@ -289,7 +289,7 @@ function submit(){
                         <div class="flex justify-between space-x-4">
                             <div class="w-full">
                                 <div class="flex-col">
-                                    <label for="onclick" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">                                        
+                                    <label for="onclick" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">
                                         <div class="w-full">
                                             <input type="radio" value="onclick" id="onclick" v-model="form.direction" />
                                             <div class="w-full text-lg font-semibold mt-4">Onclick</div>
@@ -303,7 +303,7 @@ function submit(){
                             </div>
                             <div class="w-full">
                                 <div class="flex-col">
-                                    <label for="nativeads" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">                                        
+                                    <label for="nativeads" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">
                                         <div class="w-full">
                                             <input type="radio" value="nativeads" id="nativeads" v-model="form.direction" />
                                             <div class="w-full text-lg font-semibold mt-4">NativeAds</div>
@@ -314,7 +314,7 @@ function submit(){
                             </div>
                             <div class="w-full">
                                 <div class="flex-col">
-                                    <label for="native" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">                                        
+                                    <label for="native" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">
                                         <div class="w-full">
                                             <input type="radio" value="native" id="native" v-model="form.direction" />
                                             <div class="w-full text-lg font-semibold mt-4">Native</div>
@@ -344,7 +344,7 @@ function submit(){
                                     <label for="cpm" class="px-2">CPM</label>
                                 </div>
                             </div>
-    
+
                             <!-- nativeads Pricing Model -->
                             <div v-if="form.direction === 'nativeads'" class="flex space-x-8">
                                 <div class="flex items-center">
@@ -360,7 +360,7 @@ function submit(){
                                     <label for="cpc" class="px-2">CPC</label>
                                 </div>
                             </div>
-    
+
                             <!-- Interstitial Pricing Model -->
                             <div v-if="form.direction === 'native'" class="flex space-x-8">
                                 <div class="flex items-center">
@@ -413,10 +413,10 @@ function submit(){
                         <label>Countries and Rate</label>
                         <br>
                         <div>
-                            
+
                         </div>
                         <!--Array of lists-->
-                        
+
                         <select name="" id="">
                             <option value=""></option>
                         </select>
@@ -495,7 +495,7 @@ function submit(){
                                 >
                             </div>
                         </div>
-                        
+
                         <!--Multiformat Budget-->
                         <div v-if="form.onclick_multi_format === true">
                             <label class="font-bold">Interstitial</label>
@@ -526,7 +526,7 @@ function submit(){
                         <div>
                             <label>Platform</label>
                             <select
-                            class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-max pl-4" 
+                            class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-max pl-4"
                             v-model="form.targeting_platform">
                                 <option v-for="item in platform">
                                     {{item.label}}
@@ -554,7 +554,7 @@ function submit(){
                             >
                         </div>
 
-                        
+
                         <!--Browser-->
                         <div>
                             <label>Browser</label>
@@ -565,7 +565,7 @@ function submit(){
                             </div>
                             <br>
                         </div>
-                            
+
                          <!--Campaign Schedule-->
                         <div class="mb-4">
                             <label>Campaign Schedule</label>
@@ -610,21 +610,6 @@ function submit(){
                                                 </div>
                                         </div>
 
-                                    </div>
-                                    <div v-for="day in days" :key="day" class="grid_items gap-1 ">
-                                        <button class="Timetable__items__default-item" type="button">{{ day }}</button>
-                                            <div v-for="time in times" :key="time">
-                                                <button
-                                                    :class="{
-                                                        'Timetable__items__default-item bg-cyan-600': bookedSlots[`${day}${time}`],
-                                                        'Timetable__items__default-item bg-red-600': !bookedSlots[`${day}${time}`]
-                                                    }"
-                                                    type="button"
-                                                    @click="toggleBooking(day, time)"
-                                                >
-                                                    {{ time }}
-                                                </button>
-                                            </div>
                                     </div>
 
                                 </div>
@@ -746,10 +731,6 @@ function submit(){
                         </div>
                         </div>
                     </div>
-                    <div class="flex justify-end">
-                        <button class="w-max" type="submit">Submit</button>
-                    </div>
-
                     <div class="flex justify-end">
                         <button class="w-max" type="submit">Submit</button>
                     </div>
