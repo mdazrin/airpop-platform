@@ -749,6 +749,11 @@ function submit(){
                     <div class="flex justify-end">
                         <button class="w-max" type="submit">Submit</button>
                     </div>
+
+                    <div class="flex justify-end">
+                        <button class="w-max" type="submit">Submit</button>
+                    </div>
+
                 </form>
             </div>
         </template>
