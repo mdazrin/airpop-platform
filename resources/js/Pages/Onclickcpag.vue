@@ -193,7 +193,7 @@ const toggleBookingReset = () => {
         times.value.forEach(time => {
             const key = `${day}${time}`;
             bookedSlots.value[key] = false;
-            
+
         });
     });
     trueBookedSlotsArray.value = [];
@@ -212,47 +212,6 @@ const toggleBookingAll = () => {
     });
 }
 
-// const filteredTrueData = getBookedSlots();
-
-// const checkbookedSlots
-
-// const toggleBookingWeekDay = () => {
-//   const weekDays = ['Mo', 'Tu', 'We', 'Th', 'Fr'];
-//   const isBothUnbooked = weekDays.every(weekDay => !bookedSlots.value[`${weekDay}${times.value[0]}`]);
-
-//   weekDay.forEach(weekDay => {
-//     times.value.forEach(time => {
-//       if (isBothUnbooked) {
-//         bookedSlots.value[`${weekDay}${time}`] = true;
-//       } else {
-//         toggleBooking(weekDay, time);
-//       }
-//     });
-//   });
-// };
-
-// function toggleBookingWeekend() {
-//   const weekendDays = ['Sa', 'Su'];
-//   weekendDays.forEach(weekendDay => {
-//     times.forEach(time => {
-//       toggleBooking(weekendDay, time);
-//     });
-//   });
-// }
-// const toggleBookingWeekend = (day, time) => {
-//   const key = `${day}${time}`;
-
-//   if (key.includes('Sa') || key.includes('Su')) {
-//     bookedSlots.value[key] = true; // Toggle booked status
-//   } else {
-//     bookedSlots.value[key] = false;
-//   }
-// };
-
-// const toggleBooking = (day, time) => {
-//       const key = `${day}${time}`;
-//       bookedSlots.value[key] = !bookedSlots.value[key]; // Toggle booked status
-// };
 
 //Mutated form object
 const form = ref({
@@ -450,11 +409,18 @@ function submit(){
                     </div>
 
                     <!--Countries and Rates-->
-                    <div>
+                    <div class="mb-4">
                         <label>Countries and Rate</label>
                         <br>
-
+                        <div>
+                            
+                        </div>
                         <!--Array of lists-->
+                        
+                        <select name="" id="">
+                            <option value=""></option>
+                        </select>
+
                         <div
                             class ="border"
                             v-for="(list,listIndex) in countriesRate">
@@ -499,17 +465,14 @@ function submit(){
                         </div>
                         <!--End of Array Lists-->
 
-
+                        <div>
+                            <button
+                            type="button"
+                            @click="countriesRate.push({countries:[],amount:1})">
+                                Add Countries
+                            </button>
+                        </div>
                     </div>
-
-                    <div>
-                        <button
-                        type="button"
-                        @click="countriesRate.push({countries:[],amount:1})">
-                            Add Countries
-                        </button>
-                    </div>
-                    <br>
 
                     <!--Advertising Budget-->
                     <div class="mb-4">
@@ -556,13 +519,15 @@ function submit(){
                     </div>
 
                     <!--Targeting-->
-                    <div>
+                    <div class="mb-4">
                         <label>Targeting</label>
 
                         <!--Platform-->
                         <div>
                             <label>Platform</label>
-                            <select v-model="form.targeting_platform">
+                            <select
+                            class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-max pl-4" 
+                            v-model="form.targeting_platform">
                                 <option v-for="item in platform">
                                     {{item.label}}
                                 </option>
@@ -575,7 +540,7 @@ function submit(){
                         <div>
                             <label>OS</label>
                             <input
-                                class="border-2"
+                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
                                 v-model="form.targeting_os"
                             >
                         </div>
@@ -584,7 +549,7 @@ function submit(){
                         <div>
                             <label>Device</label>
                             <input
-                                class="border-2"
+                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
                                 v-model="form.targeting_device"
                             >
                         </div>
@@ -613,7 +578,6 @@ function submit(){
                                     v-model="form.timezone"
                                 >
                             </div>
-
                             <div>
                                 <label>Schedule</label>
                                 <div class="flex space-x-4 mb-4">
@@ -647,8 +611,24 @@ function submit(){
                                         </div>
 
                                     </div>
+                                    <div v-for="day in days" :key="day" class="grid_items gap-1 ">
+                                        <button class="Timetable__items__default-item" type="button">{{ day }}</button>
+                                            <div v-for="time in times" :key="time">
+                                                <button
+                                                    :class="{
+                                                        'Timetable__items__default-item bg-cyan-600': bookedSlots[`${day}${time}`],
+                                                        'Timetable__items__default-item bg-red-600': !bookedSlots[`${day}${time}`]
+                                                    }"
+                                                    type="button"
+                                                    @click="toggleBooking(day, time)"
+                                                >
+                                                    {{ time }}
+                                                </button>
+                                            </div>
+                                    </div>
 
                                 </div>
+
                             </div>
                         </div>
                     <!-- {{ bookedSlots }} -->
@@ -764,11 +744,16 @@ function submit(){
                                 </div>
                             </div>
                         </div>
-                        </div>   
+                        </div>
                     </div>
                     <div class="flex justify-end">
                         <button class="w-max" type="submit">Submit</button>
                     </div>
+
+                    <div class="flex justify-end">
+                        <button class="w-max" type="submit">Submit</button>
+                    </div>
+
                 </form>
             </div>
         </template>
@@ -813,7 +798,7 @@ function submit(){
     outline: none;
     width: 18px;
 }
-.Timetable__items__selected-item, .Timetable__items__selected-item-disabled {
+/* .Timetable__items__selected-item, .Timetable__items__selected-item-disabled {
     background-color: #0080ff;
-}
+} */
 </style>
