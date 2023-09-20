@@ -265,6 +265,44 @@ function submit(){
 
 }
 
+const searchQuery = ref([])
+
+// const items = ref(['Mo', 'Tu', 'We', 'Th', 'Fr','Sa','Su']);
+
+// const filteredItems = () => {
+//     const query = searchQuery.value.toLowerCase();
+//     if (query === '') {
+//         return items.value;
+//     } else {
+//         // Filter the items based on the search query
+//         return items.value.filter(item => {
+//             return item.toLowerCase().includes(query);
+//         });
+//     }
+// };
+
+// const filteredItems = () => {
+//     const query = this.searchQuery.toLowerCase();
+//     if (this.query === '') {
+//         return this.items.value;
+//     } else {
+//     // Filter the items based on the search query
+//     return this.items.filter(item => {
+//         return item.toLowerCase().includes(query);
+//     });
+//     }
+// }
+
+// const toggleBookingReset = () => {
+    //     days.value.forEach(day => {
+        //         times.value.forEach(time => {
+//             const key = `${day}${time}`;
+//             bookedSlots.value[key] = false;
+            
+//         });
+//     });
+//     trueBookedSlotsArray.value = [];
+// }
 </script>
 
 <template>
@@ -411,32 +449,32 @@ function submit(){
                     <div>
                         <label>Countries and Rate</label>
                         <br>
-                        <div>
-                            <ul class="flex">
-                            <li>try</li>
-                            <input type="text">
-                            </ul>
+                        <div class="flex space-x-4">
+                            <div class="w-full flex flex-col">
+                                <label>Countries</label>
+                                <div v-for="(list,listIndex) in countriesRate" class="border rounded-lg flex">
+                                        <ul class="flex items-center">
+                                        <li v-for="(countryList,countryIndex) in list.countries">
+                                        <button
+                                        class="border rounded-lg px-2 bg-cyan-600 text-white "
+                                        type="button"
+                                        @click="removeCountry(listIndex,countryIndex,countryList)"
+                                        >
+                                            {{countryList}}
+                                        </button>
+                                        </li>
+                                        <input type="text" v-model="searchQuery" placeholder="Search...">
+                                        </ul>
+                                </div>
+                                <div >
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="">CPA Goal, $</label>
+                                <input class="rounded-lg" type="number" min="0" step="0.001">
+                            </div>
                         </div>
-                        
-                        <div v-for="(list,listIndex) in countriesRate">
-                           
-                            <!-- <select name="" id="">
-                                <option v-for="(countries,index) in countriesPool" v-if="!countries.checkedValue" value="{{ countries.name }}">{{ countries.name }}</option>
-                            </select> -->
-                            <!-- <h1 v-for="(countries,index) in countriesPool">
-                                <h1 v-if="countries.checkedValue === false">
-                                    <button
-                                    type="button"
-                                    @click="addCountry(index,listIndex)">
-                                        <label>{{countries.name}}</label>
-                                    </button>
-                                </h1>
-                                <h1 v-else-if="countries.checkedValue === true">
-                                    <label></label>
-                                </h1>
-                                <br>
-                            </h1> -->
-                        </div>
+
                         <!--Array of lists-->
                         <div
                             class ="border mb-4"
