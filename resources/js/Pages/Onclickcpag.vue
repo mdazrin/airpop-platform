@@ -320,7 +320,7 @@ function submit(){
                     <div class="mb-4">
                         <label for="name" class="">Campaign name:</label>
                         <input id="name" 
-                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2" 
+                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1" 
                         v-model="form.name" />
                     </div>
 
@@ -445,7 +445,7 @@ function submit(){
                         <label for="target_url">Target URL</label>
                         <input
                             id="target_url"
-                            class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                            class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
                             v-model="form.target_url" />
                     </div>
 
@@ -456,7 +456,7 @@ function submit(){
 
                         <!--Array of lists-->
                         <div
-                            class ="border"
+                            class ="border mb-4"
                             v-for="(list,listIndex) in countriesRate">
 
                             <!--Array of countries and price-->
@@ -498,8 +498,6 @@ function submit(){
 
                         </div>
                         <!--End of Array Lists-->
-
-
                     </div>
 
                     <div>
@@ -520,14 +518,14 @@ function submit(){
                             <div class="flex flex-col">
                                 <label>Daily Budget</label>
                                 <input
-                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
                                     v-model="form.daily_budget"
                                 >
                             </div>
                             <div class="flex flex-col">
                                 <label>Total Campaign Budget</label>
                                 <input
-                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
                                 v-model="form.campaign_budget"
                                 >
                             </div>
@@ -540,14 +538,14 @@ function submit(){
                                 <div class="flex flex-col">
                                     <label>Interstitial Daily Budget</label>
                                     <input
-                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
                                         v-model="form.multi_format_daily_budget"
                                     >
                                 </div>
                                 <div class="flex flex-col">
                                     <label>Interstitial Total Campaign Budget</label>
                                     <input
-                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
                                         v-model="form.multi_format_campaign_budget"
                                     >
                                 </div>
@@ -609,14 +607,14 @@ function submit(){
                             <div class="flex flex-col mb-4">
                                 <label>Timezone</label>
                                 <input
-                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2"
+                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
                                     v-model="form.timezone"
                                 >
                             </div>
 
                             <div>
                                 <label>Schedule</label>
-                                <div class="flex space-x-4 mb-4">
+                                <div class="flex space-x-4 mb-2">
                                     <button type="button" class="text-blue-600" @click="toggleBookingAll()">All</button>
                                     <button type="button" class="text-blue-600" @click="toggleBookingWeekend()">Weekend</button>
                                     <button type="button" class="text-blue-600" @click="toggleBookingWeekDay()">Weekday</button>
