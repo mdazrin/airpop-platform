@@ -212,48 +212,6 @@ const toggleBookingAll = () => {
     });
 }
 
-// const filteredTrueData = getBookedSlots();
-
-// const checkbookedSlots
-
-// const toggleBookingWeekDay = () => {
-//   const weekDays = ['Mo', 'Tu', 'We', 'Th', 'Fr'];
-//   const isBothUnbooked = weekDays.every(weekDay => !bookedSlots.value[`${weekDay}${times.value[0]}`]);
-
-//   weekDay.forEach(weekDay => {
-//     times.value.forEach(time => {
-//       if (isBothUnbooked) {
-//         bookedSlots.value[`${weekDay}${time}`] = true;
-//       } else {
-//         toggleBooking(weekDay, time);
-//       }
-//     });
-//   });
-// };
-
-// function toggleBookingWeekend() {
-//   const weekendDays = ['Sa', 'Su'];
-//   weekendDays.forEach(weekendDay => {
-//     times.forEach(time => {
-//       toggleBooking(weekendDay, time);
-//     });
-//   });
-// }
-// const toggleBookingWeekend = (day, time) => {
-//   const key = `${day}${time}`;
-
-//   if (key.includes('Sa') || key.includes('Su')) {
-//     bookedSlots.value[key] = true; // Toggle booked status
-//   } else {
-//     bookedSlots.value[key] = false;
-//   }
-// };
-
-// const toggleBooking = (day, time) => {
-//       const key = `${day}${time}`;
-//       bookedSlots.value[key] = !bookedSlots.value[key]; // Toggle booked status
-// };
-
 //Mutated form object
 const form = ref({
     name:null,
@@ -453,7 +411,32 @@ function submit(){
                     <div>
                         <label>Countries and Rate</label>
                         <br>
-
+                        <div>
+                            <ul class="flex">
+                            <li>try</li>
+                            <input type="text">
+                            </ul>
+                        </div>
+                        
+                        <div v-for="(list,listIndex) in countriesRate">
+                           
+                            <!-- <select name="" id="">
+                                <option v-for="(countries,index) in countriesPool" v-if="!countries.checkedValue" value="{{ countries.name }}">{{ countries.name }}</option>
+                            </select> -->
+                            <!-- <h1 v-for="(countries,index) in countriesPool">
+                                <h1 v-if="countries.checkedValue === false">
+                                    <button
+                                    type="button"
+                                    @click="addCountry(index,listIndex)">
+                                        <label>{{countries.name}}</label>
+                                    </button>
+                                </h1>
+                                <h1 v-else-if="countries.checkedValue === true">
+                                    <label></label>
+                                </h1>
+                                <br>
+                            </h1> -->
+                        </div>
                         <!--Array of lists-->
                         <div
                             class ="border mb-4"
