@@ -37,6 +37,7 @@ const countriesRate = ref ([
 const countriesList = ref([])
 
 function addCountry(countryIndex,index){
+
     let a = countriesPool.value[countryIndex].countryValue
 
     //push into countries Rate
@@ -267,6 +268,8 @@ function submit(){
 
 const searchQuery = ref([])
 
+const dropdown = ref(false)
+
 // const items = ref(['Mo', 'Tu', 'We', 'Th', 'Fr','Sa','Su']);
 
 // const filteredItems = () => {
@@ -450,23 +453,33 @@ const searchQuery = ref([])
                         <label>Countries and Rate</label>
                         <br>
                         <div class="flex space-x-4">
-                            <div class="w-full flex flex-col">
+                            <div v-for="(list,listIndex) in countriesRate" class="w-full flex flex-col">
                                 <label>Countries</label>
-                                <div v-for="(list,listIndex) in countriesRate" class="border rounded-lg flex">
-                                        <ul class="flex items-center">
-                                        <li v-for="(countryList,countryIndex) in list.countries">
-                                        <button
-                                        class="border rounded-lg px-2 bg-cyan-600 text-white "
-                                        type="button"
-                                        @click="removeCountry(listIndex,countryIndex,countryList)"
-                                        >
-                                            {{countryList}}
+                                <div class="border rounded-lg flex">
+                                    <ul class="flex items-center">
+                                    <li v-for="(countryList,countryIndex) in list.countries">
+                                    <button
+                                    class="border rounded-lg px-2 bg-cyan-600 text-white "
+                                    type="button"
+                                    @click="removeCountry(listIndex,countryIndex,countryList)"
+                                    >
+                                        {{countryList}}
+                                    </button>
+                                    </li>
+                                    </ul>
+                                    <input type="text" v-model="searchQuery" placeholder="Search..." @focus="dropdown = true" class="w-full">
+                                </div>
+                                <div v-if="dropdown" class="static">
+                                    <ul v-for="(countries,index) in countriesPool">
+                                        <li v-if="countries.checkedValue === false" class="w-full">
+                                            <button
+                                            class="w-full"
+                                            type="button"
+                                            @click="addCountry(index,listIndex); dropdown = false">
+                                            {{countries.name}}
                                         </button>
                                         </li>
-                                        </ul>
-                                        <input type="text" v-model="searchQuery" placeholder="Search...">
-                                </div>
-                                <div >
+                                    </ul>
                                 </div>
                             </div>
                             <div class="flex flex-col">
@@ -481,7 +494,7 @@ const searchQuery = ref([])
                             v-for="(list,listIndex) in countriesRate">
 
                             <!--Array of countries and price-->
-                            <li v-for="(countryList,countryIndex) in list.countries">
+                            <li v-for="(countryList,countryIndex) in list.countries" class="bg-cyan-600">
                                 <button
                                 type="button"
                                 @click="removeCountry(listIndex,countryIndex,countryList)"
