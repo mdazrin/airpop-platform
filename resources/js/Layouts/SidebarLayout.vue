@@ -43,7 +43,7 @@ const open = ref(false);
                             class="flex ml-2 md:mr-24"
                         >
                             <img
-                                src="images/Logo.png"
+                                src="https://propellerads.com/wp-content/uploads/2022/11/header_logo_new.svg"
                                 class="h-8 mr-3"
                                 alt="PropellerLogo"
                             />
