@@ -37,6 +37,7 @@ const countriesRate = ref ([
 const countriesList = ref([])
 
 function addCountry(countryIndex,index){
+
     let a = countriesPool.value[countryIndex].countryValue
 
     //push into countries Rate
@@ -267,28 +268,43 @@ function submit(){
 
 const searchQuery = ref([])
 
-// const items = ref(['Mo', 'Tu', 'We', 'Th', 'Fr','Sa','Su']);
+const isDropdownVisible = ref(false)
+
+// const showOptions = () => {
+//     alert("Show")
+//     isDropdownVisible.value = true;
+// }
+// const hideOptions = () => {
+//     isDropdownVisible.value = false;
+// }
+
+const toggleMenu = () => {
+    isDropdownVisible.value = !isDropdownVisible.value;
+};
+
+
+const filteredItems = () => {
+    return this.countriesPool.filter(item => {
+        alert(item.name)
+        // Replace this condition with your filtering logic
+        return item.name.includes(this.searchQuery);
+    });
+};
+
+
 
 // const filteredItems = () => {
-//     const query = searchQuery.value.toLowerCase();
-//     if (query === '') {
-//         return items.value;
-//     } else {
-//         // Filter the items based on the search query
-//         return items.value.filter(item => {
-//             return item.toLowerCase().includes(query);
-//         });
-//     }
-// };
-
-// const filteredItems = () => {
+//     console.log("hi")
+//     console.log('Input value changed:', this.searchQuery);
 //     const query = this.searchQuery.toLowerCase();
+//     console.log(query)
 //     if (this.query === '') {
-//         return this.items.value;
+//         return this.countriesPool.value;
 //     } else {
 //     // Filter the items based on the search query
-//     return this.items.filter(item => {
+//     return this.countriesPool.filter(item => {
 //         return item.toLowerCase().includes(query);
+//         alert(item)
 //     });
 //     }
 // }
@@ -331,9 +347,9 @@ const searchQuery = ref([])
                                             <input type="radio" value="onclick" id="onclick" v-model="form.direction" />
                                             <div class="w-full text-lg font-semibold mt-4">Onclick</div>
                                             <div class="w-full mt-4">Full-page and eye-catchy ads opening in the background</div>
-                                            <!-- <div>
-                                                <img src="{{ URL('images/OnClick.png') }}" alt="">
-                                            </div> -->
+                                            <div class="flex justify-center">
+                                                <img src="images/OnClick.png">
+                                            </div>
                                         </div>
                                     </label>
                                 </div>
@@ -345,6 +361,9 @@ const searchQuery = ref([])
                                             <input type="radio" value="nativeads" id="nativeads" v-model="form.direction" />
                                             <div class="w-full text-lg font-semibold mt-4">NativeAds</div>
                                             <div class="w-full mt-4">Full-page and eye-catchy ads opening in the background</div>
+                                            <div class="flex justify-center">
+                                                <img src="images/OnClick.png">
+                                            </div>
                                         </div>
                                     </label>
                                 </div>
@@ -356,6 +375,9 @@ const searchQuery = ref([])
                                             <input type="radio" value="native" id="native" v-model="form.direction" />
                                             <div class="w-full text-lg font-semibold mt-4">Native</div>
                                             <div class="w-full mt-4">Full-page and eye-catchy ads opening in the background</div>
+                                            <div class="flex justify-center">
+                                                <img src="images/OnClick.png">
+                                            </div>
                                         </div>
                                     </label>
                                 </div>
@@ -449,39 +471,79 @@ const searchQuery = ref([])
                     <div>
                         <label>Countries and Rate</label>
                         <br>
-                        <div class="flex space-x-4">
-                            <div class="w-full flex flex-col">
+                        <div class="flex space-x-12 relative">
+                            <div v-for="(list,listIndex) in countriesRate" class="w-full flex flex-col">
                                 <label>Countries</label>
-                                <div v-for="(list,listIndex) in countriesRate" class="border rounded-lg flex">
+                                <div class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2 flex justify-between" @click="toggleMenu()">
+                                    <div>
                                         <ul class="flex items-center">
                                         <li v-for="(countryList,countryIndex) in list.countries">
                                         <button
-                                        class="border rounded-lg px-2 bg-cyan-600 text-white "
+                                        class="border px-2 bg-cyan-600 text-white "
                                         type="button"
                                         @click="removeCountry(listIndex,countryIndex,countryList)"
                                         >
                                             {{countryList}}
                                         </button>
                                         </li>
-                                        <input type="text" v-model="searchQuery" placeholder="Search...">
                                         </ul>
+                                    </div>
+                                    <div class="flex">
+                                        <svg 
+                                        v-if="isDropdownVisible"
+                                        xmlns="http://www.w3.org/2000/svg" 
+                                        fill="none" 
+                                        viewBox="0 0 24 24" 
+                                        stroke-width="1.5" 
+                                        stroke="currentColor" 
+                                        class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                        </svg>
+                                        <svg  
+                                        v-else
+                                        xmlns="http://www.w3.org/2000/svg" 
+                                        fill="none" viewBox="0 0 24 24" 
+                                        stroke-width="1.5" 
+                                        stroke="currentColor" 
+                                        class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                                        </svg>
+                                    </div>
                                 </div>
-                                <div >
+                                <div v-if="isDropdownVisible" class="relative">
+                                    <div class="absolute right-0 mt-2 w-full bg-white border rounded-lg shadow-lg">
+                                        <input type="text" v-model="searchQuery" placeholder="Search..." @click="showOptions()" @blur="hideOptions()" class="w-full">
+                                        <div>
+                                            <ul v-for="(countries,index) in countriesPool" class="border">
+                                                <li v-if="countries.checkedValue === false" class="w-full">
+                                                    <button
+                                                    class="w-full"
+                                                    type="button"
+                                                    @click="addCountry(index,listIndex)">
+                                                    {{countries.name}}
+                                                </button>
+                                                </li>
+                                                There is nothing
+                                                <!-- <li v-for="item in filteredItems" :key="item.id">{{ item.name }}</li> -->
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="flex flex-col">
                                 <label for="">CPA Goal, $</label>
-                                <input class="rounded-lg" type="number" min="0" step="0.001">
+                                <input id="CPAGoal" class="border-2 border-gray-300 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full h-full" type="number" min="0" step="0.001">
                             </div>
                         </div>
 
+                        {{ searchQuery }}
                         <!--Array of lists-->
                         <div
                             class ="border mb-4"
                             v-for="(list,listIndex) in countriesRate">
 
                             <!--Array of countries and price-->
-                            <li v-for="(countryList,countryIndex) in list.countries">
+                            <li v-for="(countryList,countryIndex) in list.countries" class="bg-cyan-600">
                                 <button
                                 type="button"
                                 @click="removeCountry(listIndex,countryIndex,countryList)"
@@ -772,8 +834,8 @@ const searchQuery = ref([])
                                     <input id="name" class="border-2" v-model="form.creativedescription" />
                                 </div>
                                 <div>
-                                    <label for="name">Button text</label>
-                                    <input id="name" class="border-2" v-model="form.buttons" />
+                                    <label for="ButtonText">Button text</label>
+                                    <input id="ButtonText" class="border-2" v-model="form.buttons" />
                                 </div>
                                 <div>
                                     <div class="w-100">
