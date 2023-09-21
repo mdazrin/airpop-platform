@@ -11,7 +11,7 @@ const open = ref(false);
 <template>
     <div>
         <!-- navbar -->
-        <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
+        <nav class="fixed top-0 z-50 w-full border-b border-gray-200" style="background-color: rgb(62, 62, 62);">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center justify-start">
@@ -21,7 +21,7 @@ const open = ref(false);
                         >
                             <svg
                                 class="h-6 w-6"
-                                stroke="currentColor"
+                                stroke="#F7D2D0"
                                 fill="none"
                                 viewBox="0 0 24 24"
                             >
@@ -47,10 +47,10 @@ const open = ref(false);
                                 class="h-8 mr-3"
                                 alt="PropellerLogo"
                             />
-                            <!-- <span
-                                class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white"
-                                >Propeller Ads</span
-                            > -->
+                            <span
+                                class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-white"
+                                >Airpop Platform</span
+                            >
                         </Link>
                     </div>
                     <div class="flex items-center">
