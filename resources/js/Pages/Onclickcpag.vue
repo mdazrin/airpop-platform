@@ -523,7 +523,7 @@ const filteredItems = () => {
                                                     {{countries.name}}
                                                 </button>
                                                 </li>
-                                                There is nothing
+                                                
                                                 <!-- <li v-for="item in filteredItems" :key="item.id">{{ item.name }}</li> -->
                                             </ul>
                                         </div>
