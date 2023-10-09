@@ -6,7 +6,7 @@ import {ref} from "vue";
 
 defineProps({timetable:Object})
 
-//date
+//date of campaign
 const startDate = ref(new Date())
 const endDate = ref(new Date())
 
@@ -30,7 +30,18 @@ const platform = ref([
 
 //desktop os
 const desktop_os = ref ([
-    {label:''}
+    {label:'Android', value:'android'},
+    {label:'Blackberry', value:'blackberry'},
+    {label:'IOS', value:'ios'},
+    {label:'Linux', value:'linux'},
+    {label:'Mac OS', value:'mac'},
+    {label:'Other', value:'other'},
+    {label:'Symbian', value:'symbian'},
+    {label:'Windows', value:'windows'},
+    {label:'Windows Phone', value:'windows_phone'},
+    {label:'Kai OS', value:'kai_os'},
+    {label:'Other Mobile', value:'other_mobile'},
+
 ])
 
 
@@ -272,42 +283,6 @@ function submit(){
 
 const searchQuery = ref([])
 
-// const items = ref(['Mo', 'Tu', 'We', 'Th', 'Fr','Sa','Su']);
-
-// const filteredItems = () => {
-//     const query = searchQuery.value.toLowerCase();
-//     if (query === '') {
-//         return items.value;
-//     } else {
-//         // Filter the items based on the search query
-//         return items.value.filter(item => {
-//             return item.toLowerCase().includes(query);
-//         });
-//     }
-// };
-
-// const filteredItems = () => {
-//     const query = this.searchQuery.toLowerCase();
-//     if (this.query === '') {
-//         return this.items.value;
-//     } else {
-//     // Filter the items based on the search query
-//     return this.items.filter(item => {
-//         return item.toLowerCase().includes(query);
-//     });
-//     }
-// }
-
-// const toggleBookingReset = () => {
-    //     days.value.forEach(day => {
-        //         times.value.forEach(time => {
-//             const key = `${day}${time}`;
-//             bookedSlots.value[key] = false;
-
-//         });
-//     });
-//     trueBookedSlotsArray.value = [];
-// }
 </script>
 
 <template>
@@ -321,7 +296,10 @@ const searchQuery = ref([])
                     <div class="mb-4">
                         <label for="name" class="">Campaign name:</label>
                         <input id="name"
-                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
+                        class="border-2
+                        border-gray-300
+                        focus:border-indigo-500 focus:ring-indigo-500
+                        rounded-md shadow-sm w-full pl-4 py-1"
                         v-model="form.name" />
                     </div>
 
@@ -331,21 +309,28 @@ const searchQuery = ref([])
                         <div class="flex justify-between space-x-4">
                             <div class="w-full">
                                 <div class="flex-col">
-                                    <label for="onclick" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">
+                                    <label for="onclick"
+                                           class="rounded
+                                                border-2 block
+                                                w-full p-5 text-gray-500
+                                                bg-white rounded-lg
+                                                cursor-pointer hover:text-gray-600
+                                                hover:bg-gray-100 text-center">
                                         <div class="w-full">
                                             <input type="radio" value="onclick" id="onclick" v-model="form.direction" />
                                             <div class="w-full text-lg font-semibold mt-4">Onclick</div>
                                             <div class="w-full mt-4">Full-page and eye-catchy ads opening in the background</div>
-                                            <!-- <div>
-                                                <img src="{{ URL('images/OnClick.png') }}" alt="">
-                                            </div> -->
                                         </div>
                                     </label>
                                 </div>
                             </div>
                             <div class="w-full">
                                 <div class="flex-col">
-                                    <label for="nativeads" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">
+                                    <label for="nativeads"
+                                           class="rounded
+                                           border-2 block
+                                           w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer
+                                           hover:text-gray-600 hover:bg-gray-100 text-center">
                                         <div class="w-full">
                                             <input type="radio" value="nativeads" id="nativeads" v-model="form.direction" />
                                             <div class="w-full text-lg font-semibold mt-4">NativeAds</div>
@@ -356,7 +341,10 @@ const searchQuery = ref([])
                             </div>
                             <div class="w-full">
                                 <div class="flex-col">
-                                    <label for="native" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">
+                                    <label for="native"
+                                           class="rounded border-2 block w-full p-5 text-gray-500
+                                           bg-white rounded-lg cursor-pointer hover:text-gray-600
+                                           hover:bg-gray-100 text-center">
                                         <div class="w-full">
                                             <input type="radio" value="native" id="native" v-model="form.direction" />
                                             <div class="w-full text-lg font-semibold mt-4">Native</div>
@@ -428,7 +416,14 @@ const searchQuery = ref([])
                             <div>
                                 <label class="relative inline-flex items-center cursor-pointer">
                                     <input type="checkbox" class="sr-only peer" v-model="form.onclick_multi_format">
-                                    <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    <div
+                                        class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4
+                                        peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800
+                                        dark:bg-gray-700 peer-checked:after:translate-x-full
+                                        peer-checked:after:border-white after:content-[''] after:absolute
+                                        after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300
+                                        after:border after:rounded-full after:h-5 after:w-5 after:transition-all
+                                        dark:border-gray-600 peer-checked:bg-blue-600"></div>
                                     <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Interstitial</span>
                                 </label>
                             </div>
@@ -446,7 +441,8 @@ const searchQuery = ref([])
                         <label for="target_url">Target URL</label>
                         <input
                             id="target_url"
-                            class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
+                            class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
+                            rounded-md shadow-sm w-full pl-4 py-1"
                             v-model="form.target_url" />
                     </div>
 
@@ -473,7 +469,8 @@ const searchQuery = ref([])
                                 </div>
                                 <div v-if="isDropdownVisible" class="relative">
                                     <div class="absolute right-0 mt-2 w-full bg-white border rounded-lg shadow-lg">
-                                        <input type="text" v-model="searchQuery" placeholder="Search..." @click="showOptions()" @blur="hideOptions()" class="w-full">
+                                        <input type="text" v-model="searchQuery" placeholder="Search..."
+                                               @click="showOptions()" @blur="hideOptions()" class="w-full">
                                         <div>
                                             <ul v-for="(countries,index) in countriesPool" class="border">
                                                 <li v-if="countries.checkedValue === false" class="w-full">
@@ -484,8 +481,6 @@ const searchQuery = ref([])
                                                     {{countries.name}}
                                                 </button>
                                                 </li>
-
-                                                <!-- <li v-for="item in filteredItems" :key="item.id">{{ item.name }}</li> -->
                                             </ul>
                                         </div>
                                     </div>
@@ -561,14 +556,16 @@ const searchQuery = ref([])
                             <div class="flex flex-col">
                                 <label>Daily Budget</label>
                                 <input
-                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
+                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
+                                    rounded-md shadow-sm w-full pl-4 py-1"
                                     v-model="form.daily_budget"
                                 >
                             </div>
                             <div class="flex flex-col">
                                 <label>Total Campaign Budget</label>
                                 <input
-                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
+                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
+                                rounded-md shadow-sm w-full pl-4 py-1"
                                 v-model="form.campaign_budget"
                                 >
                             </div>
@@ -581,14 +578,16 @@ const searchQuery = ref([])
                                 <div class="flex flex-col">
                                     <label>Interstitial Daily Budget</label>
                                     <input
-                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
+                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
+                                        rounded-md shadow-sm w-full pl-4 py-1"
                                         v-model="form.multi_format_daily_budget"
                                     >
                                 </div>
                                 <div class="flex flex-col">
                                     <label>Interstitial Total Campaign Budget</label>
                                     <input
-                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
+                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
+                                        rounded-md shadow-sm w-full pl-4 py-1"
                                         v-model="form.multi_format_campaign_budget"
                                     >
                                 </div>
@@ -602,45 +601,62 @@ const searchQuery = ref([])
 
                         <!--Platform-->
                         <div>
-                            <label>Platform</label>
-                            <select v-model="form.targeting_platform">
-                                <option v-for="item in platform">
-                                    {{item.label}}
-                                </option>
-                            </select>
-
+                            <div>
+                                <label>Platform</label>
+                            </div>
+                            <div>
+                                <select v-model="form.targeting_platform"
+                                        class="border-2 border-gray-900 ml-2 my-2 rounded-md">
+                                    <option v-for="item in platform">
+                                        {{item.label}}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
 
 
                         <!--OS-->
                         <div>
-                            <label>OS</label>
-                            <input
-                                class="border-2"
-                                v-model="form.targeting_os"
-                            >
+                            <div>
+                                <label>OS</label>
+                            </div>
+                            <div>
+                                <input
+                                    class="border-2 border-gray-900 ml-2 my-2 rounded-md"
+                                    v-model="form.targeting_os"
+                                >
+                            </div>
                         </div>
 
                         <!--Device-->
                         <div>
-                            <label>Device</label>
-                            <input
-                                class="border-2"
-                                v-model="form.targeting_device"
-                            >
+                            <div>
+                                <label>Device</label>
+                            </div>
+                            <div>
+                                <input
+                                    class="border-2 border-gray-900 ml-2 my-2 rounded-md"
+                                    v-model="form.targeting_device"
+                                >
+                            </div>
                         </div>
 
 
                         <!--Browser-->
                         <div>
-                            <label>Browser</label>
-                            <input
-                            class="border-2"
-                                v-model="form.targeting_browser"
+                            <div>
+                                <label>Browser</label>
+                            </div>
+                            <div>
+                                <input
+                                    class="border-2 border-gray-900 ml-2 my-2 rounded-md"
+                                    v-model="form.targeting_browser"
                                 >
                             </div>
-                            <br>
+
                         </div>
+                            <br>
+                    </div>
 
                          <!--Campaign Schedule-->
                         <div class="mb-4">
@@ -650,7 +666,8 @@ const searchQuery = ref([])
                             <div class="flex flex-col mb-4">
                                 <label>Timezone</label>
                                 <input
-                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
+                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
+                                    rounded-md shadow-sm w-full pl-4 py-1"
                                     v-model="form.timezone"
                                 >
                             </div>
