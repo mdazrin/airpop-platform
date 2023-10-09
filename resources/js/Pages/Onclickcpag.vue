@@ -1,9 +1,14 @@
 <script setup>
 import SidebarLayout from "@/Layouts/SidebarLayout.vue";
+import Datepicker from 'vue3-datepicker'
 import {router} from "@inertiajs/vue3";
 import {ref} from "vue";
 
 defineProps({timetable:Object})
+
+//date
+const startDate = ref(new Date())
+const endDate = ref(new Date())
 
 //advert format render condition
 const onclickMultiFormat = ref('onclick')
@@ -193,7 +198,7 @@ const toggleBookingReset = () => {
         times.value.forEach(time => {
             const key = `${day}${time}`;
             bookedSlots.value[key] = false;
-            
+
         });
     });
     trueBookedSlotsArray.value = [];
@@ -298,7 +303,7 @@ const searchQuery = ref([])
         //         times.value.forEach(time => {
 //             const key = `${day}${time}`;
 //             bookedSlots.value[key] = false;
-            
+
 //         });
 //     });
 //     trueBookedSlotsArray.value = [];
@@ -315,8 +320,8 @@ const searchQuery = ref([])
                     <!--name-->
                     <div class="mb-4">
                         <label for="name" class="">Campaign name:</label>
-                        <input id="name" 
-                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1" 
+                        <input id="name"
+                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
                         v-model="form.name" />
                     </div>
 
@@ -479,7 +484,7 @@ const searchQuery = ref([])
                                                     {{countries.name}}
                                                 </button>
                                                 </li>
-                                                
+
                                                 <!-- <li v-for="item in filteredItems" :key="item.id">{{ item.name }}</li> -->
                                             </ul>
                                         </div>
@@ -650,6 +655,19 @@ const searchQuery = ref([])
                                 >
                             </div>
 
+                            Start Date
+                            <div>
+                                <label>Starting Date</label>
+                                <Datepicker v-model="startDate"
+                                :clearable="true"/>
+                            </div>
+
+                            <div>
+                                <label>End Date</label>
+                                <Datepicker v-model="endDate"
+                                :clearable="true"/>
+                            </div>
+
                             <div>
                                 <label>Schedule</label>
                                 <div class="flex space-x-4 mb-2">
@@ -800,7 +818,7 @@ const searchQuery = ref([])
                                 </div>
                             </div>
                         </div>
-                        </div>   
+                        </div>
                     </div>
                     <div class="flex justify-end">
                         <button class="w-max" type="submit">Submit</button>
