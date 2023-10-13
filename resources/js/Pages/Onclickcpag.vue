@@ -1011,7 +1011,6 @@ const searchQuery = ref([])
                     <div class="flex justify-end">
                         <button class="w-max" type="submit">Submit</button>
                     </div>
-                </div>
                 </form>
 
             </div>
