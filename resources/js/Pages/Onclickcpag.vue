@@ -193,7 +193,7 @@ const toggleBookingReset = () => {
         times.value.forEach(time => {
             const key = `${day}${time}`;
             bookedSlots.value[key] = false;
-            
+
         });
     });
     trueBookedSlotsArray.value = [];
@@ -298,7 +298,7 @@ const searchQuery = ref([])
         //         times.value.forEach(time => {
 //             const key = `${day}${time}`;
 //             bookedSlots.value[key] = false;
-            
+
 //         });
 //     });
 //     trueBookedSlotsArray.value = [];
@@ -315,8 +315,8 @@ const searchQuery = ref([])
                     <!--name-->
                     <div class="mb-4">
                         <label for="name" class="">Campaign name:</label>
-                        <input id="name" 
-                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1" 
+                        <input id="name"
+                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
                         v-model="form.name" />
                     </div>
 
@@ -479,7 +479,7 @@ const searchQuery = ref([])
                                                     {{countries.name}}
                                                 </button>
                                                 </li>
-                                                
+
                                                 <!-- <li v-for="item in filteredItems" :key="item.id">{{ item.name }}</li> -->
                                             </ul>
                                         </div>
@@ -613,22 +613,22 @@ const searchQuery = ref([])
                                     <ul><li></li></ul>
                                 </div>
                                 <div class="flex">
-                                    <svg 
+                                    <svg
                                     v-if="isDropdownVisible"
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" 
-                                    viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
-                                    <svg  
+                                    <svg
                                     v-else
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                                     </svg>
@@ -654,7 +654,7 @@ const searchQuery = ref([])
 
                         <!--OS-->
                         <!-- <div>
-                            <label>OS</label>   
+                            <label>OS</label>
                             <input
                                 class="border-2"
                                 v-model="form.targeting_os"
@@ -668,22 +668,22 @@ const searchQuery = ref([])
                                     <ul><li></li></ul>
                                 </div>
                                 <div class="flex">
-                                    <svg 
+                                    <svg
                                     v-if="isDropdownVisible"
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" 
-                                    viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
-                                    <svg  
+                                    <svg
                                     v-else
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                                     </svg>
@@ -723,22 +723,22 @@ const searchQuery = ref([])
                                     <ul><li></li></ul>
                                 </div>
                                 <div class="flex">
-                                    <svg 
+                                    <svg
                                     v-if="isDropdownVisible"
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" 
-                                    viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
-                                    <svg  
+                                    <svg
                                     v-else
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                                     </svg>
@@ -781,22 +781,22 @@ const searchQuery = ref([])
                                     <ul><li></li></ul>
                                 </div>
                                 <div class="flex">
-                                    <svg 
+                                    <svg
                                     v-if="isDropdownVisible"
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" 
-                                    viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
-                                    <svg  
+                                    <svg
                                     v-else
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                                     </svg>
@@ -983,12 +983,14 @@ const searchQuery = ref([])
                                 </div>
                             </div>
                         </div>
-                        </div>   
+                        </div>
                     </div>
                     <div class="flex justify-end">
                         <button class="w-max" type="submit">Submit</button>
                     </div>
+                </div>
                 </form>
+
             </div>
         </template>
     </SidebarLayout>
