@@ -600,44 +600,169 @@ const searchQuery = ref([])
                         <label>Targeting</label>
 
                         <!--Platform-->
-                        <div>
-                            <div>
-                                <label>Platform</label>
+                        <!-- <div>
+                            <label>Platform</label>
+                            <select v-model="form.targeting_platform">
+                                <option v-for="item in platform">
+                                    {{item.label}}
+                                </option>
+                            </select>
+
+                        </div> -->
+
+                        <div class="mb-4">
+                            <label for="platform">Platform</label>
+                            <div class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2 flex justify-between" @click="toggleMenu()">
+                                <div>
+                                    <ul><li></li></ul>
+                                </div>
+                                <div class="flex">
+                                    <svg
+                                    v-if="isDropdownVisible"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                    <svg
+                                    v-else
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                                    </svg>
+                                </div>
                             </div>
-                            <div>
-                                <select v-model="form.targeting_platform"
-                                        class="border-2 border-gray-900 ml-2 my-2 rounded-md">
-                                    <option v-for="item in platform">
-                                        {{item.label}}
-                                    </option>
-                                </select>
+                            <div v-if="isDropdownVisible" class="relative">
+                                <div class="absolute right-0 mt-2 w-full bg-white border rounded-lg shadow-lg">
+                                    <input type="text" v-model="searchQuery" placeholder="Search..." @click="showOptions()" @blur="hideOptions()" class="w-full">
+                                    <div>
+                                        <ul v-for="item in platform" class="border">
+                                            <li class="w-full">
+                                                <button
+                                                class="w-full"
+                                                type="button">
+                                                {{item.label}}
+                                            </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-
                         <!--OS-->
-                        <div>
-                            <div>
-                                <label>OS</label>
+                        <!-- <div>
+                            <label>OS</label>
+                            <input
+                                class="border-2"
+                                v-model="form.targeting_os"
+                            >
+                        </div> -->
+
+                        <div class="mb-4">
+                            <label for="os">OS</label>
+                            <div class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2 flex justify-between" @click="toggleMenu()">
+                                <div>
+                                    <ul><li></li></ul>
+                                </div>
+                                <div class="flex">
+                                    <svg
+                                    v-if="isDropdownVisible"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                    <svg
+                                    v-else
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                                    </svg>
+                                </div>
                             </div>
-                            <div>
-                                <input
-                                    class="border-2 border-gray-900 ml-2 my-2 rounded-md"
-                                    v-model="form.targeting_os"
-                                >
+                            <div v-if="isDropdownVisible" class="relative">
+                                <div class="absolute right-0 mt-2 w-full bg-white border rounded-lg shadow-lg">
+                                    <input type="text" v-model="searchQuery" placeholder="Search..." @click="showOptions()" @blur="hideOptions()" class="w-full">
+                                    <div>
+                                        <ul v-for="item in platform" class="border">
+                                            <li class="w-full">
+                                                <button
+                                                class="w-full"
+                                                type="button">
+                                                {{item.label}}
+                                            </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <!--Device-->
-                        <div>
-                            <div>
-                                <label>Device</label>
+                        <!-- <div>
+                            <label>Device</label>
+                            <input
+                                class="border-2"
+                                v-model="form.targeting_device"
+                            >
+                        </div> -->
+
+                        <div class="mb-4">
+                            <label for="device">Device</label>
+                            <div class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2 flex justify-between" @click="toggleMenu()">
+                                <div>
+                                    <ul><li></li></ul>
+                                </div>
+                                <div class="flex">
+                                    <svg
+                                    v-if="isDropdownVisible"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                    <svg
+                                    v-else
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                                    </svg>
+                                </div>
                             </div>
-                            <div>
-                                <input
-                                    class="border-2 border-gray-900 ml-2 my-2 rounded-md"
-                                    v-model="form.targeting_device"
-                                >
+                            <div v-if="isDropdownVisible" class="relative">
+                                <div class="absolute right-0 mt-2 w-full bg-white border rounded-lg shadow-lg">
+                                    <input type="text" v-model="searchQuery" placeholder="Search..." @click="showOptions()" @blur="hideOptions()" class="w-full">
+                                    <div>
+                                        <ul v-for="item in platform" class="border">
+                                            <li class="w-full">
+                                                <button
+                                                class="w-full"
+                                                type="button">
+                                                {{item.label}}
+                                            </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -656,7 +781,53 @@ const searchQuery = ref([])
 
                         </div>
                             <br>
-                    </div>
+                        </div> -->
+
+                        <div class="mb-4">
+                            <label for="browser">Browser</label>
+                            <div class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2 flex justify-between" @click="toggleMenu()">
+                                <div>
+                                    <ul><li></li></ul>
+                                </div>
+                                <div class="flex">
+                                    <svg
+                                    v-if="isDropdownVisible"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                    <svg
+                                    v-else
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div v-if="isDropdownVisible" class="relative">
+                                <div class="absolute right-0 mt-2 w-full bg-white border rounded-lg shadow-lg">
+                                    <input type="text" v-model="searchQuery" placeholder="Search..." @click="showOptions()" @blur="hideOptions()" class="w-full">
+                                    <div>
+                                        <ul v-for="item in platform" class="border">
+                                            <li class="w-full">
+                                                <button
+                                                class="w-full"
+                                                type="button">
+                                                {{item.label}}
+                                            </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                          <!--Campaign Schedule-->
                         <div class="mb-4">
@@ -840,7 +1011,9 @@ const searchQuery = ref([])
                     <div class="flex justify-end">
                         <button class="w-max" type="submit">Submit</button>
                     </div>
+                </div>
                 </form>
+
             </div>
         </template>
     </SidebarLayout>
