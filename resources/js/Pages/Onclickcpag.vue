@@ -1,9 +1,14 @@
 <script setup>
 import SidebarLayout from "@/Layouts/SidebarLayout.vue";
+import Datepicker from 'vue3-datepicker'
 import {router} from "@inertiajs/vue3";
 import {ref} from "vue";
 
 defineProps({timetable:Object})
+
+//date of campaign
+const startDate = ref(new Date())
+const endDate = ref(new Date())
 
 //advert format render condition
 const onclickMultiFormat = ref('onclick')
@@ -25,7 +30,18 @@ const platform = ref([
 
 //desktop os
 const desktop_os = ref ([
-    {label:''}
+    {label:'Android', value:'android'},
+    {label:'Blackberry', value:'blackberry'},
+    {label:'IOS', value:'ios'},
+    {label:'Linux', value:'linux'},
+    {label:'Mac OS', value:'mac'},
+    {label:'Other', value:'other'},
+    {label:'Symbian', value:'symbian'},
+    {label:'Windows', value:'windows'},
+    {label:'Windows Phone', value:'windows_phone'},
+    {label:'Kai OS', value:'kai_os'},
+    {label:'Other Mobile', value:'other_mobile'},
+
 ])
 
 
@@ -37,7 +53,6 @@ const countriesRate = ref ([
 const countriesList = ref([])
 
 function addCountry(countryIndex,index){
-
     let a = countriesPool.value[countryIndex].countryValue
 
     //push into countries Rate
@@ -194,7 +209,7 @@ const toggleBookingReset = () => {
         times.value.forEach(time => {
             const key = `${day}${time}`;
             bookedSlots.value[key] = false;
-            
+
         });
     });
     trueBookedSlotsArray.value = [];
@@ -268,57 +283,6 @@ function submit(){
 
 const searchQuery = ref([])
 
-const isDropdownVisible = ref(false)
-
-// const showOptions = () => {
-//     alert("Show")
-//     isDropdownVisible.value = true;
-// }
-// const hideOptions = () => {
-//     isDropdownVisible.value = false;
-// }
-
-const toggleMenu = () => {
-    isDropdownVisible.value = !isDropdownVisible.value;
-};
-
-
-const filteredItems = () => {
-    return this.countriesPool.filter(item => {
-        alert(item.name)
-        // Replace this condition with your filtering logic
-        return item.name.includes(this.searchQuery);
-    });
-};
-
-
-
-// const filteredItems = () => {
-//     console.log("hi")
-//     console.log('Input value changed:', this.searchQuery);
-//     const query = this.searchQuery.toLowerCase();
-//     console.log(query)
-//     if (this.query === '') {
-//         return this.countriesPool.value;
-//     } else {
-//     // Filter the items based on the search query
-//     return this.countriesPool.filter(item => {
-//         return item.toLowerCase().includes(query);
-//         alert(item)
-//     });
-//     }
-// }
-
-// const toggleBookingReset = () => {
-    //     days.value.forEach(day => {
-        //         times.value.forEach(time => {
-//             const key = `${day}${time}`;
-//             bookedSlots.value[key] = false;
-            
-//         });
-//     });
-//     trueBookedSlotsArray.value = [];
-// }
 </script>
 
 <template>
@@ -326,13 +290,16 @@ const filteredItems = () => {
         <template #content>
             <div>
                 <form @submit.prevent="submit">
-                    
+
                     <h1 class="text-3xl main mb-2">Create Campaign</h1>
                     <!--name-->
                     <div class="mb-4">
                         <label for="name" class="">Campaign name:</label>
-                        <input id="name" 
-                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1" 
+                        <input id="name"
+                        class="border-2
+                        border-gray-300
+                        focus:border-indigo-500 focus:ring-indigo-500
+                        rounded-md shadow-sm w-full pl-4 py-1"
                         v-model="form.name" />
                     </div>
 
@@ -342,42 +309,46 @@ const filteredItems = () => {
                         <div class="flex justify-between space-x-4">
                             <div class="w-full">
                                 <div class="flex-col">
-                                    <label for="onclick" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">                                        
+                                    <label for="onclick"
+                                           class="rounded
+                                                border-2 block
+                                                w-full p-5 text-gray-500
+                                                bg-white rounded-lg
+                                                cursor-pointer hover:text-gray-600
+                                                hover:bg-gray-100 text-center">
                                         <div class="w-full">
                                             <input type="radio" value="onclick" id="onclick" v-model="form.direction" />
                                             <div class="w-full text-lg font-semibold mt-4">Onclick</div>
                                             <div class="w-full mt-4">Full-page and eye-catchy ads opening in the background</div>
-                                            <div class="flex justify-center">
-                                                <img src="images/OnClick.png">
-                                            </div>
                                         </div>
                                     </label>
                                 </div>
                             </div>
                             <div class="w-full">
                                 <div class="flex-col">
-                                    <label for="nativeads" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">                                        
+                                    <label for="nativeads"
+                                           class="rounded
+                                           border-2 block
+                                           w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer
+                                           hover:text-gray-600 hover:bg-gray-100 text-center">
                                         <div class="w-full">
                                             <input type="radio" value="nativeads" id="nativeads" v-model="form.direction" />
                                             <div class="w-full text-lg font-semibold mt-4">NativeAds</div>
                                             <div class="w-full mt-4">Full-page and eye-catchy ads opening in the background</div>
-                                            <div class="flex justify-center">
-                                                <img src="images/OnClick.png">
-                                            </div>
                                         </div>
                                     </label>
                                 </div>
                             </div>
                             <div class="w-full">
                                 <div class="flex-col">
-                                    <label for="native" class="rounded border-2 block w-full p-5 text-gray-500 bg-white rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 text-center">                                        
+                                    <label for="native"
+                                           class="rounded border-2 block w-full p-5 text-gray-500
+                                           bg-white rounded-lg cursor-pointer hover:text-gray-600
+                                           hover:bg-gray-100 text-center">
                                         <div class="w-full">
                                             <input type="radio" value="native" id="native" v-model="form.direction" />
                                             <div class="w-full text-lg font-semibold mt-4">Native</div>
                                             <div class="w-full mt-4">Full-page and eye-catchy ads opening in the background</div>
-                                            <div class="flex justify-center">
-                                                <img src="images/OnClick.png">
-                                            </div>
                                         </div>
                                     </label>
                                 </div>
@@ -403,7 +374,7 @@ const filteredItems = () => {
                                     <label for="cpm" class="px-2">CPM</label>
                                 </div>
                             </div>
-    
+
                             <!-- nativeads Pricing Model -->
                             <div v-if="form.direction === 'nativeads'" class="flex space-x-8">
                                 <div class="flex items-center">
@@ -419,7 +390,7 @@ const filteredItems = () => {
                                     <label for="cpc" class="px-2">CPC</label>
                                 </div>
                             </div>
-    
+
                             <!-- Interstitial Pricing Model -->
                             <div v-if="form.direction === 'native'" class="flex space-x-8">
                                 <div class="flex items-center">
@@ -445,7 +416,14 @@ const filteredItems = () => {
                             <div>
                                 <label class="relative inline-flex items-center cursor-pointer">
                                     <input type="checkbox" class="sr-only peer" v-model="form.onclick_multi_format">
-                                    <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    <div
+                                        class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4
+                                        peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800
+                                        dark:bg-gray-700 peer-checked:after:translate-x-full
+                                        peer-checked:after:border-white after:content-[''] after:absolute
+                                        after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300
+                                        after:border after:rounded-full after:h-5 after:w-5 after:transition-all
+                                        dark:border-gray-600 peer-checked:bg-blue-600"></div>
                                     <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Interstitial</span>
                                 </label>
                             </div>
@@ -463,7 +441,8 @@ const filteredItems = () => {
                         <label for="target_url">Target URL</label>
                         <input
                             id="target_url"
-                            class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
+                            class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
+                            rounded-md shadow-sm w-full pl-4 py-1"
                             v-model="form.target_url" />
                     </div>
 
@@ -471,48 +450,27 @@ const filteredItems = () => {
                     <div>
                         <label>Countries and Rate</label>
                         <br>
-                        <div class="flex space-x-12 relative">
-                            <div v-for="(list,listIndex) in countriesRate" class="w-full flex flex-col">
+                        <div class="flex space-x-4">
+                            <div class="w-full flex flex-col">
                                 <label>Countries</label>
-                                <div class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2 flex justify-between" @click="toggleMenu()">
-                                    <div>
+                                <div v-for="(list,listIndex) in countriesRate" class="border rounded-lg flex">
                                         <ul class="flex items-center">
                                         <li v-for="(countryList,countryIndex) in list.countries">
                                         <button
-                                        class="border px-2 bg-cyan-600 text-white "
+                                        class="border rounded-lg px-2 bg-cyan-600 text-white "
                                         type="button"
                                         @click="removeCountry(listIndex,countryIndex,countryList)"
                                         >
                                             {{countryList}}
                                         </button>
                                         </li>
+                                        <input type="text" v-model="searchQuery" placeholder="Search...">
                                         </ul>
-                                    </div>
-                                    <div class="flex">
-                                        <svg 
-                                        v-if="isDropdownVisible"
-                                        xmlns="http://www.w3.org/2000/svg" 
-                                        fill="none" 
-                                        viewBox="0 0 24 24" 
-                                        stroke-width="1.5" 
-                                        stroke="currentColor" 
-                                        class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                        </svg>
-                                        <svg  
-                                        v-else
-                                        xmlns="http://www.w3.org/2000/svg" 
-                                        fill="none" viewBox="0 0 24 24" 
-                                        stroke-width="1.5" 
-                                        stroke="currentColor" 
-                                        class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-                                        </svg>
-                                    </div>
                                 </div>
                                 <div v-if="isDropdownVisible" class="relative">
                                     <div class="absolute right-0 mt-2 w-full bg-white border rounded-lg shadow-lg">
-                                        <input type="text" v-model="searchQuery" placeholder="Search..." @click="showOptions()" @blur="hideOptions()" class="w-full">
+                                        <input type="text" v-model="searchQuery" placeholder="Search..."
+                                               @click="showOptions()" @blur="hideOptions()" class="w-full">
                                         <div>
                                             <ul v-for="(countries,index) in countriesPool" class="border">
                                                 <li v-if="countries.checkedValue === false" class="w-full">
@@ -523,8 +481,6 @@ const filteredItems = () => {
                                                     {{countries.name}}
                                                 </button>
                                                 </li>
-                                                
-                                                <!-- <li v-for="item in filteredItems" :key="item.id">{{ item.name }}</li> -->
                                             </ul>
                                         </div>
                                     </div>
@@ -532,18 +488,17 @@ const filteredItems = () => {
                             </div>
                             <div class="flex flex-col">
                                 <label for="">CPA Goal, $</label>
-                                <input id="CPAGoal" class="border-2 border-gray-300 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full h-full" type="number" min="0" step="0.001">
+                                <input class="rounded-lg" type="number" min="0" step="0.001">
                             </div>
                         </div>
 
-                        {{ searchQuery }}
                         <!--Array of lists-->
                         <div
                             class ="border mb-4"
                             v-for="(list,listIndex) in countriesRate">
 
                             <!--Array of countries and price-->
-                            <li v-for="(countryList,countryIndex) in list.countries" class="bg-cyan-600">
+                            <li v-for="(countryList,countryIndex) in list.countries">
                                 <button
                                 type="button"
                                 @click="removeCountry(listIndex,countryIndex,countryList)"
@@ -601,19 +556,21 @@ const filteredItems = () => {
                             <div class="flex flex-col">
                                 <label>Daily Budget</label>
                                 <input
-                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
+                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
+                                    rounded-md shadow-sm w-full pl-4 py-1"
                                     v-model="form.daily_budget"
                                 >
                             </div>
                             <div class="flex flex-col">
                                 <label>Total Campaign Budget</label>
                                 <input
-                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
+                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
+                                rounded-md shadow-sm w-full pl-4 py-1"
                                 v-model="form.campaign_budget"
                                 >
                             </div>
                         </div>
-                        
+
                         <!--Multiformat Budget-->
                         <div v-if="form.onclick_multi_format === true">
                             <label class="font-bold">Interstitial</label>
@@ -621,14 +578,16 @@ const filteredItems = () => {
                                 <div class="flex flex-col">
                                     <label>Interstitial Daily Budget</label>
                                     <input
-                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
+                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
+                                        rounded-md shadow-sm w-full pl-4 py-1"
                                         v-model="form.multi_format_daily_budget"
                                     >
                                 </div>
                                 <div class="flex flex-col">
                                     <label>Interstitial Total Campaign Budget</label>
                                     <input
-                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
+                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
+                                        rounded-md shadow-sm w-full pl-4 py-1"
                                         v-model="form.multi_format_campaign_budget"
                                     >
                                 </div>
@@ -658,22 +617,22 @@ const filteredItems = () => {
                                     <ul><li></li></ul>
                                 </div>
                                 <div class="flex">
-                                    <svg 
+                                    <svg
                                     v-if="isDropdownVisible"
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" 
-                                    viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
-                                    <svg  
+                                    <svg
                                     v-else
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                                     </svg>
@@ -699,7 +658,7 @@ const filteredItems = () => {
 
                         <!--OS-->
                         <!-- <div>
-                            <label>OS</label>   
+                            <label>OS</label>
                             <input
                                 class="border-2"
                                 v-model="form.targeting_os"
@@ -713,22 +672,22 @@ const filteredItems = () => {
                                     <ul><li></li></ul>
                                 </div>
                                 <div class="flex">
-                                    <svg 
+                                    <svg
                                     v-if="isDropdownVisible"
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" 
-                                    viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
-                                    <svg  
+                                    <svg
                                     v-else
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                                     </svg>
@@ -768,22 +727,22 @@ const filteredItems = () => {
                                     <ul><li></li></ul>
                                 </div>
                                 <div class="flex">
-                                    <svg 
+                                    <svg
                                     v-if="isDropdownVisible"
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" 
-                                    viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
-                                    <svg  
+                                    <svg
                                     v-else
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                                     </svg>
@@ -807,14 +766,20 @@ const filteredItems = () => {
                             </div>
                         </div>
 
+
                         <!--Browser-->
-                        <!-- <div>
-                            <label>Browser</label>
-                            <input
-                            class="border-2"
-                                v-model="form.targeting_browser"
+                        <div>
+                            <div>
+                                <label>Browser</label>
+                            </div>
+                            <div>
+                                <input
+                                    class="border-2 border-gray-900 ml-2 my-2 rounded-md"
+                                    v-model="form.targeting_browser"
                                 >
                             </div>
+
+                        </div>
                             <br>
                         </div> -->
 
@@ -825,22 +790,22 @@ const filteredItems = () => {
                                     <ul><li></li></ul>
                                 </div>
                                 <div class="flex">
-                                    <svg 
+                                    <svg
                                     v-if="isDropdownVisible"
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" 
-                                    viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
-                                    <svg  
+                                    <svg
                                     v-else
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                                     </svg>
@@ -864,8 +829,6 @@ const filteredItems = () => {
                             </div>
                         </div>
 
-                    </div>
-                            
                          <!--Campaign Schedule-->
                         <div class="mb-4">
                             <label>Campaign Schedule</label>
@@ -874,9 +837,23 @@ const filteredItems = () => {
                             <div class="flex flex-col mb-4">
                                 <label>Timezone</label>
                                 <input
-                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-1"
+                                    class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
+                                    rounded-md shadow-sm w-full pl-4 py-1"
                                     v-model="form.timezone"
                                 >
+                            </div>
+
+                            Start Date
+                            <div>
+                                <label>Starting Date</label>
+                                <Datepicker v-model="startDate"
+                                :clearable="true"/>
+                            </div>
+
+                            <div>
+                                <label>End Date</label>
+                                <Datepicker v-model="endDate"
+                                :clearable="true"/>
                             </div>
 
                             <div>
@@ -1018,8 +995,8 @@ const filteredItems = () => {
                                     <input id="name" class="border-2" v-model="form.creativedescription" />
                                 </div>
                                 <div>
-                                    <label for="ButtonText">Button text</label>
-                                    <input id="ButtonText" class="border-2" v-model="form.buttons" />
+                                    <label for="name">Button text</label>
+                                    <input id="name" class="border-2" v-model="form.buttons" />
                                 </div>
                                 <div>
                                     <div class="w-100">
@@ -1029,12 +1006,13 @@ const filteredItems = () => {
                                 </div>
                             </div>
                         </div>
-                        </div>   
+                        </div>
                     </div>
                     <div class="flex justify-end">
                         <button class="w-max" type="submit">Submit</button>
                     </div>
                 </form>
+
             </div>
         </template>
     </SidebarLayout>

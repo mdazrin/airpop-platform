@@ -37,7 +37,7 @@ class Campaign extends Model
 
         $arr['status'] = 1;
         $arr['started_at'] = '30/7/2023';
-        $arr['expired_at'] = '5/8/2023';
+        $arr['expired_at'] = '9/10/2023';
         $arr['timezone'] = $request->input('timezone');
         $arr['rates'] =  $request->input('countriesRate');
         return $arr;

@@ -11,7 +11,7 @@ const open = ref(false);
 <template>
     <div>
         <!-- navbar -->
-        <nav class="fixed top-0 z-50 w-full border-b border-gray-200" style="background-color: rgb(62, 62, 62);">
+        <nav class="fixed top-0 z-50 w-full border-b border-gray-200">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center justify-start">
@@ -40,17 +40,14 @@ const open = ref(false);
                         </button>
                         <Link
                             :href="route('dashboard')"
-                            class="flex ml-2 md:mr-24"
+                            class="flex ml-2 md:mr-24 #1e293b"
                         >
+                        <!--Logo Relative Path-->
                             <img
-                                src="images/Logo.png"
-                                class="h-8 mr-3"
+                                src="/airpop-platform.png"
+                                class="h-16"
                                 alt="PropellerLogo"
                             />
-                            <span
-                                class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-white"
-                                >Airpop Platform</span
-                            >
                         </Link>
                     </div>
                     <div class="flex items-center">
