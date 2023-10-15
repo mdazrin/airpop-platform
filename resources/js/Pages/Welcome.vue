@@ -54,6 +54,23 @@ defineProps({
             </template>
         </div>
 
+        <div class="fixed top-0 right-0 p-6 text-right h-screen hidden md:flex flex-col justify-center text-white">
+            <div>
+                Image 1
+            </div>
+            <div>
+                Image 2
+            </div>
+            <div>
+                Image 3
+            </div>
+            <div>
+                Image 4
+            </div>
+        </div>
+
+
+
         <div class="pt-24 px-8">
             <!--Logo-->
             <div class="flex justify-center items-center">
@@ -68,7 +85,7 @@ defineProps({
             <!--About Us-->
             <div>
                 <div class="flex justify-center items-center">
-                    <div class="w-full sm:w-1/2">
+                    <div class="w-full sm:w-2/3">
                         <p
                         class="text-center text-red-300 mt-40 text-4xl font-semibold"
                         >ABOUT US</p>
@@ -122,7 +139,7 @@ defineProps({
             <!--Ad Formats-->
             <div>
                 <div class="flex justify-center items-center">
-                    <div class="w-full sm:w-1/2">
+                    <div class="w-full sm:w-2/3">
                     <p
                         class="text-center text-red-300 mt-40 text-4xl font-semibold"
                     >AD FORMATS</p>
@@ -195,11 +212,65 @@ defineProps({
             </div>
 
             <!-- Our Audience -->
-            <div>
-                <p>OUR AUDIENCES</p>
-                <p>SPECIALIZED INDUSTRY AUDIENCES</p>
-                <p>Airpop has curated specialized audiences across 7 main industry groups. Choose the industry that you think is most relevant, save your audiences, and let the algorithm narrow down based on collected clicks!</p>
+            <div class="flex justify-center items-center">
+                <div class="w-full sm:w-2/3">
+                    <p class="text-center text-red-300 mt-40 text-4xl font-semibold">OUR AUDIENCES</p>
+                    <p class="text-center text-white mt-5 text-3xl font-semibold">SPECIALIZED INDUSTRY AUDIENCES</p>
+                    <p class="text-center text-white text-l">Airpop has curated specialized audiences across 7 main industry groups. Choose the industry that you think is most relevant, save your audiences, and let the algorithm narrow down based on collected clicks!</p>
+                </div>
             </div>
+
+            <!-- Contact -->
+            <div class="flex justify-center items-center mb-6">
+                <div class="w-full sm:w-2/3">
+                    <p class="mb-6 text-center text-red-300 mt-40 text-4xl font-semibold">CONTACT</p>
+                    <div class="grid md:grid-cols-2 md:gap-6 mb-6">
+                        <input type="text" class="block py-2.5 px-2 w-full text-l text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none text-white focus:outline-none focus:ring-0 focus:border-gray-300 focus:border-b-4 invalid:border-red-500 invalid:border-b-4" placeholder="Name">
+                        <input type="email" class="block py-2.5 px-2 w-full text-l text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none text-white focus:outline-none focus:ring-0 focus:border-gray-300 focus:border-b-4 invalid:border-red-500 invalid:border-b-4" placeholder="Email">
+                    </div>
+                    <div class="mb-6">
+                        <input type="text" class="block py-2.5 px-2 w-full text-l text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none text-white focus:outline-none focus:ring-0 focus:border-gray-300 focus:border-b-4 invalid:border-red-500 invalid:border-b-4" placeholder="Subject">
+                    </div>
+                    <div class="mb-6">
+                        <textarea class="block py-2.5 px-2 w-full text-l text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none text-white focus:outline-none focus:ring-0 focus:border-gray-300 focus:border-b-4 invalid:border-red-500 invalid:border-b-4" name="" id="" rows="5" placeholder="Message"></textarea>
+                    </div>
+                    <div class="flex justify-center">
+                        <button class="px-10 py-1 text-center bg-red-300 text-xl font-semibold">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="flex justify-center items-center mb-6">
+                <div class="w-full sm:w-2/3 grid md:grid-cols-2">
+                    <div>
+                        <p class="text-center text-white mt-5 text-3xl font-semibold">OPENING HOURS</p>
+                        <p class="text-center text-white text-l">Mon - Fri: 11am - 6pm</p>
+                    </div>
+                    <div>
+                        <p class="text-center text-white mt-5 text-3xl font-semibold">GET IN TOUCH</p>
+                        <p class="text-center text-white text-l">123-456-7890</p>
+                        <p class="text-center text-white text-l">general@airpopmarketing.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subcsribe now -->
+            <div class="flex justify-center items-center mb-6">
+                <div class="w-full sm:w-2/3">
+                    <div class="mb-6">
+                        <input class="block py-2.5 px-2 w-full text-l text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none text-white focus:outline-none focus:ring-0 focus:border-gray-300 focus:border-b-4 invalid:border-red-500 invalid:border-b-4" type="email" placeholder="Enter Your Email here">
+                    </div>
+                    <div class="mb-6">
+                        <button class="px-10 py-1 w-full text-center bg-red-300 text-xl font-semibold">Subscribe Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center items-center mb-6">
+                <p class="mb-6 text-center text-red-300 text-l font-semibold">&copy; 2023 by Airpop Marketing</p>
+            </div>
+
         </div>
 
 
