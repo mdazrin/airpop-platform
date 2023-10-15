@@ -75,7 +75,7 @@ defineProps({
             <!--Logo-->
             <div class="flex justify-center items-center">
                 <div class="w-fit sm:w-1/3">
-                    <img src="/airpop-platform.png" class="mx-auto" alt="PropellerLogo" />
+                    <img src="/airpop-platform.png" class="mx-auto fade-right" alt="PropellerLogo" />
                     <p class="text-white text-center font-sans text-2xl font-semibold py-1">
                     NOT JUST ANOTHER DIGITAL MARKETING PLATFORM
                     </p>
@@ -111,25 +111,25 @@ defineProps({
                 </div>
                 <div class="flex justify-around flex-wrap mt-10">
                     <div class="w-full sm:w-1/3 py-5">
-                        <p class="text-center text-red-300 text-7xl font-semibold">200+</p>
+                        <p class="text-center text-yellow-100 text-7xl font-semibold fade-right">200+</p>
                         <p class="text-center text-white text-l">Coverage in more than 200 countries</p>
                     </div>
                     <div class="w-full sm:w-1/3 py-5">
-                        <p class="text-center text-red-300 text-7xl font-semibold">RM0.01</p>
+                        <p class="text-center text-yellow-100 text-7xl font-semibold animate-fadeIn duration-500">RM0.01</p>
                         <p class="text-center text-white text-l">CPC as low as RM0.01*</p>
                         <p class="text-center text-white text-l">*based on 2023 average CPC of India push ads</p>
                     </div>
                     <div class="w-full sm:w-1/3 py-5">
-                        <p class="text-center text-red-300 text-7xl font-semibold">100k+</p>
+                        <p class="text-center text-yellow-100 text-7xl font-semibold animate-fadeIn duration-500">100k+</p>
                         <p class="text-center text-white text-l">Ad impressions per second</p>
                     </div>
                     <div class="w-full sm:w-1/3 py-5">
-                        <p class="text-center text-red-300 text-7xl font-semibold">20M+</p>
+                        <p class="text-center text-yellow-100 text-7xl font-semibold animate-fadeIn duration-500">20M+</p>
                         <p class="text-center text-white text-l">More than 20 million global clicks on push-ads every 24 hours*</p>
                         <p class="text-center text-white text-l">*based on 2023 global average clicks</p>
                     </div>
                     <div class="w-full sm:w-1/3 py-5">
-                        <p class="text-center text-red-300 text-7xl font-semibold">2M+</p>
+                        <p class="text-center text-yellow-100 text-7xl font-semibold animate-fadeIn duration-500">2M+</p>
                         <p class="text-center text-white text-l">More than 2 million global clicks on interstitial-ads every 24 hours*</p>
                         <p class="text-center text-white text-l">*based on 2023 global average clicks</p>
                     </div>
@@ -279,5 +279,18 @@ defineProps({
 </template>
 
 <style>
+@keyframes fadeRight {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.fade-right {
+  animation: fadeRight 0.5s ease-in;
+}
 
 </style>
