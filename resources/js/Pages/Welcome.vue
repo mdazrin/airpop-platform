@@ -94,7 +94,6 @@ defineProps({
                         class="text-center text-white mt-5 text-3xl font-semibold"
                         >WHAT IS AIRPOP?</p>
             
-            
                         <div
                         class="pt-5"
                         >
