@@ -69,8 +69,8 @@ class CampaignController extends Controller
         }
 
 
-        dd($response->json());
-        //dd($request->input('countriesList'));
+        //dd($response->json());
+        dd($request->input('startDate'));
         return Inertia::render('Onclickcpag',[
             'success'=>$response->created()
         ]);

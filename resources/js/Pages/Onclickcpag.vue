@@ -10,6 +10,12 @@ defineProps({timetable:Object})
 const startDate = ref(new Date())
 const endDate = ref(new Date())
 
+//slice and compare time
+const year1 = startDate.value
+const year2 = endDate.value
+
+console.log(year1>=year2)
+
 //advert format render condition
 const onclickMultiFormat = ref('onclick')
 const campaignDays = ref('Monday')
@@ -254,6 +260,7 @@ const form = ref({
 
 
 //final submission of data, cannot be mutated
+//from form v-model and other mutated variables
 function submit(){
 
     router.post('/create-campaign-create',{
@@ -274,6 +281,10 @@ function submit(){
         targeting_browser:form.value.targeting_browser,
 
         timezone:form.value.timezone,
+        startDate:startDate.value,
+        endDate:endDate.value,
+
+
         countriesRate:countriesRate.value,
         countriesList:countriesList.value,
 
