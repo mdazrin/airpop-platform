@@ -11,13 +11,14 @@ const open = ref(false);
 <template>
     <div>
         <!-- navbar -->
-        <nav class="fixed top-0 z-50 w-full border-b border-gray-200">
+        <nav class="bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-600 h-24">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center justify-start">
+                        <!-- hamburger icon -->
                         <button
                             @click="showSide = !showSide"
-                            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                            class="inline-flex items-center justify-center p-2 hover:bg-gray-800 focus:outline-none transition duration-150 ease-in-out"
                         >
                             <svg
                                 class="h-6 w-6"
@@ -38,18 +39,18 @@ const open = ref(false);
                                 />
                             </svg>
                         </button>
-                        <Link
-                            :href="route('dashboard')"
-                            class="flex ml-2 md:mr-24 #1e293b"
-                        >
-                        <!--Logo Relative Path-->
-                            <img
-                                src="/airpop-platform.png"
-                                class="h-16"
-                                alt="PropellerLogo"
-                            />
-                        </Link>
                     </div>
+                    <Link
+                        :href="route('dashboard')"
+                        class="flex #1e293b"
+                    >
+                    <!--Logo Relative Path-->
+                        <img
+                            src="/airpop-platform.png"
+                            class="h-16"
+                            alt="PropellerLogo"
+                        />
+                    </Link>
                     <div class="flex items-center">
                         <div class="flex items-center ml-3">
                             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -68,7 +69,7 @@ const open = ref(false);
                                                         $page.props.auth.user
                                                             .name
                                                     }}
-
+    
                                                     <svg
                                                         class="ml-2 -mr-0.5 h-4 w-4"
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +85,7 @@ const open = ref(false);
                                                 </button>
                                             </span>
                                         </template>
-
+    
                                         <template #content>
                                             <DropdownLink
                                                 :href="route('profile.edit')"
@@ -111,20 +112,20 @@ const open = ref(false);
         <!-- sidebar -->
         <aside
             id="logo-sidebar"
-            class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-gray-100 border-r border-gray-200 sm:translate-x-0"
+            class="fixed top-0 left-0 z-10 sm:w-64 w-full h-screen mt-24"
             aria-label="Sidebar"
             v-show="showSide"
         >
-            <div class="h-full px-3 pb-4 overflow-y-auto bg-gray-100">
+            <div class="h-full px-3 py-4 overflow-y-auto bg-gray-600 text-white">
                 <ul class="space-y-2 font-medium">
                     <li @click="open = !open">
                         <button
                             type="button"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-white"
+                            class="flex items-center w-full p-2 transition duration-75 rounded-lg hover:bg-gray-800"
                         >
                             <svg
                                 aria-hidden="true"
-                                class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+                                class="w-6 h-6 text-sky-400 transition duration-75"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -161,7 +162,7 @@ const open = ref(false);
                             <li>
                                 <Link
                                     :href="route('campaignlist')"
-                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                    class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 hover:bg-gray-800"
                                 >
                                     Campaign List
                                 </Link>
@@ -169,7 +170,7 @@ const open = ref(false);
                             <li>
                                 <Link
                                     :href="route('createcampaign')"
-                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-white"
+                                    class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 hover:bg-gray-800"
                                 >
                                     Create Campaign
                                 </Link>
@@ -179,11 +180,11 @@ const open = ref(false);
                     <li>
                         <Link
                             :href="route('dashboard')"
-                            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-white"
+                            class="flex items-center p-2 rounded-lg hover:bg-gray-800"
                         >
                             <svg
                                 aria-hidden="true"
-                                class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+                                class="w-6 h-6 text-sky-400 transition duration-75"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -201,11 +202,11 @@ const open = ref(false);
                     <li>
                         <Link
                             :href="route('traffic')"
-                            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-white"
+                            class="flex items-center p-2 rounded-lg hover:bg-gray-800"
                         >
                             <svg
                                 aria-hidden="true"
-                                class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+                                class="w-6 h-6 text-sky-400 transition duration-75"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -223,11 +224,11 @@ const open = ref(false);
                     <li>
                         <Link
                             :href="route('conversion')"
-                            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-white"
+                            class="flex items-center p-2 rounded-lg hover:bg-gray-800"
                         >
                             <svg
                                 aria-hidden="true"
-                                class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+                                class="w-6 h-6 text-sky-400 transition duration-75 hover:bg-gray-800"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -245,11 +246,11 @@ const open = ref(false);
                     <li>
                         <Link
                             :href="route('finance')"
-                            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-white"
+                            class="flex items-center p-2 rounded-lg hover:bg-gray-800"
                         >
                             <svg
                                 aria-hidden="true"
-                                class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+                                class="w-6 h-6 text-sky-400 transition duration-75"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -267,11 +268,11 @@ const open = ref(false);
                     <li>
                         <Link
                             :href="route('dashboard')"
-                            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-white"
+                            class="flex items-center p-2 rounded-lg hover:bg-gray-800"
                         >
                             <svg
                                 aria-hidden="true"
-                                class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+                                class="w-6 h-6 text-sky-400 transition duration-75"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -289,11 +290,11 @@ const open = ref(false);
                     <li>
                         <Link
                             :href="route('dashboard')"
-                            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-white"
+                            class="flex items-center p-2 rounded-lg hover:bg-gray-800"
                         >
                             <svg
                                 aria-hidden="true"
-                                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+                                class="w-6 h-6 text-sky-400 transition duration-75"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -315,8 +316,8 @@ const open = ref(false);
             </div>
         </aside>
 
-        <div class="p-4 sm:ml-64">
-            <div class="p-4 rounded-lg mt-14">
+        <div class="mt-24" :class="{ 'md:ml-0': !showSide, 'md:ml-64': showSide }" >
+            <div class="p-4">
                 <slot name="content" />
             </div>
         </div>
