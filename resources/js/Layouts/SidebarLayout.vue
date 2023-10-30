@@ -14,39 +14,41 @@ const open = ref(false);
         <nav class="bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-600 h-24">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
                 <div class="flex items-center justify-between">
-                    <div class="flex items-center justify-start">
-                        <!-- hamburger icon -->
-                        <button
-                            @click="showSide = !showSide"
-                            class="inline-flex items-center justify-center p-2 hover:bg-gray-800 focus:outline-none transition duration-150 ease-in-out"
-                        >
-                            <svg
-                                class="h-6 w-6"
-                                stroke="#F7D2D0"
-                                fill="none"
-                                viewBox="0 0 24 24"
+                    <div class="flex">
+                        <div class="flex items-center justify-start">
+                            <!-- hamburger icon -->
+                            <button
+                                @click="showSide = !showSide"
+                                class="inline-flex items-center justify-center p-2 hover:bg-gray-800 focus:outline-none transition duration-150 ease-in-out"
                             >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M4 6h16M4 12h16M4 18h16"
-                                />
-                            </svg>
-                        </button>
+                                <svg
+                                    class="h-6 w-6"
+                                    stroke="#F7D2D0"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M4 6h16M4 12h16M4 18h16"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                        <Link
+                            :href="route('dashboard')"
+                            class="flex #1e293b"
+                        >
+                            <!--Logo Relative Path-->
+                            <img
+                                src="/airpop-platform.png"
+                                class="h-16"
+                                alt="PropellerLogo"
+                            />
+                        </Link>
                     </div>
-                    <Link
-                        :href="route('dashboard')"
-                        class="flex #1e293b"
-                    >
-                    <!--Logo Relative Path-->
-                        <img
-                            src="/airpop-platform.png"
-                            class="h-16"
-                            alt="PropellerLogo"
-                        />
-                    </Link>
-                    <div class="flex items-center">
+                    <div class="flex">
                         <div class="flex items-center ml-3">
                             <div class="hidden sm:flex sm:items-center sm:ml-6">
                                 <!-- Settings Dropdown -->
