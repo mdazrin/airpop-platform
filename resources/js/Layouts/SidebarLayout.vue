@@ -27,11 +27,6 @@ const open = ref(false);
                                 viewBox="0 0 24 24"
                             >
                                 <path
-                                    :class="{
-                                        hidden: showingNavigationDropdown,
-                                        'inline-flex':
-                                            !showingNavigationDropdown,
-                                    }"
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                     stroke-width="2"
@@ -69,7 +64,7 @@ const open = ref(false);
                                                         $page.props.auth.user
                                                             .name
                                                     }}
-    
+
                                                     <svg
                                                         class="ml-2 -mr-0.5 h-4 w-4"
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +80,7 @@ const open = ref(false);
                                                 </button>
                                             </span>
                                         </template>
-    
+
                                         <template #content>
                                             <DropdownLink
                                                 :href="route('profile.edit')"

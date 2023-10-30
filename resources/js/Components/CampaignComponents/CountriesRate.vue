@@ -121,27 +121,24 @@ function checkedList(){
                                 {{countryList}}
                             </button>
                         </li>
-                        <input type="text" v-model="searchQuery" placeholder="Search...">
+<!--                        <input type="text" v-model="searchQuery" placeholder="Search...">-->
                     </ul>
                 </div>
-                <div v-if="isDropdownVisible" class="relative">
-                    <div class="absolute right-0 mt-2 w-full bg-white border rounded-lg shadow-lg">
-                        <input type="text" v-model="searchQuery" placeholder="Search..."
-                               @click="showOptions()" @blur="hideOptions()" class="w-full">
-                        <div>
-                            <ul v-for="(countries,index) in countriesPool" class="border">
-                                <li v-if="countries.checkedValue === false" class="w-full">
-                                    <button
-                                        class="w-full"
-                                        type="button"
-                                        @click="addCountry(index,listIndex)">
-                                        {{countries.name}}
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
+                <div class="absolute right-0 mt-2 w-full bg-white border rounded-lg shadow-lg">
+                    <div>
+                        <ul v-for="(countries,index) in countriesPool" class="border">
+                            <li v-if="countries.checkedValue === false" class="w-full">
+                                <button
+                                    class="w-full"
+                                    type="button"
+                                    @click="addCountry(index)">
+                                    {{countries.name}}
+                                </button>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+
             </div>
             <div class="flex flex-col">
                 <label for="">CPA Goal, $</label>

@@ -26,7 +26,7 @@ const header = ref([
             <div>
                 <TitleLabel
                     class="text-4xl"
-                    title_big="true"
+                    :title_big="true"
                     title="Campaign List"
                 />
                 <TableLayout :header="header" :tableData="campaign.result" />
