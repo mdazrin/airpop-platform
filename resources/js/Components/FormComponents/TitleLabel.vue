@@ -16,13 +16,13 @@ const props = defineProps({
 <template>
     <div>
         <template v-if="title_big">
-            <h3 class="text-xl font-bold text-left py-2" v-bind="$attrs">
+            <h3 class="text-2xl font-bold text-left py-2" v-bind="$attrs">
                 {{ title }}
             </h3>
         </template>
         <template v-else>
             <label
-                class="block mt-6 mb-2 text-sm font-medium text-gray-900"
+                class="text-base text-left py-2"
                 v-bind="$attrs"
             >
                 {{ title }}

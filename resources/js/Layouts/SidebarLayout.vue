@@ -11,7 +11,7 @@ const open = ref(false);
 <template>
     <div>
         <!-- navbar -->
-        <nav class="bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-600 h-24">
+        <nav class="bg-gray-600 fixed w-full z-20 top-0 left-0 border-b border-gray-600 h-24">
             <div class="px-3 py-3 lg:px-5 lg:pl-3">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center justify-start">
