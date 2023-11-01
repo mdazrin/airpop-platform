@@ -202,7 +202,7 @@ function submit(){
             <div>
                 <form @submit.prevent="submit">
 
-                    <h1 class="text-3xl main mb-2">Create Campaign</h1>
+                    <h1 class="text-3xl mb-2">Create Campaign</h1>
                     <!--name-->
                     <div class="mb-4">
                         <label for="name" class="">Campaign name:</label>
@@ -691,7 +691,6 @@ function submit(){
                         <button class="w-max" type="submit">Submit</button>
                     </div>
                 </form>
-
             </div>
         </template>
     </SidebarLayout>

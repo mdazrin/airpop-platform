@@ -1,5 +1,6 @@
 <script setup>
 import SidebarLayout from '@/Layouts/SidebarLayout.vue';
+import TitleLabel from "@/Components/FormComponents/TitleLabel.vue";
 import {ref} from "vue";
 const gridData = [
     { country: 'India', total_impressions: 10000, cpm:1.939, optimal_cpm:1.200 },
@@ -18,8 +19,11 @@ const operating_system = ref('')
 
     <SidebarLayout>
         <template #content>
-            <h1 class="text-2xl main mb-2">Traffic Chart</h1>
-
+            <TitleLabel
+                title_big="true"
+                title="Traffic Chart"
+            />
+            
             <div class="mb-4">
                 <div class="flex justify-start mb-2">
                     <div class="radio-inputs">
