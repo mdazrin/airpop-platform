@@ -61,7 +61,7 @@ const filteredAndSortedRows = computed(() => {
             class="px-4 py-2 border rounded w-80"
         />
     </div>
-    <div class="overflow-x-auto relative sm:rounded-lg p-5">
+    <div class="overflow-x-auto relative sm:rounded-lg">
 
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-200">

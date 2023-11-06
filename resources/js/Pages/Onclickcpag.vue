@@ -217,8 +217,8 @@ function submit(){
                     <!--direction-->
                     <div class="mb-4">
                         <p>Advertising Format:</p>
-                        <div class="flex justify-between space-x-4">
-                            <div class="w-full">
+                        <div class="flex justify-around flex-wrap -mx-4 ">
+                            <div class="w-full sm:w-1/2 md:w-1/3 px-4">
                                 <div class="flex-col">
                                     <label for="onclick"
                                            class="rounded
@@ -235,7 +235,7 @@ function submit(){
                                     </label>
                                 </div>
                             </div>
-                            <div class="w-full">
+                            <div class="w-full sm:w-1/2 md:w-1/3 px-4">
                                 <div class="flex-col">
                                     <label for="nativeads"
                                            class="rounded
@@ -250,7 +250,7 @@ function submit(){
                                     </label>
                                 </div>
                             </div>
-                            <div class="w-full">
+                            <div class="w-full sm:w-1/2 md:w-1/3 px-4">
                                 <div class="flex-col">
                                     <label for="native"
                                            class="rounded border-2 block w-full p-5 text-gray-500
@@ -521,7 +521,7 @@ function submit(){
                                 >
                             </div>
 
-                            <CountriesRate></CountriesRate>
+                            <!-- <CountriesRate></CountriesRate> -->
 
                             <div>
                                 <label>Starting Date</label>
@@ -544,7 +544,7 @@ function submit(){
                                     <button type="button" class="text-blue-600" @click="toggleBookingReset()">Reset</button>
                                 </div>
                                 <div>
-                                    <div class="flex flex-col">
+                                    <div class="flex flex-col overflow-x-auto">
                                         <div class="grid_items gap-1">
                                             <div style="width: 18px;"></div>
                                             <button v-for="time in times" :key="time" class="Timetable__items__default-item" type="button">
