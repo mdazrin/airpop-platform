@@ -4,6 +4,7 @@ import CountriesRate from "@/Components/CampaignComponents/CountriesRate.vue";
 import Datepicker from 'vue3-datepicker'
 import {router} from "@inertiajs/vue3";
 import {ref} from "vue";
+import countriesRate from "@/Components/CampaignComponents/CountriesRate.vue";
 
 defineProps({timetable:Object})
 
@@ -15,7 +16,7 @@ const endDate = ref(new Date())
 const year1 = startDate.value
 const year2 = endDate.value
 
-console.log(year1>=year2)
+console.log(countriesRate.value)
 
 //advert format render condition
 const onclickMultiFormat = ref('onclick')
@@ -187,8 +188,8 @@ function submit(){
         endDate:endDate.value,
 
 
-        countriesRate:countriesRate.value,
-        countriesList:countriesList.value,
+        countriesRate:countriesRate,
+        countriesList:countriesList,
 
     })
 
