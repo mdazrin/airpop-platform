@@ -317,7 +317,7 @@ const open = ref(false);
         </aside>
 
         <div class="mt-24" :class="{ 'md:ml-0': !showSide, 'md:ml-64': showSide }" >
-            <div class="p-4">
+            <div class="p-4 bg-gray-100">
                 <slot name="content" />
             </div>
         </div>
