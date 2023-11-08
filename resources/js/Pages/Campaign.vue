@@ -4,6 +4,9 @@ import TitleLabel from "@/Components/FormComponents/TitleLabel.vue";
 
 import { ref } from "vue";
 import TableLayout from "@/Layouts/TableLayout.vue";
+import FilteredComponent from "@/Components/CampaignComponents/FilterComponent.vue";
+import NestedFilterComponent from "@/Components/CampaignComponents/NestedFilterComponent.vue";
+import CountriesandRate from "@/Components/CampaignComponents/CountriesRate.vue";
 
 defineProps({
     campaign: Object,
@@ -30,6 +33,9 @@ const header = ref([
                     title="Campaign List"
                 />
                 <TableLayout :header="header" :tableData="campaign.result" />
+                <FilteredComponent/>
+                <NestedFilterComponent/>
+                <CountriesandRate/>
             </div>
         </template>
     </SidebarLayout>

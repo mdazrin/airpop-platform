@@ -26,7 +26,33 @@ const operating_system = ref('')
             
             <div class="mb-4">
                 <div class="flex justify-start mb-2">
-                    <div class="radio-inputs">
+                    <ul class="flex items-center text-sm font-medium text-gray-900 border-none rounded-lg bg-gray-200 p-2 border-gray-600">
+                        <li class="border-none rounded-lg p-2 space-x-2" :class="{ 'bg-white font-semibold rounded-lg': picked === 'One' }">
+                            <div>
+                                <label class="radio" for="one">
+                                <input type="radio" class="hidden checked:bg-white checked:font-semibold" id="one" value="One" v-model="picked" />
+                                <span class="name">OnClick</span>
+                                </label>
+                            </div>
+                        </li>
+                        <li class="border-none rounded-lg p-2 space-x-2" :class="{ 'bg-white font-semibold rounded-lg': picked === 'Two' }">
+                            <div>
+                                <label class="radio" for="two">
+                                <input type="radio" class="hidden" id="two" value="Two" v-model="picked" />
+                                <span class="name">Push Notifications</span>
+                                </label>
+                            </div>
+                        </li>
+                        <li class="border-none rounded-lg p-2 space-x-2" :class="{ 'bg-white font-semibold rounded-lg': picked === 'Three' }">
+                            <div>
+                                <label class="radio" for="three">
+                                <input type="radio" class="hidden" id="three" value="Three" v-model="picked" />
+                                <span class="name">Interstitial</span>
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- <div class="radio-inputs">
                         <label class="radio" for="one">
                         <input type="radio" id="one" value="One" v-model="picked" />
                         <span class="name">OnClick</span>
@@ -39,21 +65,23 @@ const operating_system = ref('')
                         <input type="radio" id="three" value="Three" v-model="picked" />
                         <span class="name">Interstitial</span>
                         </label>
-                    </div>
+                    </div> -->
                 </div>
-                <div class="flex justify-start mb-2">
-                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4" v-model="message" placeholder="search country" />
-                    <select class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-max pl-4" v-model="platform">
-                        <option disabled value="">All Platforms</option>
-                        <option>PC</option>
-                        <option>Mobile</option>
-                    </select>
-                    <select class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-max pl-4" v-model="operating_system">
-                        <option disabled value="">All OS</option>
-                        <option>Linux</option>
-                        <option>Windows</option>
-                        <option>Mac</option>
-                    </select>
+                <div class="flex flex-col sm:flex-row mb-2">
+                    <input class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4" v-model="message" placeholder="Search country" />
+                    <div class="flex flex-row">
+                        <select class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-max pl-4" v-model="platform">
+                            <option disabled value="">All Platforms</option>
+                            <option>PC</option>
+                            <option>Mobile</option>
+                        </select>
+                        <select class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-max pl-4" v-model="operating_system">
+                            <option disabled value="">All OS</option>
+                            <option>Linux</option>
+                            <option>Windows</option>
+                            <option>Mac</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -96,7 +124,7 @@ const operating_system = ref('')
     </SidebarLayout>
 
 </template>
-<style>
+<!-- <style>
  .main {
     color: #F7D2D0;
  }
@@ -140,4 +168,4 @@ const operating_system = ref('')
   background-color: #fff;
   font-weight: 600;
 }
-</style>
+</style> -->

@@ -54,26 +54,38 @@ defineProps({
             </template>
         </div>
 
-        <div class="fixed top-0 right-0 p-6 text-right h-screen hidden md:flex flex-col justify-center text-white">
-            <div>
-                Image 1
+        <!-- <div class="fixed top-0 right-0 p-6 text-right h-screen hidden md:flex flex-col justify-center text-white"> -->
+        <div class="fixed top-0 right-0 p-6 h-screen hidden md:flex flex-col">
+            <div class="w-6 h-6 m-2 justify-start items-center">
+                <svg
+                    class="h-6 w-6"
+                    stroke="#ffffff"
+                    fill="#ffffff"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"
+                    />
+                </svg>
             </div>
-            <div>
-                Image 2
-            </div>
-            <div>
-                Image 3
-            </div>
-            <div>
-                Image 4
+            <div class="item-center">
+                <div class="w-6 h-6 m-2">
+                    <svg fill="#ffffff" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="7935ec95c421cee6d86eb22ecd11b7e3"> <path style="display: inline;" d="M283.122,122.174c0,5.24,0,22.319,0,46.583h83.424l-9.045,74.367h-74.379 c0,114.688,0,268.375,0,268.375h-98.726c0,0,0-151.653,0-268.375h-51.443v-74.367h51.443c0-29.492,0-50.463,0-56.302 c0-27.82-2.096-41.02,9.725-62.578C205.948,28.32,239.308-0.174,297.007,0.512c57.713,0.711,82.04,6.263,82.04,6.263 l-12.501,79.257c0,0-36.853-9.731-54.942-6.263C293.539,83.238,283.122,94.366,283.122,122.174z"> </path> </g> </g></svg>
+                </div>
+                <div class="w-6 h-6 m-2">
+                    <svg fill="#ffffff" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="7935ec95c421cee6d86eb22ecd12951c"> <path style="display: inline;" d="M220.646,338.475C207.223,408.825,190.842,476.269,142.3,511.5 c-14.996-106.33,21.994-186.188,39.173-270.971c-29.293-49.292,3.518-148.498,65.285-124.059 c76.001,30.066-65.809,183.279,29.38,202.417c99.405,19.974,139.989-172.476,78.359-235.054 C265.434-6.539,95.253,81.775,116.175,211.161c5.09,31.626,37.765,41.22,13.062,84.884c-57.001-12.65-74.005-57.6-71.822-117.533 c3.53-98.108,88.141-166.787,173.024-176.293c107.34-12.014,208.081,39.398,221.991,140.376 c15.67,113.978-48.442,237.412-163.23,228.529C258.085,368.704,245.023,353.283,220.646,338.475z"> </path> </g> </g></svg>
+                </div>
             </div>
         </div>
 
 
 
-        <div class="pt-24 px-8">
+        <div class="px-8">
             <!--Logo-->
-            <div class="flex justify-center items-center">
+            <div class="flex justify-center items-center h-screen">
                 <div class="w-fit sm:w-1/3">
                     <img src="/airpop-platform.png" class="mx-auto fade-right" alt="PropellerLogo" />
                     <p class="text-white text-center font-sans text-2xl font-semibold py-1">

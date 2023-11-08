@@ -1,6 +1,5 @@
 <script setup>
-import {ref} from "vue";
-const emit = defineEmits('test')
+import { ref, computed } from 'vue';
 
 
 //countries pool
@@ -33,9 +32,9 @@ function addCountry(countryIndex,index){
     //sort countries rate
     countriesRate.value[index].countries.sort()
     countriesList.value.sort()
-
-
 }
+
+
 
 function removeCountry(listIndex,countryIndex,countryList){
 
@@ -99,14 +98,32 @@ function removeList(listIndex){
 
 }
 
-function checkedList(){
-    return countriesRate.value.length
-}
+const showFiltered = ref(false);
+  
+  const searchQuery = ref(''); 
+  
+  const filteredRows = computed(() => {
+    let rows = countriesPool.value.slice();
+  
+    if (searchQuery.value) {
+      const query = searchQuery.value.toLowerCase();
+      rows = rows.filter((item) => {
+        const nameColumnValue = item.name.toLowerCase();
+        return nameColumnValue.includes(query);
+      });
+    }
+  
+    return rows;
+  });
+  
+  const showFilteredRows = () => {
+    showFiltered.value = true;
+  };
 </script>
 
 <template>
     <!--Countries and Rates-->
-    <div>
+    <!-- <div>
         <label>Countries and Rate</label>
         <br>
         <div class="flex space-x-4">
@@ -123,7 +140,6 @@ function checkedList(){
                                 {{countryList}}
                             </button>
                         </li>
-<!--                        <input type="text" v-model="searchQuery" placeholder="Search...">-->
                     </ul>
                 </div>
                 <div class="absolute right-0 mt-2 w-full bg-white border rounded-lg shadow-lg">
@@ -148,12 +164,11 @@ function checkedList(){
             </div>
         </div>
 
-        <!--Array of lists-->
         <div
             class ="border mb-4"
             v-for="(list,listIndex) in countriesRate">
 
-            <!--Array of countries and price-->
+
             <li v-for="(countryList,countryIndex) in list.countries">
                 <button
                     type="button"
@@ -167,7 +182,7 @@ function checkedList(){
                 {{price}}
             </label>
 
-            <!--Insert value of countries-->
+   
             <h1 v-for="(countries,index) in countriesPool">
                 <h1 v-if="countries.checkedValue === false">
                     <button
@@ -191,7 +206,7 @@ function checkedList(){
             </div>
 
         </div>
-        <!--End of Array Lists-->
+
     </div>
 
     <div>
@@ -200,6 +215,178 @@ function checkedList(){
             @click="countriesRate.push({countries:[],amount:1})">
             Add Countries
         </button>
+    </div> -->
+
+    <!-- Note To Dev -->
+    <!-- We use 2 array
+    array 1 to save country name and their availabilty for the list (CountriesPool)
+    array 2 list of country and their rate (Countriesrate)
+
+    First load (countriesrate) array list
+    so component will render based on how much countriesrate list
+
+    Component will render all the data in the list
+    If user add country into the list
+    the country pool checkedvalue will change to true and they will push country into the list Array
+
+    If CountriesRate > 1
+    display button to clear the list and change checked value to false
+
+    For the dropdown 
+    only display countriesPool with false checkedValue
+
+    Create a button to add more list using push command -->
+
+    <div v-for="(list,listIndex) in countriesRate">
+        true
+        <ul>
+            <li v-for="(countryList,countryIndex) in list.countries">
+                {{countryList}}
+            </li>
+        </ul>
+
+        choices
+        <ul v-for="(countries,index) in countriesPool">
+            <li v-if="!countries.checkedValue">
+                {{ countries.name }}
+            </li>
+        </ul>
+
+        <div v-if="countriesRate.length > 1">
+            <button
+                type="button"
+                @click="removeList(listIndex)">
+                Remove List
+            </button>
+        </div>
+
     </div>
+    <div>
+        <button
+        type="button"
+        @click="countriesRate.push({countries:[],amount:1})">
+            Add Countries
+        </button>
+    </div>
+
+    <!-- <div class="mb-2">
+        Countries and Rates
+        <div 
+        v-for="(list,listIndex) in countriesRate"
+        class="flex flex-row w-full"
+        >
+            <div 
+            class="flex flex-col w-2/3 sm:w-4/5">
+                <label for="countries">Countries</label>
+                <div 
+                class="border rounded-lg relative">
+                <ul 
+                class="flex items-center">
+                    <li 
+                    v-for="(countryList,countryIndex) in list.countries">
+                    
+                    <button 
+                        class="border rounded-lg p-2 bg-sky-400 text-white"
+                        type="button"
+                        @click="removeCountry(listIndex,countryIndex,countryList)">
+                        {{countryList}}
+                    </button>
+                    </li>
+                    <li class="w-full" @click="showFilteredRows">
+                        <input
+                        v-model="searchQuery"
+                        type="text"
+                        placeholder="Search by Campaign Name..."
+                        class="w-full border-0 focus:outline-none focus:ring-0"
+                        />
+                    </li>
+                </ul>
+                <div class="absolute right-0 w-full bg-white border rounded-lg shadow-lg z-20" v-if="showFiltered">
+                    <ul v-for="(countries,index) in filteredRows">
+                        <li v-if="!countries.checkedValue"
+                        class=""
+                        >
+                        <button
+                            class="w-full"
+                            type="button"
+                            @click="addCountry(index)">
+                            {{countries.name}}
+                        </button>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+            <div class="flex flex-col w-1/3 sm:w-1/5">
+                <label for="rate">Rate</label>
+                <input type="date" class="border-transparent focus:border-transparent focus:ring-0" id="rate">
+            </div>
+            <div v-if="countriesRate.length > 1">
+            <button
+                type="button"
+                @click="removeList(listIndex)">
+                Remove List
+            </button>
+        </div>
+        </div>
+        <button
+            type="button"
+            @click="countriesRate.push({countries:[],amount:1})">
+                Add Countries
+        </button>
+    </div> -->
+
+
+
+
+
+    <!-- <div class="mb-2">
+        Countries and Rates
+        <div class="flex flex-row w-full">
+            <div class="flex flex-col w-2/3 sm:w-4/5">
+                <label for="countries">Countries</label>
+                <div class="border rounded-lg relative">
+                    <ul class="flex items-center">
+                    <li v-for="(item, index) in tagRows" :key="index">
+                        <button 
+                        class="border rounded-lg p-2 bg-sky-400 text-white"
+                        type="button"
+                        @click="removeItem(index)">
+                        {{ item.name }}
+                        </button>
+                    </li>
+                    <li class="w-full" @click="showFilteredRows">
+                        <input
+                        v-model="searchQuery"
+                        type="text"
+                        placeholder="Search by Campaign Name..."
+                        class="w-full border-0 focus:outline-none focus:ring-0"
+                        />
+                    </li>
+                    </ul>
+                    <div class="absolute right-0 w-full bg-white border rounded-lg shadow-lg z-20" v-if="showFiltered">
+                    <div>
+                        <ul class="">
+                        <li v-for="(item, index) in filteredRows" :key="index" class="w-full">
+                            <button 
+                            v-if="!item.checkedValue"
+                            class="w-full" 
+                            type="button"
+                            @click="addItem(index)">
+                            {{ item.name }}
+                            </button>
+                        </li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col w-1/3 sm:w-1/5">
+                <label for="rate">Rate</label>
+                <input type="date" class="border-transparent focus:border-transparent focus:ring-0" id="rate">
+            </div>
+        </div>
+        Add Country
+    </div> -->
 </template>
 
