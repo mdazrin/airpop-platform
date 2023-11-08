@@ -8,6 +8,7 @@ import {ref} from "vue";
 import InputComponent from "@/Components/CampaignComponents/InputComponent.vue";
 import FilteredComponent from "@/Components/CampaignComponents/FilterComponent.vue";
 
+
 defineProps({timetable:Object})
 
 const campaign_Name = ref("");
@@ -22,7 +23,7 @@ const endDate = ref(new Date())
 const year1 = startDate.value
 const year2 = endDate.value
 
-console.log(year1>=year2)
+console.log(countriesRate.value)
 
 //advert format render condition
 const onclickMultiFormat = ref('onclick')
@@ -192,8 +193,8 @@ function submit(){
         endDate:endDate.value,
 
 
-        countriesRate:countriesRate.value,
-        countriesList:countriesList.value,
+        countriesRate:countriesRate,
+        countriesList:countriesList,
 
     })
 
