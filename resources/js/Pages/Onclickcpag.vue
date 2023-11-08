@@ -1,12 +1,19 @@
 <script setup>
 import SidebarLayout from "@/Layouts/SidebarLayout.vue";
+import TitleLabel from "@/Components/FormComponents/TitleLabel.vue";
 import CountriesRate from "@/Components/CampaignComponents/CountriesRate.vue";
 import Datepicker from 'vue3-datepicker'
 import {router} from "@inertiajs/vue3";
 import {ref} from "vue";
-import countriesRate from "@/Components/CampaignComponents/CountriesRate.vue";
+import InputComponent from "@/Components/CampaignComponents/InputComponent.vue";
+import FilteredComponent from "@/Components/CampaignComponents/FilterComponent.vue";
+
 
 defineProps({timetable:Object})
+
+const campaign_Name = ref("");
+const target_url = ref("");
+
 
 //date of campaign
 const startDate = ref(new Date())
@@ -21,8 +28,6 @@ console.log(countriesRate.value)
 //advert format render condition
 const onclickMultiFormat = ref('onclick')
 const campaignDays = ref('Monday')
-
-
 
 //platform
 const platform = ref([
@@ -200,25 +205,21 @@ function submit(){
 <template>
     <SidebarLayout>
         <template #content>
-            <div>
+            <TitleLabel
+                title_big="true"
+                title="Create Campaign"
+            />
+            <div class="bg-white shadow-sm sm:rounded-lg p-6">
                 <form @submit.prevent="submit">
-
-                    <h1 class="text-3xl mb-2">Create Campaign</h1>
                     <!--name-->
-                    <div class="mb-4">
-                        <label for="name" class="">Campaign name:</label>
-                        <input id="name"
-                        class="border-2
-                        border-gray-300
-                        focus:border-indigo-500 focus:ring-indigo-500
-                        rounded-md shadow-sm w-full pl-4 py-1"
-                        v-model="form.name" />
-                    </div>
+                    <InputComponent v-model="campaign_Name" :label="'Campaign Name'"/>
+                    <p>data inside component {{ campaign_Name }}</p>
 
                     <!--direction-->
+    
                     <div class="mb-4">
                         <p>Advertising Format:</p>
-                        <div class="flex justify-around flex-wrap -mx-4 ">
+                        <div class="flex sm:justify-around flex-wrap sm:mx-4 w-full">
                             <div class="w-full sm:w-1/2 md:w-1/3 px-4">
                                 <div class="flex-col">
                                     <label for="onclick"
@@ -349,46 +350,41 @@ function submit(){
                     </div>
 
                     <!--Target URL-->
-                    <div class="mb-4">
-                        <label for="target_url">Target URL</label>
-                        <input
-                            id="target_url"
-                            class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
-                            rounded-md shadow-sm w-full pl-4 py-1"
-                            v-model="form.target_url" />
-                    </div>
+                    <InputComponent v-model="target_url" :label="'Target URL'"/>
+                    <p>data inside component {{ target_url }}</p>
 
 
                     <!--Advertising Budget-->
-                    <div class="mb-4">
+                    <div class="mb-5">
                         <label>Advertising Budget</label>
-                        <br>
-                        <label class="font-bold">OnClick</label>
-                        <div class="flex space-x-4">
-                            <div class="flex flex-col">
-                                <label>Daily Budget</label>
-                                <input
+                        <div class="mb-4">
+                            <label class="font-bold mb-3">OnClick</label>
+                            <div class="flex space-x-4">
+                                <div class="flex flex-col">
+                                    <label>Daily Budget</label>
+                                    <input
+                                        class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
+                                        rounded-md shadow-sm w-full pl-4 py-1"
+                                        v-model="form.daily_budget"
+                                    >
+                                </div>
+                                <div class="flex flex-col">
+                                    <label>Total Campaign Budget</label>
+                                    <input
                                     class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
                                     rounded-md shadow-sm w-full pl-4 py-1"
-                                    v-model="form.daily_budget"
-                                >
-                            </div>
-                            <div class="flex flex-col">
-                                <label>Total Campaign Budget</label>
-                                <input
-                                class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
-                                rounded-md shadow-sm w-full pl-4 py-1"
-                                v-model="form.campaign_budget"
-                                >
+                                    v-model="form.campaign_budget"
+                                    >
+                                </div>
                             </div>
                         </div>
 
                         <!--Multiformat Budget-->
-                        <div v-if="form.onclick_multi_format === true">
+                        <div v-if="form.onclick_multi_format === true" class="mb-4">
                             <label class="font-bold">Interstitial</label>
                             <div class="flex space-x-4">
                                 <div class="flex flex-col">
-                                    <label>Interstitial Daily Budget</label>
+                                    <label>Daily Budget</label>
                                     <input
                                         class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
                                         rounded-md shadow-sm w-full pl-4 py-1"
@@ -396,7 +392,7 @@ function submit(){
                                     >
                                 </div>
                                 <div class="flex flex-col">
-                                    <label>Interstitial Total Campaign Budget</label>
+                                    <label>Total Campaign Budget</label>
                                     <input
                                         class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
                                         rounded-md shadow-sm w-full pl-4 py-1"
@@ -490,9 +486,12 @@ function submit(){
                             <br>
                         </div>
 
+<!-- 
+                        <FilteredComponent v-model="filterData" :title="filterTitle" :initialItems="filterData" :filterLabel="filterLabel" /> -->
 
+                        <FilteredComponent :data="desktop_os" />
 
-                        <div class="mb-4">
+                        <!-- <div class="mb-4">
                             <label for="browser">Browser</label>
                             <div class="border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full pl-4 py-2 flex justify-between" @click="toggleMenu()">
                                 <div>
@@ -506,7 +505,7 @@ function submit(){
 
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                          <!--Campaign Schedule-->
                         <div class="mb-4">
@@ -524,16 +523,18 @@ function submit(){
 
                             <!-- <CountriesRate></CountriesRate> -->
 
-                            <div>
-                                <label>Starting Date</label>
-                                <Datepicker v-model="startDate"
-                                :clearable="true"/>
-                            </div>
-
-                            <div>
-                                <label>End Date</label>
-                                <Datepicker v-model="endDate"
-                                :clearable="true"/>
+                            <div class="flex flex-col md:flex-row justify-center md:justify-start">
+                                <div>
+                                    <label>Starting Date</label>
+                                    <Datepicker v-model="startDate"
+                                    :clearable="true"/>
+                                </div>
+    
+                                <div>
+                                    <label>End Date</label>
+                                    <Datepicker v-model="endDate"
+                                    :clearable="true"/>
+                                </div>
                             </div>
 
                             <div>

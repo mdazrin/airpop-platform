@@ -16,7 +16,7 @@ const props = defineProps({
 <template>
     <div>
         <template v-if="title_big">
-            <h3 class="text-2xl font-bold text-left py-2" v-bind="$attrs">
+            <h3 class="text-3xl font-bold text-left py-2" v-bind="$attrs">
                 {{ title }}
             </h3>
         </template>
